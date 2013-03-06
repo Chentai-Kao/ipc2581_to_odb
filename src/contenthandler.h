@@ -6,7 +6,7 @@
 class ContentHandler : public Handler
 {
 public:
-  void run(QString& elementText);
+  virtual void run(QXmlStreamReader& xml);
 };
 
 #endif

@@ -1,13 +1,13 @@
 #ifndef __TOPLEVELFACTORY_H__
 #define __TOPLEVELFACTORY_H__
 
-#include "handler.h"
-#include "ipc2581ahandler.h"
-#include "contenthandler.h"
-#include "logisticheaderhandler.h"
-#include "historyrecordhandler.h"
+#include "avlhandler.h"
 #include "bomhandler.h"
+#include "contenthandler.h"
 #include "ecadhandler.h"
+#include "handler.h"
+#include "historyrecordhandler.h"
+#include "logisticheaderhandler.h"
 
 class TopLevelFactory
 {

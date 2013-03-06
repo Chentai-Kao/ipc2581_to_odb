@@ -5,6 +5,8 @@
 
 class LogisticHeaderHandler : public Handler
 {
+public:
+  virtual void run(QXmlStreamReader& xml);
 };
 
 #endif

@@ -7,8 +7,8 @@ class Handler
 {
 public:
   Handler() {};
-  virtual ~Handler() = 0;
-  virtual void run(QString& elementText) = 0;
+  virtual ~Handler() {};
+  virtual void run(QXmlStreamReader& xml) = 0;
 };
 
 #endif
