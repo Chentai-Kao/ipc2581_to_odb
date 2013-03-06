@@ -8,6 +8,7 @@ ContentHandler::run(QXmlStreamReader& xml)
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (isEndElementWithName(xml, "Content")) {
+      updateOdb();
       return;
     }
     if (xml.isStartElement()) {
@@ -41,4 +42,34 @@ ContentHandler::run(QXmlStreamReader& xml)
       }
     }
   }
+}
+
+void
+ContentHandler::updateOdb()
+{
+  if (m_steps.empty() || m_layers.empty()) {
+    qDebug("ERROR** steps or layers cannot be empty");
+    exit(1);
+  }
+  if (namesStartsWithDot(m_steps) || namesStartsWithDot(m_layers)) {
+    qDebug("ERROR** name cannot start with \'.\'");
+    exit(1);
+  }
+  for (int i = 0; i < m_steps.size(); ++i) {
+    for (int j = 0; j < m_layers.size(); ++j) {
+      createOdbDir(QString("steps/") + m_steps.at(i) + "/" + m_layers.at(j));
+    }
+  }
+  // TODO BOM??
+}
+
+bool
+ContentHandler::namesStartsWithDot(const QList<QString>& nameList)
+{
+  for (int i = 0; i < nameList.size(); ++i) {
+    if (nameList.at(i).startsWith(".")) {
+      return true;
+    }
+  }
+  return false;
 }

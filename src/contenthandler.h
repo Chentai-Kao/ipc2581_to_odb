@@ -9,6 +9,9 @@ public:
   virtual void run(QXmlStreamReader& xml);
 
 private:
+  void updateOdb();
+  bool namesStartsWithDot(const QList<QString>& nameList);
+
   QList<QString> m_steps;
   QList<QString> m_layers;
   QList<QString> m_boms;
