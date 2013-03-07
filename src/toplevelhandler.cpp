@@ -8,22 +8,19 @@ TopLevelHandler::run(QXmlStreamReader& xml)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
-    // beginning of document
-    if (xml.isStartDocument()) {
+    if (xml.isStartDocument()) { // beginning of document
       if (!checkDocumentVersionEncoding(
           xml.documentVersion(), xml.documentEncoding())) {
         break;
       }
     }
-    // start element
-    else if (xml.isStartElement()) {
+    else if (xml.isStartElement()) { // start of element
       qDebug("%s", xml.name().toAscii().data());
       if (xml.name() == "IPC-2581") { // <IPC-2581>
         continue;
       }
       else { // <Content> <LogisticHeader> <HistoryRecord> <Bom> <Ecad> <Avl>
-        TopLevelFactory topLevelFactory;
-        Handler *handler = topLevelFactory.create(xml.name());
+        Handler *handler = TopLevelFactory().create(xml.name());
         if (handler == NULL) { // Invalid element name
           qDebug("Invalid element:%s", xml.name().toAscii().data());
           break;
@@ -32,6 +29,9 @@ TopLevelHandler::run(QXmlStreamReader& xml)
         handler->run(xml);
         delete handler;
       }
+    }
+    else if (isEndElementWithName(xml, "IPC-2581")) { // </IPC-2581> the end
+      return;
     }
   }
 }

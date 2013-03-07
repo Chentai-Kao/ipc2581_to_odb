@@ -11,7 +11,8 @@ bool isStartElementWithName(const QXmlStreamReader& xml, const QString& name)
   return (xml.isStartElement() && xml.name() == name);
 }
 
-QString getAttributeOrCharacters(QXmlStreamReader& xml, const QString attrName)
+const QString getAttributeOrCharacters(
+    QXmlStreamReader& xml, const QString attrName)
 {
   QString value = getAttribute(xml, attrName);
   if (value == "") {
@@ -20,7 +21,7 @@ QString getAttributeOrCharacters(QXmlStreamReader& xml, const QString attrName)
   return value;
 }
 
-QString getAttribute(const QXmlStreamReader& xml, const QString attrName)
+const QString getAttribute(const QXmlStreamReader& xml, const QString attrName)
 {
   return xml.attributes().value("", attrName).toString();
 }
@@ -28,4 +29,11 @@ QString getAttribute(const QXmlStreamReader& xml, const QString attrName)
 void createOdbDir(const QString& path)
 {
   QDir(OUTPUT_PATH).mkpath(path.toLower());
+}
+
+void errorLackAttribute(const QString elementName, const QString attributeName)
+{
+  qDebug("ERROR** <%s> lacks attribute \"%s\"",
+      elementName.toAscii().data(),
+      attributeName.toAscii().data());
 }

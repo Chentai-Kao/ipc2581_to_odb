@@ -1,5 +1,6 @@
 #include "contenthandler.h"
 #include "settings.h"
+#include "dictionarystandardhandler.h"
 #include "utils.h"
 
 void
@@ -7,10 +8,6 @@ ContentHandler::run(QXmlStreamReader& xml)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
-    if (isEndElementWithName(xml, "Content")) {
-      updateOdb();
-      return;
-    }
     if (xml.isStartElement()) {
       if (xml.name() == "FunctionMode") {
       }
@@ -29,6 +26,10 @@ ContentHandler::run(QXmlStreamReader& xml)
       else if (xml.name() == "AvlRef") {
       }
       else if (xml.name() == "DictionaryStandard") {
+        Handler *handler = new DictionaryStandardHandler();
+        handler->run(xml);
+        // TODO get a list of standard primitives??
+        delete handler;
       }
       else if (xml.name() == "DictionaryUser") {
       }
@@ -40,6 +41,10 @@ ContentHandler::run(QXmlStreamReader& xml)
       }
       else if (xml.name() == "DictionaryFirmware") {
       }
+    }
+    else if (isEndElementWithName(xml, "Content")) {
+      updateOdb();
+      return;
     }
   }
 }
