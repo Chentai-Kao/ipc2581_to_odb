@@ -1,8 +1,9 @@
 HEADERS += \
+  standardprimitive/polystep.h \
   standardprimitive/spbutterfly.h \
   standardprimitive/spcircle.h \
   standardprimitive/spcontour.h \
-  standardprimitive/spcontourpolygonorcontour.h \
+  standardprimitive/spcontourpolygon.h \
   standardprimitive/spdiamond.h \
   standardprimitive/spdonut.h \
   standardprimitive/spellipse.h \
@@ -22,7 +23,6 @@ SOURCES += \
   standardprimitive/spbutterfly.cpp \
   standardprimitive/spcircle.cpp \
   standardprimitive/spcontour.cpp \
-  standardprimitive/spcontourpolygonorcontour.cpp \
   standardprimitive/spdiamond.cpp \
   standardprimitive/spdonut.cpp \
   standardprimitive/spellipse.cpp \

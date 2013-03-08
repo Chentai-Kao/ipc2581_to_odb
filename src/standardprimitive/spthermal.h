@@ -7,6 +7,8 @@ class SpThermal : public StandardPrimitive
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
+  bool isValidSpokeCount();
+
 private:
   enum ThermalShape { ROUND, SQUARE, HEXAGON, OCTAGON } m_shape;
   qreal m_outerDiameter;

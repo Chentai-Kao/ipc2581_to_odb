@@ -31,9 +31,61 @@ void createOdbDir(const QString& path)
   QDir(OUTPUT_PATH).mkpath(path.toLower());
 }
 
-void errorLackAttribute(const QString elementName, const QString attributeName)
+void errorInvalidAttribute(
+    const QString elementName, const QString attributeName)
 {
-  qDebug("ERROR** <%s> lacks attribute \"%s\"",
-      elementName.toAscii().data(),
-      attributeName.toAscii().data());
+  qDebug("ERROR** invalid attribute \"%s\" in <%s>",
+      attributeName.toAscii().data(),
+      elementName.toAscii().data());
+}
+
+qreal getNonNegativeDoubleAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName)
+{
+  qreal value = getDoubleAttribute(xml, elementName, attributeName);
+  if (value < 0) {
+    errorInvalidAttribute(elementName, attributeName);
+    exit(1);
+  }
+  return value;
+}
+
+qreal getDoubleAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName)
+{
+  bool ok;
+  qreal value = getAttribute(xml, attributeName).toDouble(&ok);
+  if (!ok) {
+    errorInvalidAttribute(elementName, attributeName);
+    exit(1);
+  }
+  return value;
+}
+
+int getNonNegativeIntAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName)
+{
+  int value = getIntAttribute(xml, elementName, attributeName);
+  if (value < 0) {
+    errorInvalidAttribute(elementName, attributeName);
+    exit(1);
+  }
+  return value;
+}
+
+int getIntAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName)
+{
+  bool ok;
+  int value = getAttribute(xml, attributeName).toInt(&ok);
+  if (!ok) {
+    errorInvalidAttribute(elementName, attributeName);
+    exit(1);
+  }
+  return value;
+}
+
+bool getBoolAttribute(QXmlStreamReader& xml, const QString attributeName)
+{
+  return (getAttribute(xml, attributeName) == "TRUE");
 }

@@ -16,6 +16,16 @@ enum UnitsType {
   MICRON,
   INCH
 };
-void errorLackAttribute(const QString elementName, const QString attributeName);
+void errorInvalidAttribute(
+    const QString elementName, const QString attributeName);
+qreal getNonNegativeDoubleAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName);
+qreal getDoubleAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName);
+int getNonNegativeIntAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName);
+int getIntAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName);
+bool getBoolAttribute(QXmlStreamReader& xml, const QString attributeName);
 
 #endif

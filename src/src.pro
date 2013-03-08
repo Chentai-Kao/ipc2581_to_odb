@@ -19,6 +19,7 @@ HEADERS += \
   settings.h \
   standardprimitivefactory.h \
   dictionarystandardhandler.h \
+  dictionaryuserhandler.h \
   toplevelfactory.h \
   toplevelhandler.h \
   utils.h \
@@ -33,6 +34,7 @@ SOURCES += \
   logisticheaderhandler.cpp \
   standardprimitivefactory.cpp \
   dictionarystandardhandler.cpp \
+  dictionaryuserhandler.cpp \
   toplevelfactory.cpp \
   toplevelhandler.cpp \
   utils.cpp

@@ -2,15 +2,19 @@
 #define __SPCONTOUR_H__
 
 #include "standardprimitive.h"
-#include "spcontourpolygonorcontour.h"
+#include "spcontourpolygon.h"
 
 class SpContour : public StandardPrimitive
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
+
 private:
-  SpContourPolygonOrCutout m_polygon;
-  QList<SpContourPolygonOrCutout> m_cutout;
+  SpContourPolygon polygonGen(QXmlStreamReader& xml, QString elementName);
+  bool isClosedShape(const SpContourPolygon& polygon);
+
+  SpContourPolygon m_polygon;
+  QList<SpContourPolygon> m_cutout;
 };
 
 #endif

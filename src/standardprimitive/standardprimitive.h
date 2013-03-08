@@ -2,6 +2,7 @@
 #define __STANDARDPRIMITIVE_H__
 
 #include <QtCore>
+#include "utils.h"
 
 // Base class of "standard primitive":
 // Butterfly, Circle, Contour, Diamond, Donut,

@@ -9,7 +9,7 @@ DictionaryStandardHandler::run(QXmlStreamReader& xml)
     xml.readNext();
     if (isStartElementWithName(xml, "EntryStandard")) {
       QString id = getAttribute(xml, "id");
-      xml.readNextStartElement();
+      xml.readNextStartElement(); // <StandardPrimitive>
       StandardPrimitive* sp = StandardPrimitiveFactory().create(xml.name());
       sp->initialize(xml);
       if (m_standardPrimitives.contains(id)) {
@@ -37,7 +37,7 @@ DictionaryStandardHandler::setUnits(const QString units)
     m_units = INCH;
   }
   else {
-    errorLackAttribute("DictionaryStandard", "units");
+    errorInvalidAttribute("DictionaryStandard", "units");
     exit(1);
   }
 }

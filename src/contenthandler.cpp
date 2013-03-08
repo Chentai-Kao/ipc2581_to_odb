@@ -32,6 +32,9 @@ ContentHandler::run(QXmlStreamReader& xml)
         delete handler;
       }
       else if (xml.name() == "DictionaryUser") {
+        Handler *handler = new DictionaryUserHandler();
+        handler->run(xml);
+        delete handler;
       }
       else if (xml.name() == "DictionaryFont") {
       }
