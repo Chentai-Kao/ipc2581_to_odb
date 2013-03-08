@@ -1,6 +1,7 @@
 #include "contenthandler.h"
 #include "settings.h"
 #include "dictionarystandardhandler.h"
+#include "dictionaryuserhandler.h"
 #include "utils.h"
 
 void

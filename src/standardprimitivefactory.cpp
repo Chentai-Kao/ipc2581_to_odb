@@ -4,52 +4,52 @@ StandardPrimitive*
 StandardPrimitiveFactory::create(QStringRef elementName)
 {
   if (elementName == "Butterfly") {
-    return new SpButterfly();
+    return new Butterfly();
   }
   else if (elementName == "Circle") {
-    return new SpCircle();
+    return new Circle();
   }
   else if (elementName == "Contour") {
-    return new SpContour();
+    return new Contour();
   }
   else if (elementName == "Diamond") {
-    return new SpDiamond();
+    return new Diamond();
   }
   else if (elementName == "Donut") {
-    return new SpDonut();
+    return new Donut();
   }
   else if (elementName == "Ellipse") {
-    return new SpEllipse();
+    return new Ellipse();
   }
   else if (elementName == "Hexagon") {
-    return new SpHexagon();
+    return new Hexagon();
   }
   else if (elementName == "Moire") {
-    return new SpMoire();
+    return new Moire();
   }
   else if (elementName == "Octagon") {
-    return new SpOctagon();
+    return new Octagon();
   }
   else if (elementName == "Oval") {
-    return new SpOval();
+    return new Oval();
   }
   else if (elementName == "RectCenter") {
-    return new SpRectCenter();
+    return new RectCenter();
   }
   else if (elementName == "RectCham") {
-    return new SpRectCham();
+    return new RectCham();
   }
   else if (elementName == "RectCorner") {
-    return new SpRectCorner();
+    return new RectCorner();
   }
   else if (elementName == "RectRound") {
-    return new SpRectRound();
+    return new RectRound();
   }
   else if (elementName == "Thermal") {
-    return new SpThermal();
+    return new Thermal();
   }
   else if (elementName == "Triangle") {
-    return new SpTriangle();
+    return new Triangle();
   }
 
   return NULL;

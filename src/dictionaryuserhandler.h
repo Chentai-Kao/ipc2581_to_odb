@@ -8,6 +8,6 @@ class DictionaryUserHandler : public Handler
 {
 public:
   virtual void run(QXmlStreamReader& xml);
-}
+};
 
 #endif
