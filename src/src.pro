@@ -7,7 +7,7 @@ OBJECTS_DIR = .build
 BUILD_DIR = .build
 
 include (standardprimitive/standardprimitive.pri)
-include (simple/simple.pri)
+include (userprimitive/userprimitive.pri)
 include (linedescgroup/linedescgroup.pri)
 include (polystep/polystep.pri)
 
@@ -16,6 +16,8 @@ HEADERS += \
   bomhandler.h \
   contenthandler.h \
   ecadhandler.h \
+  feature.h \
+  featurefactory.h \
   handler.h \
   historyrecordhandler.h \
   logisticheaderhandler.h \
@@ -25,6 +27,7 @@ HEADERS += \
   dictionaryuserhandler.h \
   toplevelfactory.h \
   toplevelhandler.h \
+  userprimitivefactory.h \
   utils.h \
 
 SOURCES += \
@@ -33,6 +36,7 @@ SOURCES += \
   bomhandler.cpp \
   contenthandler.cpp \
   ecadhandler.cpp \
+  featurefactory.cpp \
   historyrecordhandler.cpp \
   logisticheaderhandler.cpp \
   standardprimitivefactory.cpp \
@@ -40,9 +44,10 @@ SOURCES += \
   dictionaryuserhandler.cpp \
   toplevelfactory.cpp \
   toplevelhandler.cpp \
+  userprimitivefactory.cpp \
   utils.cpp
 
-INCLUDEPATH += . .build standardprimitive simple linedescgroup polystep
+INCLUDEPATH += . .build linedescgroup polystep standardprimitive userprimitive
 
 DESTDIR = ../bin
 TARGET = ipc2581

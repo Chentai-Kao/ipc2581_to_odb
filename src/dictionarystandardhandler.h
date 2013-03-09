@@ -15,7 +15,7 @@ private:
   void setUnits(const QString units);
 
   UnitsType m_units;
-  QHash<QString, StandardPrimitive*> m_standardPrimitives;
+  QHash<QString, StandardPrimitive*> m_standardPrimitives; // (id,EntryStandard)
 };
 
 #endif

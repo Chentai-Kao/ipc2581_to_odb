@@ -1,4 +1,5 @@
-#include "standardprimitivefactory.h"
+#include "featurefactory.h"
+// from standard primitive
 #include "butterfly.h"
 #include "circle.h"
 #include "contour.h"
@@ -15,9 +16,14 @@
 #include "rectround.h"
 #include "thermal.h"
 #include "triangle.h"
+// from user primitive
+#include "arc.h"
+#include "line.h"
+#include "outline.h"
+#include "polyline.h"
 
-StandardPrimitive*
-StandardPrimitiveFactory::create(QXmlStreamReader& xml)
+Feature*
+FeatureFactory::create(QXmlStreamReader& xml)
 {
   if (xml.name() == "Butterfly") {
     return new Butterfly();
@@ -66,6 +72,18 @@ StandardPrimitiveFactory::create(QXmlStreamReader& xml)
   }
   else if (xml.name() == "Triangle") {
     return new Triangle();
+  }
+  else if (xml.name() == "Arc") {
+    return new Arc();
+  }
+  else if (xml.name() == "Line") {
+    return new Line();
+  }
+  else if (xml.name() == "Outline") {
+    return new Outline();
+  }
+  else if (xml.name() == "Polyline") {
+    return new Polyline();
   }
 
   return NULL;

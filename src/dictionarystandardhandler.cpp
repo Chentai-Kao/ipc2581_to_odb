@@ -10,8 +10,9 @@ DictionaryStandardHandler::run(QXmlStreamReader& xml)
     if (isStartElementWithName(xml, "EntryStandard")) {
       QString id = getAttribute(xml, "id");
       xml.readNextStartElement(); // <StandardPrimitive>
-      StandardPrimitive* sp = StandardPrimitiveFactory().create(xml.name());
+      StandardPrimitive* sp = StandardPrimitiveFactory().create(xml);
       sp->initialize(xml);
+      // insert to hash table, has to be unique
       if (m_standardPrimitives.contains(id)) {
         qDebug("ERROR** duplicate id in DictionaryStandard");
         exit(1);
