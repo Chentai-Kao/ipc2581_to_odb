@@ -2,6 +2,8 @@
 #include "settings.h"
 #include "dictionarystandardhandler.h"
 #include "dictionaryuserhandler.h"
+#include "dictionarylinedeschandler.h"
+#include "dictionarycolorhandler.h"
 #include "utils.h"
 
 void
@@ -29,7 +31,6 @@ ContentHandler::run(QXmlStreamReader& xml)
       else if (xml.name() == "DictionaryStandard") {
         Handler *handler = new DictionaryStandardHandler();
         handler->run(xml);
-        // TODO get a list of standard primitives??
         delete handler;
       }
       else if (xml.name() == "DictionaryUser") {
@@ -40,8 +41,14 @@ ContentHandler::run(QXmlStreamReader& xml)
       else if (xml.name() == "DictionaryFont") {
       }
       else if (xml.name() == "DictionaryLineDesc") {
+        Handler *handler = new DictionaryLineDescHandler();
+        handler->run(xml);
+        delete handler;
       }
       else if (xml.name() == "DictionaryColor") {
+        Handler *handler = new DictionaryColorHandler();
+        handler->run(xml);
+        delete handler;
       }
       else if (xml.name() == "DictionaryFirmware") {
       }

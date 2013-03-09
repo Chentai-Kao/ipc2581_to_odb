@@ -3,6 +3,7 @@
 void
 LineDesc::initialize(QXmlStreamReader& xml)
 {
+  // lineEnd
   QString lineEnd = getAttribute(xml, "lineEnd");
   if (lineEnd == "ROUND") {
     m_lineEnd = LineDesc::ROUND;
@@ -16,5 +17,6 @@ LineDesc::initialize(QXmlStreamReader& xml)
   else {
     errorInvalidAttribute("LineDesc", "lineEnd");
   }
+  // lineWidth
   m_lineWidth = getNonNegativeDoubleAttribute(xml, "LineDesc", "lineWidth");
 }

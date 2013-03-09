@@ -27,5 +27,7 @@ int getNonNegativeIntAttribute(QXmlStreamReader& xml,
 int getIntAttribute(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName);
 bool getBoolAttribute(QXmlStreamReader& xml, const QString attributeName);
+UnitsType getUnitAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName);
 
 #endif

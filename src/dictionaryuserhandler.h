@@ -11,8 +11,6 @@ public:
   virtual void run(QXmlStreamReader& xml);
 
 private:
-  void setUnits(const QString units);
-
   UnitsType m_units;
   QHash<QString, UserPrimitive*> m_userPrimitives; // (id,EntryUser)
 };

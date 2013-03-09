@@ -89,3 +89,21 @@ bool getBoolAttribute(QXmlStreamReader& xml, const QString attributeName)
 {
   return (getAttribute(xml, attributeName) == "TRUE");
 }
+
+UnitsType getUnitAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName)
+{
+  QString units = getAttribute(xml, attributeName);
+  if (units == "MILLIMETER") {
+    return MILLIMETER;
+  }
+  else if (units == "MICRON") {
+    return MICRON;
+  }
+  else if (units == "INCH") {
+    return INCH;
+  }
+  errorInvalidAttribute(elementName, attributeName);
+  exit(1);
+  return INCH;
+}

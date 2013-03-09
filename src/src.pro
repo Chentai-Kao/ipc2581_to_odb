@@ -10,6 +10,7 @@ include (standardprimitive/standardprimitive.pri)
 include (userprimitive/userprimitive.pri)
 include (linedescgroup/linedescgroup.pri)
 include (polystep/polystep.pri)
+include (color/color.pri)
 
 HEADERS += \
   avlhandler.h \
@@ -23,6 +24,8 @@ HEADERS += \
   logisticheaderhandler.h \
   settings.h \
   standardprimitivefactory.h \
+  dictionarycolorhandler.h \
+  dictionarylinedeschandler.h \
   dictionarystandardhandler.h \
   dictionaryuserhandler.h \
   toplevelfactory.h \
@@ -40,6 +43,8 @@ SOURCES += \
   historyrecordhandler.cpp \
   logisticheaderhandler.cpp \
   standardprimitivefactory.cpp \
+  dictionarycolorhandler.cpp \
+  dictionarylinedeschandler.cpp \
   dictionarystandardhandler.cpp \
   dictionaryuserhandler.cpp \
   toplevelfactory.cpp \
@@ -47,7 +52,7 @@ SOURCES += \
   userprimitivefactory.cpp \
   utils.cpp
 
-INCLUDEPATH += . .build linedescgroup polystep standardprimitive userprimitive
+INCLUDEPATH += . .build linedescgroup polystep standardprimitive userprimitive color
 
 DESTDIR = ../bin
 TARGET = ipc2581

@@ -20,5 +20,4 @@ UserSpecial::initialize(QXmlStreamReader& xml)
       break;
     }
   }
-  qDebug() << m_features.size();
 }
