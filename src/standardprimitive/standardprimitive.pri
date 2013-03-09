@@ -3,7 +3,6 @@ HEADERS += \
   standardprimitive/butterfly.h \
   standardprimitive/circle.h \
   standardprimitive/contour.h \
-  standardprimitive/contourpolygon.h \
   standardprimitive/diamond.h \
   standardprimitive/donut.h \
   standardprimitive/ellipse.h \
@@ -11,6 +10,7 @@ HEADERS += \
   standardprimitive/moire.h \
   standardprimitive/octagon.h \
   standardprimitive/oval.h \
+  standardprimitive/polygon.h \
   standardprimitive/rectcenter.h \
   standardprimitive/rectcham.h \
   standardprimitive/rectcorner.h \
@@ -30,6 +30,7 @@ SOURCES += \
   standardprimitive/moire.cpp \
   standardprimitive/octagon.cpp \
   standardprimitive/oval.cpp \
+  standardprimitive/polygon.cpp \
   standardprimitive/rectcenter.cpp \
   standardprimitive/rectcham.cpp \
   standardprimitive/rectcorner.cpp \

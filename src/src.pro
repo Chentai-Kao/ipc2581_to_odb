@@ -7,6 +7,9 @@ OBJECTS_DIR = .build
 BUILD_DIR = .build
 
 include (standardprimitive/standardprimitive.pri)
+include (simple/simple.pri)
+include (linedescgroup/linedescgroup.pri)
+include (polystep/polystep.pri)
 
 HEADERS += \
   avlhandler.h \
@@ -39,7 +42,7 @@ SOURCES += \
   toplevelhandler.cpp \
   utils.cpp
 
-INCLUDEPATH += . .build standardprimitive
+INCLUDEPATH += . .build standardprimitive simple linedescgroup polystep
 
 DESTDIR = ../bin
 TARGET = ipc2581

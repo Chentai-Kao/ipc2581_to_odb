@@ -2,6 +2,3 @@
 *.o
 Makefile*
 .build
-bin/*
-*.xml
-samples/*
