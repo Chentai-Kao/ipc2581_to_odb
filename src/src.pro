@@ -15,6 +15,8 @@ include (color/color.pri)
 HEADERS += \
   avlhandler.h \
   bomhandler.h \
+  cadheaderhandler.h \
+  caddatahandler.h \
   contenthandler.h \
   ecadhandler.h \
   feature.h \
@@ -37,6 +39,8 @@ SOURCES += \
   main.cpp \
   avlhandler.cpp \
   bomhandler.cpp \
+  cadheaderhandler.cpp \
+  caddatahandler.cpp \
   contenthandler.cpp \
   ecadhandler.cpp \
   featurefactory.cpp \

@@ -1,4 +1,4 @@
-.*.swp
+*.swp
 *.o
 Makefile*
 .build

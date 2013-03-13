@@ -6,7 +6,7 @@ int main()
 {
   qDebug("----- Program starts -----");
   /* Open file */
-  QFile *file = new QFile("test_case2.xml");
+  QFile *file = new QFile("test_case1.xml");
   if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
     qDebug("ERROR** can't open XML file");
     exit(1);
