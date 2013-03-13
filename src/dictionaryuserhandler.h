@@ -12,7 +12,7 @@ public:
 
 private:
   UnitsType m_units;
-  QHash<QString, UserPrimitive*> m_userPrimitives; // (id,EntryUser)
+  QHash<QString, UserPrimitive*> m_entryUsers; // (id,EntryUser)
 };
 
 #endif

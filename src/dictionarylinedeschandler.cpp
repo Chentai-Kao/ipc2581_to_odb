@@ -9,7 +9,7 @@ DictionaryLineDescHandler::run(QXmlStreamReader& xml)
     if (isStartElementWithName(xml, "EntryLineDesc")) {
       QString id = getAttribute(xml, "id");
       // id must be unique
-      if (m_lineDescs.contains(id)) {
+      if (m_entryLineDescs.contains(id)) {
         qDebug("ERROR** duplicate id in DictionaryLineDesc");
         exit(1);
       }
@@ -17,7 +17,7 @@ DictionaryLineDescHandler::run(QXmlStreamReader& xml)
       xml.readNextStartElement(); // <LineDesc>
       LineDesc lineDesc;
       lineDesc.initialize(xml);
-      m_lineDescs.insert(id, lineDesc);
+      m_entryLineDescs.insert(id, lineDesc);
     }
     else if (isEndElementWithName(xml, "DictionaryLineDesc")) {
       break;

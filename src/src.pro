@@ -15,42 +15,58 @@ include (color/color.pri)
 HEADERS += \
   avlhandler.h \
   bomhandler.h \
-  cadheaderhandler.h \
   caddatahandler.h \
+  cadheaderhandler.h \
   contenthandler.h \
-  ecadhandler.h \
-  feature.h \
-  featurefactory.h \
-  handler.h \
-  historyrecordhandler.h \
-  logisticheaderhandler.h \
-  settings.h \
-  standardprimitivefactory.h \
   dictionarycolorhandler.h \
   dictionarylinedeschandler.h \
   dictionarystandardhandler.h \
   dictionaryuserhandler.h \
+  drilltool.h \
+  ecadhandler.h \
+  featurefactory.h \
+  feature.h \
+  handler.h \
+  historyrecordhandler.h \
+  layer.h \
+  logisticheaderhandler.h \
+  modification.h \
+  settings.h \
+  span.h \
+  stackupgroup.h \
+  stackup.h \
+  stackupimpedance.h \
+  stackuplayer.h \
+  standardprimitivefactory.h \
   toplevelfactory.h \
   toplevelhandler.h \
   userprimitivefactory.h \
-  utils.h \
+  utils.h
 
 SOURCES += \
-  main.cpp \
   avlhandler.cpp \
   bomhandler.cpp \
-  cadheaderhandler.cpp \
   caddatahandler.cpp \
+  cadheaderhandler.cpp \
   contenthandler.cpp \
-  ecadhandler.cpp \
-  featurefactory.cpp \
-  historyrecordhandler.cpp \
-  logisticheaderhandler.cpp \
-  standardprimitivefactory.cpp \
   dictionarycolorhandler.cpp \
   dictionarylinedeschandler.cpp \
   dictionarystandardhandler.cpp \
   dictionaryuserhandler.cpp \
+  drilltool.cpp \
+  ecadhandler.cpp \
+  featurefactory.cpp \
+  historyrecordhandler.cpp \
+  layer.cpp \
+  logisticheaderhandler.cpp \
+  main.cpp \
+  modification.cpp \
+  span.cpp \
+  stackup.cpp \
+  stackupgroup.cpp \
+  stackupimpedance.cpp \
+  stackuplayer.cpp \
+  standardprimitivefactory.cpp \
   toplevelfactory.cpp \
   toplevelhandler.cpp \
   userprimitivefactory.cpp \

@@ -13,7 +13,7 @@ public:
 
 private:
   UnitsType m_units;
-  QHash<QString, StandardPrimitive*> m_standardPrimitives; // (id,EntryStandard)
+  QHash<QString, StandardPrimitive*> m_entryStandards; // (id,EntryStandard)
 };
 
 #endif

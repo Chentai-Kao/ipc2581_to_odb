@@ -12,7 +12,7 @@ public:
 
 private:
   UnitsType m_units;
-  QHash<QString, LineDesc> m_lineDescs; // (id,EntryLineDesc)
+  QHash<QString, LineDesc> m_entryLineDescs; // (id,EntryLineDesc)
 };
 
 #endif

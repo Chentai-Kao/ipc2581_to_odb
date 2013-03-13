@@ -15,16 +15,16 @@ ContentHandler::run(QXmlStreamReader& xml)
       if (xml.name() == "FunctionMode") {
       }
       else if (xml.name() == "StepRef") {
-        QString stepName = getAttributeOrCharacters(xml, "name");
-        m_steps.append(stepName);
+        QString stepRefName = getAttributeOrCharacters(xml, "name");
+        m_stepRefs.append(stepRefName);
       }
       else if (xml.name() == "LayerRef") {
-        QString layerName = getAttributeOrCharacters(xml, "name");
-        m_layers.append(layerName);
+        QString layerRefName = getAttributeOrCharacters(xml, "name");
+        m_layerRefs.append(layerRefName);
       }
       else if (xml.name() == "BomRef") {
-        QString bomName = getAttributeOrCharacters(xml, "name");
-        m_boms.append(bomName);
+        QString bomRefName = getAttributeOrCharacters(xml, "name");
+        m_bomRefs.append(bomRefName);
       }
       else if (xml.name() == "AvlRef") {
       }
@@ -63,17 +63,17 @@ ContentHandler::run(QXmlStreamReader& xml)
 void
 ContentHandler::updateOdb()
 {
-  if (m_steps.empty() || m_layers.empty()) {
+  if (m_stepRefs.empty() || m_layerRefs.empty()) {
     qDebug("ERROR** steps or layers cannot be empty");
     exit(1);
   }
-  if (namesStartsWithDot(m_steps) || namesStartsWithDot(m_layers)) {
+  if (namesStartsWithDot(m_stepRefs) || namesStartsWithDot(m_layerRefs)) {
     qDebug("ERROR** name cannot start with \'.\'");
     exit(1);
   }
-  for (int i = 0; i < m_steps.size(); ++i) {
-    for (int j = 0; j < m_layers.size(); ++j) {
-      createOdbDir(QString("steps/") + m_steps.at(i) + "/" + m_layers.at(j));
+  for (int i = 0; i < m_stepRefs.size(); ++i) {
+    for (int j = 0; j < m_layerRefs.size(); ++j) {
+      createOdbDir(QString("steps/") + m_stepRefs.at(i) + "/" + m_layerRefs.at(j));
     }
   }
   // TODO BOM??

@@ -10,7 +10,7 @@ DictionaryUserHandler::run(QXmlStreamReader& xml)
     if (isStartElementWithName(xml, "EntryUser")) {
       QString id = getAttribute(xml, "id");
       // id must be unique
-      if (m_userPrimitives.contains(id)) {
+      if (m_entryUsers.contains(id)) {
         qDebug("ERROR** duplicate id in DictionaryUser");
         exit(1);
       }
@@ -18,7 +18,7 @@ DictionaryUserHandler::run(QXmlStreamReader& xml)
       xml.readNextStartElement(); // <Simple>, <Text>, <UserSpecial>
       UserPrimitive* up = UserPrimitiveFactory().create(xml);
       up->initialize(xml);
-      m_userPrimitives.insert(id, up);
+      m_entryUsers.insert(id, up);
     }
     else if (isEndElementWithName(xml, "DictionaryUser")) {
       break;

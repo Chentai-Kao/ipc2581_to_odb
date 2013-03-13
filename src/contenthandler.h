@@ -12,9 +12,9 @@ private:
   void updateOdb();
   bool namesStartsWithDot(const QList<QString>& nameList);
 
-  QList<QString> m_steps;
-  QList<QString> m_layers;
-  QList<QString> m_boms;
+  QList<QString> m_stepRefs;
+  QList<QString> m_layerRefs;
+  QList<QString> m_bomRefs;
 };
 
 #endif
