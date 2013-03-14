@@ -30,7 +30,6 @@ HEADERS += \
   historyrecordhandler.h \
   layer.h \
   logisticheaderhandler.h \
-  modification.h \
   settings.h \
   span.h \
   stackupgroup.h \
@@ -41,7 +40,8 @@ HEADERS += \
   toplevelfactory.h \
   toplevelhandler.h \
   userprimitivefactory.h \
-  utils.h
+  utils.h \
+  xform.h
 
 SOURCES += \
   avlhandler.cpp \
@@ -60,7 +60,6 @@ SOURCES += \
   layer.cpp \
   logisticheaderhandler.cpp \
   main.cpp \
-  modification.cpp \
   span.cpp \
   stackup.cpp \
   stackupgroup.cpp \
@@ -70,7 +69,8 @@ SOURCES += \
   toplevelfactory.cpp \
   toplevelhandler.cpp \
   userprimitivefactory.cpp \
-  utils.cpp
+  utils.cpp \
+  xform.cpp
 
 INCLUDEPATH += . .build linedescgroup polystep standardprimitive userprimitive color
 

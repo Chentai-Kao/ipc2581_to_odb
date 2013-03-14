@@ -4,7 +4,7 @@ void
 Donut::initialize(QXmlStreamReader& xml)
 {
   // shape
-  QString shape = getAttribute(xml, "shape");
+  QString shape = getStringAttribute(xml, "Donut", "shape");
   if (shape == "ROUND") {
     m_shape = Donut::ROUND;
   }

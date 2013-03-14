@@ -6,7 +6,7 @@
 void
 EcadHandler::run(QXmlStreamReader& xml)
 {
-  m_name = getAttribute(xml, "name");
+  m_name = getStringAttribute(xml, "Ecad", "name");
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {

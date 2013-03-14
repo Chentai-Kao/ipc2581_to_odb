@@ -15,15 +15,15 @@ ContentHandler::run(QXmlStreamReader& xml)
       if (xml.name() == "FunctionMode") {
       }
       else if (xml.name() == "StepRef") {
-        QString stepRefName = getAttributeOrCharacters(xml, "name");
+        QString stepRefName = getAttributeOrCharacters(xml, "StepRef", "name");
         m_stepRefs.append(stepRefName);
       }
       else if (xml.name() == "LayerRef") {
-        QString layerRefName = getAttributeOrCharacters(xml, "name");
+        QString layerRefName = getAttributeOrCharacters(xml, "StepRef", "name");
         m_layerRefs.append(layerRefName);
       }
       else if (xml.name() == "BomRef") {
-        QString bomRefName = getAttributeOrCharacters(xml, "name");
+        QString bomRefName = getAttributeOrCharacters(xml, "StepRef", "name");
         m_bomRefs.append(bomRefName);
       }
       else if (xml.name() == "AvlRef") {

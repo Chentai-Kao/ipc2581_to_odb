@@ -4,7 +4,7 @@ void
 Butterfly::initialize(QXmlStreamReader& xml)
 {
   // shape
-  QString shape = getAttribute(xml, "shape");
+  QString shape = getStringAttribute(xml, "Butterfly", "shape");
   if (shape == "ROUND") {
     m_shape = Butterfly::ROUND;
   }

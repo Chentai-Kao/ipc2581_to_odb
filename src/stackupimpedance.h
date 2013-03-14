@@ -2,9 +2,10 @@
 #define __STACKUPIMPEDANCE_H__
 
 #include <QtCore>
-//#include "xform.h"
+#include "xform.h"
 #include "outline.h"
-#include "modification.h"
+#include "polyline.h"
+#include "contour.h"
 
 class StackupImpedance
 {
@@ -12,6 +13,7 @@ public:
   void initialize(QXmlStreamReader& xml);
 
 private:
+  // data members
   qreal m_value;
   enum StackImpedanceType {
     MICROSTRIP,
@@ -29,10 +31,14 @@ private:
   qreal m_tolPlus;
   qreal m_tolMinus;
   QString m_introduction;
-//  Xform m_xform;
+  Xform *m_xform;
   QPointF m_location;
-  Outline m_outline;
-  QList<Modification> m_modifications;
+  QList<Polyline> m_polylines;
+  QList<Contour> m_contours;
+  QList<QString> m_layerRefs;
+
+  // member functions
+  StackupImpedance::StackImpedanceType decideStackImpedanceType(QString type);
 };
 
 #endif

@@ -14,7 +14,7 @@ public:
 
 private:
   QList<Layer> m_layers;
-  QList<Stackup> m_stackups;
+  Stackup *m_stackup;
 //  QList<Step> m_steps;
 };
 

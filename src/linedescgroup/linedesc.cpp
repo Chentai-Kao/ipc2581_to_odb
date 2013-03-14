@@ -4,7 +4,7 @@ void
 LineDesc::initialize(QXmlStreamReader& xml)
 {
   // lineEnd
-  QString lineEnd = getAttribute(xml, "lineEnd");
+  QString lineEnd = getStringAttribute(xml, "LineDesc", "lineEnd");
   if (lineEnd == "ROUND") {
     m_lineEnd = LineDesc::ROUND;
   }

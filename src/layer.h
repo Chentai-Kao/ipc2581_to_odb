@@ -12,6 +12,7 @@ public:
   void initialize(QXmlStreamReader& xml);
 
 private:
+  // data members
   QString m_name;
   enum LayerFunctionType {
     ASSEMBLY,
@@ -55,8 +56,12 @@ private:
   } m_layerFunction;
   enum SideType { TOP, BOTTOM, BOTH, INTERNAL, ALL, NONE } m_side;
   enum PolarityType { POSITIVE, NEGATIVE } m_polarity;
-  Span m_span;
+  Span *m_span;
   QList<DrillTool> m_drillTools;
+
+  // member functions
+  Layer::LayerFunctionType decideLayerFunction(const QString layerFunctionStr);
+  Layer::SideType decideSide(const QString sideStr);
 };
 
 #endif

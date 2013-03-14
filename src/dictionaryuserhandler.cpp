@@ -8,7 +8,7 @@ DictionaryUserHandler::run(QXmlStreamReader& xml)
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (isStartElementWithName(xml, "EntryUser")) {
-      QString id = getAttribute(xml, "id");
+      QString id = getStringAttribute(xml, "EntryUser", "id");
       // id must be unique
       if (m_entryUsers.contains(id)) {
         qDebug("ERROR** duplicate id in DictionaryUser");

@@ -13,8 +13,9 @@ enum UnitsType {
 
 bool isEndElementWithName(const QXmlStreamReader& xml, const QString& name);
 bool isStartElementWithName(const QXmlStreamReader& xml, const QString& name);
-const QString getAttributeOrCharacters(
-    QXmlStreamReader& xml, const QString attrName);
+const QString getAttributeOrCharacters(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName);
+bool hasAttribute(const QXmlStreamReader& xml, const QString attrName);
 const QString getAttribute(const QXmlStreamReader& xml, const QString attrName);
 void createOdbDir(const QString& path);
 void errorInvalidAttribute(
@@ -29,6 +30,8 @@ int getIntAttribute(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName);
 bool getBoolAttribute(QXmlStreamReader& xml, const QString attributeName);
 UnitsType getUnitAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName);
+QString getStringAttribute(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName);
 
 #endif

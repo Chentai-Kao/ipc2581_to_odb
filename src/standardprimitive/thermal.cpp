@@ -4,7 +4,7 @@ void
 Thermal::initialize(QXmlStreamReader& xml)
 {
   // shape
-  QString shape = getAttribute(xml, "shape");
+  QString shape = getStringAttribute(xml, "Thermal", "shape");
   if (shape == "ROUND") {
     m_shape = Thermal::ROUND;
   }
@@ -20,7 +20,7 @@ Thermal::initialize(QXmlStreamReader& xml)
   // others...
   m_outerDiameter = getDoubleAttribute(xml, "Thermal", "outerDiameter");
   m_innerDiameter = getDoubleAttribute(xml, "Thermal", "innerDiameter");
-  if (xml.attributes().hasAttribute("spokeCount")) {
+  if (hasAttribute(xml, "spokeCount")) {
     m_spokeCount = getIntAttribute(xml, "Thermal", "spokeCount");
     if (!isValidSpokeCount()) {
       errorInvalidAttribute("Thermal", "spokeCount");
@@ -30,7 +30,7 @@ Thermal::initialize(QXmlStreamReader& xml)
   else {
     m_spokeCount = (m_shape == Thermal::HEXAGON)? 3 : 4;
   }
-  if (xml.attributes().hasAttribute("gap")) {
+  if (hasAttribute(xml, "gap")) {
     m_gap = getNonNegativeDoubleAttribute(xml, "Thermal", "gap");
   }
   else {

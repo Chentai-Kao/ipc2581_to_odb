@@ -6,7 +6,7 @@ DictionaryColorHandler::run(QXmlStreamReader& xml)
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (isStartElementWithName(xml, "EntryColor")) {
-      QString id = getAttribute(xml, "id");
+      QString id = getStringAttribute(xml, "EntryColor", "id");
       // id must be unique
       if (m_colors.contains(id)) {
         qDebug("ERROR** duplicate id in DictionaryColor");

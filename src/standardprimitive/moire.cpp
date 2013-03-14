@@ -10,13 +10,13 @@ Moire::initialize(QXmlStreamReader& xml)
   m_ringGap = getNonNegativeDoubleAttribute(xml, "Moire", "ringGap");
   m_ringNumber = getNonNegativeIntAttribute(xml, "Moire", "ringNumber");
   // optional attributes
-  if (xml.attributes().hasAttribute("lineWidth")) {
+  if (hasAttribute(xml, "lineWidth")) {
     m_lineWidth = getNonNegativeDoubleAttribute(xml, "Moire", "lineWidth");
   }
-  if (xml.attributes().hasAttribute("lineLength")) {
+  if (hasAttribute(xml, "lineLength")) {
     m_lineLength = getNonNegativeDoubleAttribute(xml, "Moire", "lineLength");
   }
-  if (xml.attributes().hasAttribute("lineAngle")) {
+  if (hasAttribute(xml, "lineAngle")) {
     m_lineAngle = getNonNegativeDoubleAttribute(xml, "Moire", "lineAngle");
     if (m_lineAngle < 0 || m_lineAngle > 90) {
       errorInvalidAttribute("Moire", "lineAngle");

@@ -11,14 +11,26 @@ bool isStartElementWithName(const QXmlStreamReader& xml, const QString& name)
   return (xml.isStartElement() && xml.name() == name);
 }
 
-const QString getAttributeOrCharacters(
-    QXmlStreamReader& xml, const QString attrName)
+const QString getAttributeOrCharacters(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName)
 {
-  QString value = getAttribute(xml, attrName);
+  // first search for attribute
+  QString value = getAttribute(xml, attributeName);
+  // if failed, search for nested text
   if (value == "") {
     value = xml.readElementText();
   }
+  // if still failed, it is an error
+  if (value == "") {
+    errorInvalidAttribute(elementName, attributeName);
+    exit(1);
+  }
   return value;
+}
+
+bool hasAttribute(const QXmlStreamReader& xml, const QString attrName)
+{
+  return xml.attributes().hasAttribute(attrName);
 }
 
 const QString getAttribute(const QXmlStreamReader& xml, const QString attrName)
@@ -106,4 +118,15 @@ UnitsType getUnitAttribute(QXmlStreamReader& xml,
   errorInvalidAttribute(elementName, attributeName);
   exit(1);
   return INCH;
+}
+
+QString getStringAttribute(QXmlStreamReader& xml,
+    const QString elementName, const QString attributeName)
+{
+  QString str = getAttribute(xml, attributeName);
+  if (str == "") {
+    errorInvalidAttribute(elementName, attributeName);
+    exit(1);
+  }
+  return str;
 }

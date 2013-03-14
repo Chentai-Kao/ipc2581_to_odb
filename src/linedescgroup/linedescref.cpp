@@ -3,5 +3,5 @@
 void
 LineDescRef::initialize(QXmlStreamReader& xml)
 {
-  m_id = getAttribute(xml, "id");
+  m_id = getStringAttribute(xml, "LineDescRef", "id");
 }

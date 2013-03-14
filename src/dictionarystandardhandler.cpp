@@ -8,7 +8,7 @@ DictionaryStandardHandler::run(QXmlStreamReader& xml)
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (isStartElementWithName(xml, "EntryStandard")) {
-      QString id = getAttribute(xml, "id");
+      QString id = getStringAttribute(xml, "EntryStandard", "id");
       // id must be unique
       if (m_entryStandards.contains(id)) {
         qDebug("ERROR** duplicate id in DictionaryStandard");
