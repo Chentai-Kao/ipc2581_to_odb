@@ -5,7 +5,7 @@
 #include "handler.h"
 #include "layer.h"
 #include "stackup.h"
-//#include "step.h"
+#include "step.h"
 
 class CadDataHandler : public Handler
 {
@@ -15,7 +15,7 @@ public:
 private:
   QList<Layer> m_layers;
   Stackup *m_stackup;
-//  QList<Step> m_steps;
+  QList<Step> m_steps;
 };
 
 #endif

@@ -5,7 +5,7 @@
 #include "utils.h"
 
 // Base class of "feature":
-// StandardPrimitive, UserPrimitive
+// StandardShape, UserShape
 class Feature
 {
 public:

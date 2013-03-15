@@ -3,13 +3,13 @@
 
 #include <QtCore>
 #include "utils.h"
-#include "feature.h"
+#include "standardshape.h"
 
 // Base class of "standard primitive":
 // Butterfly, Circle, Contour, Diamond, Donut,
 // Ellipse, Hexagon, Moire, Octagon, Oval,
 // RectCenter, RectCham, RectRound, Thermal, Triangle
-class StandardPrimitive : public Feature
+class StandardPrimitive : public StandardShape
 {
 public:
   virtual void initialize(QXmlStreamReader& xml) = 0;

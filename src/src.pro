@@ -30,6 +30,7 @@ HEADERS += \
   historyrecordhandler.h \
   layer.h \
   logisticheaderhandler.h \
+  pinref.h \
   settings.h \
   span.h \
   stackupgroup.h \
@@ -37,9 +38,15 @@ HEADERS += \
   stackupimpedance.h \
   stackuplayer.h \
   standardprimitivefactory.h \
+  standardprimitiveref.h \
+  standardshape.h \
+  step.h \
+  target.h \
   toplevelfactory.h \
   toplevelhandler.h \
   userprimitivefactory.h \
+  userprimitiveref.h \
+  usershape.h \
   utils.h \
   xform.h
 
@@ -60,15 +67,20 @@ SOURCES += \
   layer.cpp \
   logisticheaderhandler.cpp \
   main.cpp \
+  pinref.cpp \
   span.cpp \
   stackup.cpp \
   stackupgroup.cpp \
   stackupimpedance.cpp \
   stackuplayer.cpp \
   standardprimitivefactory.cpp \
+  standardprimitiveref.cpp \
+  step.cpp \
+  target.cpp \
   toplevelfactory.cpp \
   toplevelhandler.cpp \
   userprimitivefactory.cpp \
+  userprimitiveref.cpp \
   utils.cpp \
   xform.cpp
 

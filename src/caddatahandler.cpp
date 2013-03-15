@@ -17,7 +17,9 @@ CadDataHandler::run(QXmlStreamReader& xml)
         m_stackup->initialize(xml);
       }
       else if (xml.name() == "Step") {
-        // TODO
+        Step step;
+        step.initialize(xml);
+        m_steps.append(step);
       }
     }
     else if (isEndElementWithName(xml, "CadData")) { // </CadData>

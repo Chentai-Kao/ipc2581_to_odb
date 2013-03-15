@@ -3,11 +3,11 @@
 
 #include <QtCore>
 #include "utils.h"
-#include "feature.h"
+#include "usershape.h"
 
 // Base class of "user primitive":
 // Simple, Text, UserSpecial
-class UserPrimitive : public Feature
+class UserPrimitive : public UserShape
 {
 public:
   virtual void initialize(QXmlStreamReader& xml) = 0;
