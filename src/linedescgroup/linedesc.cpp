@@ -1,4 +1,5 @@
 #include "linedesc.h"
+#include "utils.h"
 
 void
 LineDesc::initialize(QXmlStreamReader& xml)

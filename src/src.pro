@@ -12,6 +12,7 @@ include (linedescgroup/linedescgroup.pri)
 include (polystep/polystep.pri)
 include (color/color.pri)
 include (attribute/attribute.pri)
+include (fiducial/fiducial.pri)
 
 HEADERS += \
   avlhandler.h \
@@ -101,7 +102,7 @@ SOURCES += \
   utils.cpp \
   xform.cpp
 
-INCLUDEPATH += . .build linedescgroup polystep standardprimitive userprimitive color attribute
+INCLUDEPATH += . .build linedescgroup polystep standardprimitive userprimitive color attribute fiducial
 
 DESTDIR = ../bin
 TARGET = ipc2581

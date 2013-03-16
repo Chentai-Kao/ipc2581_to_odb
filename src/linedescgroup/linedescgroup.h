@@ -2,7 +2,6 @@
 #define __LINEDESCGROUP_H__
 
 #include <QtCore>
-#include "utils.h"
 
 // Base class of "LineDescGroup" substitution group:
 // LineDesc

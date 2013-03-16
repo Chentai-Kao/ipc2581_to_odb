@@ -4,7 +4,8 @@
 #include <QtCore>
 
 // Base class of "Attribute" substitution group:
-// LineDesc
+// BooleanAttribute, DoubleAttribute, IntegerAttribute, NonstandardAttribute,
+// OptionAttribute, TextAttribute
 class Attribute
 {
 public:

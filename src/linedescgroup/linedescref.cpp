@@ -1,4 +1,5 @@
 #include "linedescref.h"
+#include "utils.h"
 
 void
 LineDescRef::initialize(QXmlStreamReader& xml)
