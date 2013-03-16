@@ -1,5 +1,12 @@
 #include "stackuplayer.h"
 #include "utils.h"
+#include "attribute.h"
+#include "booleanattribute.h"
+#include "doubleattribute.h"
+#include "integerattribute.h"
+#include "nonstandardattribute.h"
+#include "optionattribute.h"
+#include "textattribute.h"
 
 void
 StackupLayer::initialize(QXmlStreamReader& xml)
@@ -18,12 +25,41 @@ StackupLayer::initialize(QXmlStreamReader& xml)
     m_comment = getStringAttribute(xml, "StackupLayer", "comment");
   }
 
-  // TODO: skipped non-standard attributes
-  // Spec says: "Additional instructions related to the stackup to provide 
-  //             information on material restrictions or specifications"
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
-    if (isEndElementWithName(xml, "StackupLayer")) { // </StackupLayer>
+    if (xml.isStartElement()) {
+      if (xml.name() == "BooleanAttribute") {
+        Attribute *attribute = new BooleanAttribute();
+        attribute->initialize(xml);
+        m_attributes.append(attribute);
+      }
+      else if (xml.name() == "DoubleAttribute") {
+        Attribute *attribute = new DoubleAttribute();
+        attribute->initialize(xml);
+        m_attributes.append(attribute);
+      }
+      else if (xml.name() == "IntegerAttribute") {
+        Attribute *attribute = new IntegerAttribute();
+        attribute->initialize(xml);
+        m_attributes.append(attribute);
+      }
+      else if (xml.name() == "NonstandardAttribute") {
+        Attribute *attribute = new NonstandardAttribute();
+        attribute->initialize(xml);
+        m_attributes.append(attribute);
+      }
+      else if (xml.name() == "OptionAttribute") {
+        Attribute *attribute = new OptionAttribute();
+        attribute->initialize(xml);
+        m_attributes.append(attribute);
+      }
+      else if (xml.name() == "TextAttribute") {
+        Attribute *attribute = new TextAttribute();
+        attribute->initialize(xml);
+        m_attributes.append(attribute);
+      }
+    }
+    else if (isEndElementWithName(xml, "StackupLayer")) { // </StackupLayer>
       return;
     }
   }

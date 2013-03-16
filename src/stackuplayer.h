@@ -2,6 +2,7 @@
 #define __STACKUPLAYER_H__
 
 #include <QtCore>
+#include "attribute.h"
 
 class StackupLayer
 {
@@ -15,7 +16,7 @@ private:
   qreal m_weight;
   QString m_coating;
   QString m_comment;
-  QList<QString> m_attributes;
+  QList<Attribute*> m_attributes;
 };
 
 #endif
