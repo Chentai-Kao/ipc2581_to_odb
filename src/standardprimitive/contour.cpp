@@ -12,10 +12,11 @@ Contour::initialize(QXmlStreamReader& xml)
       else if (xml.name() == "Cutout") {
         Polygon polygon;
         polygon.initialize(xml);
-        m_cutout.append(polygon);
+        m_cutouts.append(polygon);
       }
     }
-    else if (isEndElementWithName(xml, "Contour")) { // </Contour> the end
+    else if (isEndElementWithName(xml, "Contour") || // </Contour> the end
+             isEndElementWithName(xml, "Profile")) { // other possible name
       return;
     }
   }

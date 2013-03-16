@@ -21,7 +21,8 @@ Polygon::initialize(QXmlStreamReader& xml)
         m_polySteps.append(polyStep);
       }
     }
-    else if (isEndElementWithName(xml, "Polygon")) {
+    else if (isEndElementWithName(xml, "Polygon") || // </Polygon> the end
+             isEndElementWithName(xml, "Cutout")) { // another possible name
       break;
     }
   }

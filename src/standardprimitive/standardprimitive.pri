@@ -1,5 +1,4 @@
 HEADERS += \
-  standardprimitive/polystep.h \
   standardprimitive/butterfly.h \
   standardprimitive/circle.h \
   standardprimitive/contour.h \

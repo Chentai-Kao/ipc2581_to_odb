@@ -17,6 +17,7 @@ HEADERS += \
   bomhandler.h \
   caddatahandler.h \
   cadheaderhandler.h \
+  component.h \
   contenthandler.h \
   dictionarycolorhandler.h \
   dictionarylinedeschandler.h \
@@ -28,8 +29,11 @@ HEADERS += \
   feature.h \
   handler.h \
   historyrecordhandler.h \
+  landpattern.h \
   layer.h \
   logisticheaderhandler.h \
+  package.h \
+  pad.h \
   pinref.h \
   settings.h \
   span.h \
@@ -55,6 +59,7 @@ SOURCES += \
   bomhandler.cpp \
   caddatahandler.cpp \
   cadheaderhandler.cpp \
+  component.cpp \
   contenthandler.cpp \
   dictionarycolorhandler.cpp \
   dictionarylinedeschandler.cpp \
@@ -64,9 +69,12 @@ SOURCES += \
   ecadhandler.cpp \
   featurefactory.cpp \
   historyrecordhandler.cpp \
+  landpattern.cpp \
   layer.cpp \
   logisticheaderhandler.cpp \
   main.cpp \
+  package.cpp \
+  pad.cpp \
   pinref.cpp \
   span.cpp \
   stackup.cpp \

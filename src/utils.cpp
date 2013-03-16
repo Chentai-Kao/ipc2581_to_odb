@@ -123,10 +123,7 @@ UnitsType getUnitAttribute(QXmlStreamReader& xml,
 QString getStringAttribute(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName)
 {
-  QString str = getAttribute(xml, attributeName);
-  if (str == "") {
-    errorInvalidAttribute(elementName, attributeName);
-    exit(1);
-  }
-  return str;
+  // Note: here doesn't treat empty string "" as error,
+  // because in some test cases there are empty strings...don't know why
+  return getAttribute(xml, attributeName);
 }

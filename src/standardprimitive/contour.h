@@ -11,7 +11,7 @@ public:
 
 private:
   Polygon m_polygon;
-  QList<Polygon> m_cutout;
+  QList<Polygon> m_cutouts;
 };
 
 #endif

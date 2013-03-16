@@ -9,7 +9,13 @@ public:
   void initialize(QXmlStreamReader& xml);
 
 private:
-  QString m_componentRef;
+  // attribute "component" is required in:
+  // 1. <Ecad>-<CadData>-<Step>-<PadStack>-<LayerPad>-<PinRef>
+  // 2. <Ecad>-<CadData>-<Step>-<LogicalNet>-<PinRef>
+  // 3. <Ecad>-<CadData>-<Step>-<LayerFeature>-<Pad>-<PinRef>
+  // but may be optional in: (see test cases)
+  // 1. <Ecad>-<CadData>-<Step>-<Package>-<LandPattern>-<Pad>-<PinRef>
+  QString *m_componentRef;
   QString m_pin;
   QString *m_title;
 };
