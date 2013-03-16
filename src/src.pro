@@ -31,6 +31,7 @@ HEADERS += \
   historyrecordhandler.h \
   landpattern.h \
   layer.h \
+  logicalnet.h \
   logisticheaderhandler.h \
   package.h \
   pad.h \
@@ -71,6 +72,7 @@ SOURCES += \
   historyrecordhandler.cpp \
   landpattern.cpp \
   layer.cpp \
+  logicalnet.cpp \
   logisticheaderhandler.cpp \
   main.cpp \
   package.cpp \
