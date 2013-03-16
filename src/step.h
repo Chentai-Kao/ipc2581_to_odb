@@ -6,7 +6,7 @@
 #include "package.h"
 #include "component.h"
 #include "logicalnet.h"
-//#include "phynetgroup.h"
+#include "phynetgroup.h"
 //#include "layerfeature.h"
 
 class Step
@@ -21,7 +21,7 @@ private:
   QList<Package> m_packages;
   QList<Component> m_components;
   QList<LogicalNet> m_logicalNets;
-//  QList<PhyNetGroup> m_phyNetGroups;
+  QList<PhyNetGroup> m_phyNetGroups;
 //  QList<LayerFeature> m_layerFeatures;
 };
 

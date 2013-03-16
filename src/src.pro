@@ -35,6 +35,9 @@ HEADERS += \
   logisticheaderhandler.h \
   package.h \
   pad.h \
+  phynetgroup.h \
+  phynet.h \
+  phynetpoint.h \
   pinref.h \
   settings.h \
   span.h \
@@ -77,6 +80,9 @@ SOURCES += \
   main.cpp \
   package.cpp \
   pad.cpp \
+  phynet.cpp \
+  phynetgroup.cpp \
+  phynetpoint.cpp \
   pinref.cpp \
   span.cpp \
   stackup.cpp \

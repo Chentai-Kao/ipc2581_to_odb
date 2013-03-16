@@ -49,7 +49,9 @@ Step::initialize(QXmlStreamReader& xml)
         m_logicalNets.append(logicalNet);
       }
       else if (xml.name() == "PhyNetGroup") {
-        // TODO
+        PhyNetGroup phyNetGroup;
+        phyNetGroup.initialize(xml);
+        m_phyNetGroups.append(phyNetGroup);
       }
       else if (xml.name() == "LayerFeature") {
         // TODO
