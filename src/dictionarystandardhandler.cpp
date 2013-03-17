@@ -16,9 +16,9 @@ DictionaryStandardHandler::run(QXmlStreamReader& xml)
       }
       // create element and insert to hash table
       xml.readNextStartElement(); // <StandardPrimitive>
-      StandardPrimitive* sp = StandardPrimitiveFactory().create(xml.name());
-      sp->initialize(xml);
-      m_entryStandards.insert(id, sp);
+      StandardPrimitive* s = StandardPrimitiveFactory().create(xml.name());
+      s->initialize(xml);
+      m_entryStandards.insert(id, s);
     }
     else if (isEndElementWithName(xml, "DictionaryStandard")) {
       return;

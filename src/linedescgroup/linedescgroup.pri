@@ -1,8 +1,10 @@
 HEADERS += \
   linedescgroup/linedesc.h \
-  linedescgroup/linedescref.h \
-  linedescgroup/linedescgroup.h
+  linedescgroup/linedescgroup.h \
+  linedescgroup/linedescgroupfactory.h \
+  linedescgroup/linedescref.h
 
 SOURCES += \
   linedescgroup/linedesc.cpp \
-  linedescgroup/linedescref.cpp \
+  linedescgroup/linedescgroupfactory.cpp \
+  linedescgroup/linedescref.cpp

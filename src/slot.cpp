@@ -26,13 +26,13 @@ Slot::initialize(QXmlStreamReader& xml)
     xml.readNext();
     if (xml.isStartElement()) {
       if (isSubstitutionGroupSimple(xml.name())) {
-        Simple *simple = SimpleFactory().create(xml.name());
-        if (simple == NULL) {
+        Simple *s = SimpleFactory().create(xml.name());
+        if (s == NULL) {
           errorInvalidAttribute(xml.name().toString(), "");
           exit(1);
         }
-        simple->initialize(xml);
-        m_simples.append(simple);
+        s->initialize(xml);
+        m_simples.append(s);
       }
     }
     else if (isEndElementWithName(xml, "Slot")) { // </Slot>

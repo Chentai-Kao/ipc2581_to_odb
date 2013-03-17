@@ -23,9 +23,9 @@ StackupLayer::initialize(QXmlStreamReader& xml)
     xml.readNext();
     if (xml.isStartElement()) {
       if (isSubstitutionGroupAttribute(xml.name())) {
-        Attribute *attribute = AttributeFactory().create(xml.name());
-        attribute->initialize(xml);
-        m_attributes.append(attribute);
+        Attribute *a = AttributeFactory().create(xml.name());
+        a->initialize(xml);
+        m_attributes.append(a);
       }
     }
     else if (isEndElementWithName(xml, "StackupLayer")) { // </StackupLayer>

@@ -7,7 +7,7 @@ OBJECTS_DIR = .build
 BUILD_DIR = .build
 
 include (attribute/attribute.pri)
-include (color/color.pri)
+include (colorgroup/colorgroup.pri)
 include (feature/feature.pri)
 include (fiducial/fiducial.pri)
 include (linedescgroup/linedescgroup.pri)
@@ -96,7 +96,7 @@ SOURCES += \
   utils.cpp \
   xform.cpp
 
-INCLUDEPATH += . .build attribute color feature fiducial linedescgroup polystep
+INCLUDEPATH += . .build attribute colorgroup feature fiducial linedescgroup polystep
 
 DESTDIR = ../bin
 TARGET = ipc2581

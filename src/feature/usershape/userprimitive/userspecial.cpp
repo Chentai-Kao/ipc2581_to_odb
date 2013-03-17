@@ -7,14 +7,14 @@ UserSpecial::initialize(QXmlStreamReader& xml)
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
-      Feature* feature = FeatureFactory().create(xml.name());
-      if (feature == NULL) {
+      Feature* f = FeatureFactory().create(xml.name());
+      if (f == NULL) {
         errorInvalidAttribute("UserSpecial", "");
         exit(1);
       }
-      feature->initialize(xml);
+      f->initialize(xml);
       // append to the feature list
-      m_features.append(feature);
+      m_features.append(f);
     }
     else if (isEndElementWithName(xml, "UserSpecial")) {
       break;

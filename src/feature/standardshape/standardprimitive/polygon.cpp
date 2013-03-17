@@ -13,13 +13,13 @@ Polygon::initialize(QXmlStreamReader& xml)
         m_polyBegin.ry() = getDoubleAttribute(xml, "PolyBegin", "y");
       }
       else if (isSubstitutionGroupPolyStep(xml.name())) {
-        PolyStep *polyStep = PolyStepFactory().create(xml.name());
-        if (polyStep == NULL) {
+        PolyStep *p = PolyStepFactory().create(xml.name());
+        if (p == NULL) {
           errorInvalidAttribute(xml.name().toString(), "");
           exit(1);
         }
-        polyStep->initialize(xml);
-        m_polySteps.append(polyStep);
+        p->initialize(xml);
+        m_polySteps.append(p);
       }
     }
     else if (isEndElementWithName(xml, "Polygon") || // </Polygon> the end
