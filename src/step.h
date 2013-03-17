@@ -7,7 +7,7 @@
 #include "component.h"
 #include "logicalnet.h"
 #include "phynetgroup.h"
-//#include "layerfeature.h"
+#include "layerfeature.h"
 
 class Step
 {
@@ -22,7 +22,7 @@ private:
   QList<Component> m_components;
   QList<LogicalNet> m_logicalNets;
   QList<PhyNetGroup> m_phyNetGroups;
-//  QList<LayerFeature> m_layerFeatures;
+  QList<LayerFeature> m_layerFeatures;
 };
 
 #endif

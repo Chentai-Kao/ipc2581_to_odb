@@ -11,6 +11,7 @@ enum UnitsType {
   INCH
 };
 
+/* XML element and attribute. */
 bool isEndElementWithName(const QXmlStreamReader& xml, const QString& name);
 bool isStartElementWithName(const QXmlStreamReader& xml, const QString& name);
 const QString getAttributeOrCharacters(QXmlStreamReader& xml,
@@ -33,5 +34,18 @@ UnitsType getUnitAttribute(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName);
 QString getStringAttribute(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName);
+
+/* Check for substitution groups. */
+bool isSubstitutionGroupAttribute(QStringRef elementName);
+bool isSubstitutionGroupColorGroup(QStringRef elementName);
+bool isSubstitutionGroupFeature(QStringRef elementName);
+bool isSubstitutionGroupFiducial(QStringRef elementName);
+bool isSubstitutionGroupLineDescGroup(QStringRef elementName);
+bool isSubstitutionGroupPolyStep(QStringRef elementName);
+bool isSubstitutionGroupSimple(QStringRef elementName);
+bool isSubstitutionGroupStandardPrimitive(QStringRef elementName);
+bool isSubstitutionGroupStandardShape(QStringRef elementName);
+bool isSubstitutionGroupUserPrimitive(QStringRef elementName);
+bool isSubstitutionGroupUserShape(QStringRef elementName);
 
 #endif

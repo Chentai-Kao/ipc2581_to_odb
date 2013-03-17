@@ -1,6 +1,10 @@
 Conflicts:
-1. in IPC-2581 spec (pp. 20), PolyStepCurve default "counterclockwise",
+1. Can the attributes be put as nested element?
+2. in IPC-2581 spec (pp. 20), PolyStepCurve default "counterclockwise",
    but in pp. 46 (top figure), default value of "clockwise" is "true".
+3. top figure of page 176, Slot->Simple should have "substGrp == Simple",
+   not "substGrp == UserPrimitive"
 
 TODO:
 1. Need to check occurence of all elements, attributes.
+2. replace all comparison by isSubstitutionGroup*() and *Factory().

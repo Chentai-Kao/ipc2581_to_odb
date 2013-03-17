@@ -1,4 +1,6 @@
 #include "polygon.h"
+#include "utils.h"
+#include "polystepfactory.h"
 
 void
 Polygon::initialize(QXmlStreamReader& xml)
@@ -10,13 +12,12 @@ Polygon::initialize(QXmlStreamReader& xml)
         m_polyBegin.rx() = getDoubleAttribute(xml, "PolyBegin", "x");
         m_polyBegin.ry() = getDoubleAttribute(xml, "PolyBegin", "y");
       }
-      else if (xml.name() == "PolyStepCurve") {
-        PolyStep *polyStep = new PolyStepCurve();
-        polyStep->initialize(xml);
-        m_polySteps.append(polyStep);
-      }
-      else if (xml.name() == "PolyStepSegment") {
-        PolyStep *polyStep = new PolyStepSegment();
+      else if (isSubstitutionGroupPolyStep(xml.name())) {
+        PolyStep *polyStep = PolyStepFactory().create(xml.name());
+        if (polyStep == NULL) {
+          errorInvalidAttribute(xml.name().toString(), "");
+          exit(1);
+        }
         polyStep->initialize(xml);
         m_polySteps.append(polyStep);
       }

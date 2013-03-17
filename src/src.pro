@@ -6,13 +6,12 @@ RCC_DIR = .build
 OBJECTS_DIR = .build
 BUILD_DIR = .build
 
-include (standardprimitive/standardprimitive.pri)
-include (userprimitive/userprimitive.pri)
+include (attribute/attribute.pri)
+include (color/color.pri)
+include (feature/feature.pri)
+include (fiducial/fiducial.pri)
 include (linedescgroup/linedescgroup.pri)
 include (polystep/polystep.pri)
-include (color/color.pri)
-include (attribute/attribute.pri)
-include (fiducial/fiducial.pri)
 
 HEADERS += \
   avlhandler.h \
@@ -27,11 +26,11 @@ HEADERS += \
   dictionaryuserhandler.h \
   drilltool.h \
   ecadhandler.h \
-  featurefactory.h \
-  feature.h \
   handler.h \
   historyrecordhandler.h \
+  hole.h \
   landpattern.h \
+  layerfeature.h \
   layer.h \
   logicalnet.h \
   logisticheaderhandler.h \
@@ -41,22 +40,18 @@ HEADERS += \
   phynet.h \
   phynetpoint.h \
   pinref.h \
+  set.h \
   settings.h \
+  slot.h \
   span.h \
   stackupgroup.h \
   stackup.h \
   stackupimpedance.h \
   stackuplayer.h \
-  standardprimitivefactory.h \
-  standardprimitiveref.h \
-  standardshape.h \
   step.h \
   target.h \
   toplevelfactory.h \
   toplevelhandler.h \
-  userprimitivefactory.h \
-  userprimitiveref.h \
-  usershape.h \
   utils.h \
   xform.h
 
@@ -73,10 +68,11 @@ SOURCES += \
   dictionaryuserhandler.cpp \
   drilltool.cpp \
   ecadhandler.cpp \
-  featurefactory.cpp \
   historyrecordhandler.cpp \
+  hole.cpp \
   landpattern.cpp \
   layer.cpp \
+  layerfeature.cpp \
   logicalnet.cpp \
   logisticheaderhandler.cpp \
   main.cpp \
@@ -86,23 +82,21 @@ SOURCES += \
   phynetgroup.cpp \
   phynetpoint.cpp \
   pinref.cpp \
+  set.cpp \
+  slot.cpp \
   span.cpp \
   stackup.cpp \
   stackupgroup.cpp \
   stackupimpedance.cpp \
   stackuplayer.cpp \
-  standardprimitivefactory.cpp \
-  standardprimitiveref.cpp \
   step.cpp \
   target.cpp \
   toplevelfactory.cpp \
   toplevelhandler.cpp \
-  userprimitivefactory.cpp \
-  userprimitiveref.cpp \
   utils.cpp \
   xform.cpp
 
-INCLUDEPATH += . .build linedescgroup polystep standardprimitive userprimitive color attribute fiducial
+INCLUDEPATH += . .build attribute color feature fiducial linedescgroup polystep
 
 DESTDIR = ../bin
 TARGET = ipc2581

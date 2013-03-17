@@ -1,0 +1,15 @@
+#include "polystepfactory.h"
+#include "polystepcurve.h"
+#include "polystepsegment.h"
+
+PolyStep*
+PolyStepFactory::create(QStringRef elementName)
+{
+  if (elementName == "PolyStepCurve") {
+    return new PolyStepCurve();
+  }
+  else if (elementName == "PolyStepSegment") {
+    return new PolyStepSegment();
+  }
+  return NULL;
+}

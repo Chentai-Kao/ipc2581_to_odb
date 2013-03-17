@@ -54,7 +54,9 @@ Step::initialize(QXmlStreamReader& xml)
         m_phyNetGroups.append(phyNetGroup);
       }
       else if (xml.name() == "LayerFeature") {
-        // TODO
+        LayerFeature layerFeature;
+        layerFeature.initialize(xml);
+        m_layerFeatures.append(layerFeature);
       }
       else if (xml.name() == "DfxMeasurementList") {
         // TODO skipped

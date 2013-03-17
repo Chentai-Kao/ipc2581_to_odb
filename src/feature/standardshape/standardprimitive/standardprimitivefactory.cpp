@@ -17,54 +17,54 @@
 #include "triangle.h"
 
 StandardPrimitive*
-StandardPrimitiveFactory::create(QXmlStreamReader& xml)
+StandardPrimitiveFactory::create(QStringRef elementName)
 {
-  if (xml.name() == "Butterfly") {
+  if (elementName == "Butterfly") {
     return new Butterfly();
   }
-  else if (xml.name() == "Circle") {
+  else if (elementName == "Circle") {
     return new Circle();
   }
-  else if (xml.name() == "Contour") {
+  else if (elementName == "Contour") {
     return new Contour();
   }
-  else if (xml.name() == "Diamond") {
+  else if (elementName == "Diamond") {
     return new Diamond();
   }
-  else if (xml.name() == "Donut") {
+  else if (elementName == "Donut") {
     return new Donut();
   }
-  else if (xml.name() == "Ellipse") {
+  else if (elementName == "Ellipse") {
     return new Ellipse();
   }
-  else if (xml.name() == "Hexagon") {
+  else if (elementName == "Hexagon") {
     return new Hexagon();
   }
-  else if (xml.name() == "Moire") {
+  else if (elementName == "Moire") {
     return new Moire();
   }
-  else if (xml.name() == "Octagon") {
+  else if (elementName == "Octagon") {
     return new Octagon();
   }
-  else if (xml.name() == "Oval") {
+  else if (elementName == "Oval") {
     return new Oval();
   }
-  else if (xml.name() == "RectCenter") {
+  else if (elementName == "RectCenter") {
     return new RectCenter();
   }
-  else if (xml.name() == "RectCham") {
+  else if (elementName == "RectCham") {
     return new RectCham();
   }
-  else if (xml.name() == "RectCorner") {
+  else if (elementName == "RectCorner") {
     return new RectCorner();
   }
-  else if (xml.name() == "RectRound") {
+  else if (elementName == "RectRound") {
     return new RectRound();
   }
-  else if (xml.name() == "Thermal") {
+  else if (elementName == "Thermal") {
     return new Thermal();
   }
-  else if (xml.name() == "Triangle") {
+  else if (elementName == "Triangle") {
     return new Triangle();
   }
 

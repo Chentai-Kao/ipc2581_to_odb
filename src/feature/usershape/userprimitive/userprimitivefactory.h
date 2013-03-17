@@ -7,7 +7,7 @@
 class UserPrimitiveFactory
 {
 public:
-  UserPrimitive* create(QXmlStreamReader& xml);
+  UserPrimitive* create(QStringRef elementName);
 };
 
 #endif

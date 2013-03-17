@@ -127,3 +127,82 @@ QString getStringAttribute(QXmlStreamReader& xml,
   // because in some test cases there are empty strings...don't know why
   return getAttribute(xml, attributeName);
 }
+
+bool isSubstitutionGroupAttribute(QStringRef elementName) {
+  return (elementName == "BooleanAttribute" ||
+          elementName == "DoubleAttribute" ||
+          elementName == "IntegerAttribute" ||
+          elementName == "NonstandardAttribute" ||
+          elementName == "OptionAttribute" ||
+          elementName == "TextAttribute");
+}
+
+bool isSubstitutionGroupColorGroup(QStringRef elementName) {
+  return (elementName == "Color" ||
+          elementName == "ColorRef");
+}
+
+bool isSubstitutionGroupFeature(QStringRef elementName) {
+  return (isSubstitutionGroupStandardShape(elementName) ||
+          isSubstitutionGroupUserShape(elementName));
+}
+
+bool isSubstitutionGroupFiducial(QStringRef elementName) {
+  return (elementName == "BadBoardMark" ||
+          elementName == "GlobalFiducial" ||
+          elementName == "GoodPanelMark" ||
+          elementName == "LocalFiducial");
+}
+
+bool isSubstitutionGroupLineDescGroup(QStringRef elementName) {
+  return (elementName == "LineDesc" ||
+          elementName == "LineDescRef");
+}
+
+bool isSubstitutionGroupPolyStep(QStringRef elementName) {
+  return (elementName == "PolyStepCurve" ||
+          elementName == "PolyStepSegment");
+}
+
+bool isSubstitutionGroupSimple(QStringRef elementName) {
+  return (elementName == "Arc" ||
+          elementName == "Line" ||
+          elementName == "Outline" ||
+          elementName == "Polyline");
+}
+
+bool isSubstitutionGroupStandardPrimitive(QStringRef elementName) {
+  return (elementName == "Butterfly" ||
+          elementName == "Circle" ||
+          elementName == "Contour" ||
+          elementName == "Diamond" ||
+          elementName == "Donut" ||
+          elementName == "Ellipse" ||
+          elementName == "Hexagon" ||
+          elementName == "Moire" ||
+          elementName == "Octagon" ||
+          elementName == "Oval" ||
+          elementName == "RectCenter" ||
+          elementName == "RectCham" ||
+          elementName == "RectCorner" ||
+          elementName == "RectRound" ||
+          elementName == "Thermal" ||
+          elementName == "Triangle");
+}
+
+bool isSubstitutionGroupStandardShape(QStringRef elementName) {
+  return (isSubstitutionGroupStandardPrimitive(elementName) ||
+          elementName == "StandardPrimitiveRef");
+}
+
+bool isSubstitutionGroupUserPrimitive(QStringRef elementName) {
+  return (isSubstitutionGroupSimple(elementName) ||
+          elementName == "Text" ||
+          elementName == "UserSpecial");
+}
+
+bool isSubstitutionGroupUserShape(QStringRef elementName) {
+  return (isSubstitutionGroupUserPrimitive(elementName) ||
+          elementName == "UserPrimitiveRef");
+}
+

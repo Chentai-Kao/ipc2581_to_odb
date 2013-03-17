@@ -8,7 +8,7 @@
 class Text : public UserPrimitive
 {
 public:
-  virtual void initialize(QXmlStreamReader& xml) {}
+  virtual void initialize(QXmlStreamReader& xml) {} // TODO skipped
 };
 
 #endif

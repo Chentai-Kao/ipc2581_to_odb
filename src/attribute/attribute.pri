@@ -1,4 +1,5 @@
 HEADERS += \
+  attribute/attributefactory.h \
   attribute/attribute.h \
   attribute/booleanattribute.h \
   attribute/doubleattribute.h \
@@ -8,6 +9,7 @@ HEADERS += \
   attribute/textattribute.h
 
 SOURCES += \
+  attribute/attributefactory.cpp \
   attribute/booleanattribute.cpp \
   attribute/doubleattribute.cpp \
   attribute/integerattribute.cpp \

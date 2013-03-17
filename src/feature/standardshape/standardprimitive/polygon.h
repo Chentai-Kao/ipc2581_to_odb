@@ -3,8 +3,6 @@
 
 #include <QtCore>
 #include "polystep.h"
-#include "polystepcurve.h"
-#include "polystepsegment.h"
 
 class Polygon
 {
@@ -12,8 +10,10 @@ public:
   virtual void initialize(QXmlStreamReader& xml);
 
 private:
+  // member function
   bool isClosedShape();
 
+  // data member
   QPointF m_polyBegin;
   QList<PolyStep*> m_polySteps;
 };

@@ -1,13 +1,13 @@
 #ifndef __OUTLINE_H__
 #define __OUTLINE_H__
 
-#include "userprimitive.h"
+#include "simple.h"
 #include "polygon.h"
 #include "linedesc.h"
 #include "linedescgroup.h"
 #include "linedescref.h"
 
-class Outline : public UserPrimitive
+class Outline : public Simple
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);

@@ -7,7 +7,7 @@
 class FeatureFactory
 {
 public:
-  Feature* create(QXmlStreamReader& xml);
+  Feature* create(QStringRef elementName);
 };
 
 #endif

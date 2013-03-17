@@ -7,7 +7,7 @@
 class StandardPrimitiveFactory
 {
 public:
-  StandardPrimitive* create(QXmlStreamReader& xml);
+  StandardPrimitive* create(QStringRef elementName);
 };
 
 #endif
