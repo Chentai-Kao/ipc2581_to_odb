@@ -29,32 +29,32 @@ ContentHandler::run(QXmlStreamReader& xml)
       else if (xml.name() == "AvlRef") {
       }
       else if (xml.name() == "DictionaryStandard") {
-        Handler *handler = new DictionaryStandardHandler();
-        handler->run(xml);
-        delete handler;
+        Handler *h = new DictionaryStandardHandler();
+        h->run(xml);
+        delete h;
       }
       else if (xml.name() == "DictionaryUser") {
-        Handler *handler = new DictionaryUserHandler();
-        handler->run(xml);
-        delete handler;
+        Handler *h = new DictionaryUserHandler();
+        h->run(xml);
+        delete h;
       }
       else if (xml.name() == "DictionaryFont") {
       }
       else if (xml.name() == "DictionaryLineDesc") {
-        Handler *handler = new DictionaryLineDescHandler();
-        handler->run(xml);
-        delete handler;
+        Handler *h = new DictionaryLineDescHandler();
+        h->run(xml);
+        delete h;
       }
       else if (xml.name() == "DictionaryColor") {
-        Handler *handler = new DictionaryColorHandler();
-        handler->run(xml);
-        delete handler;
+        Handler *h = new DictionaryColorHandler();
+        h->run(xml);
+        delete h;
       }
       else if (xml.name() == "DictionaryFirmware") {
       }
     }
-    else if (isEndElementWithName(xml, "Content")) {
-      updateOdb();
+    else if (isEndElementWithName(xml, "Content")) { // </Content>
+//      updateOdb();
       return;
     }
   }
@@ -73,7 +73,9 @@ ContentHandler::updateOdb()
   }
   for (int i = 0; i < m_stepRefs.size(); ++i) {
     for (int j = 0; j < m_layerRefs.size(); ++j) {
-      createOdbDir(QString("steps/") + m_stepRefs.at(i) + "/" + m_layerRefs.at(j));
+      createOdbDir(QString("steps/%1/layers/%2")
+                           .arg(m_stepRefs.at(i))
+                           .arg(m_layerRefs.at(j)));
     }
   }
   // TODO BOM??

@@ -20,14 +20,14 @@ TopLevelHandler::run(QXmlStreamReader& xml)
         continue;
       }
       else { // <Content> <LogisticHeader> <HistoryRecord> <Bom> <Ecad> <Avl>
-        Handler *handler = TopLevelFactory().create(xml.name());
-        if (handler == NULL) { // Invalid element name
+        Handler *h = TopLevelFactory().create(xml.name());
+        if (h == NULL) { // Invalid element name
           qDebug("Invalid element:%s", xml.name().toAscii().data());
           break;
         }
         // parse inner text recursively
-        handler->run(xml);
-        delete handler;
+        h->run(xml);
+        delete h;
       }
     }
     else if (isEndElementWithName(xml, "IPC-2581")) { // </IPC-2581> the end
