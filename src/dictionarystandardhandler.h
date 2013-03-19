@@ -9,7 +9,7 @@
 class DictionaryStandardHandler : public Handler
 {
 public:
-  virtual void run(QXmlStreamReader& xml);
+  virtual void run(QXmlStreamReader& xml, Odb& odb);
 
 private:
   UnitsType m_units;

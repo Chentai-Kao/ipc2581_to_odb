@@ -1,7 +1,7 @@
 #include "dictionarycolorhandler.h"
 
 void
-DictionaryColorHandler::run(QXmlStreamReader& xml)
+DictionaryColorHandler::run(QXmlStreamReader& xml, Odb& odb)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();

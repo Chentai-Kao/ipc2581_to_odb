@@ -7,12 +7,10 @@
 class TopLevelHandler : public Handler
 {
 public:
-  virtual void run(QXmlStreamReader& xml);
-  void createOdbFileSystem();
+  virtual void run(QXmlStreamReader& xml, Odb& odb);
 
 private:
   bool checkDocumentVersionEncoding(QStringRef version, QStringRef encoding);
-  void deleteDirectory(QString path);
 };
 
 #endif

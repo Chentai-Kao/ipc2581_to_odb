@@ -4,11 +4,12 @@
 #include <QtCore>
 #include "handler.h"
 #include "linedesc.h"
+#include "utils.h"
 
 class DictionaryLineDescHandler : public Handler
 {
 public:
-  virtual void run(QXmlStreamReader& xml);
+  virtual void run(QXmlStreamReader& xml, Odb& odb);
 
 private:
   UnitsType m_units;

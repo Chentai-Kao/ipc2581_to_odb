@@ -2,7 +2,7 @@
 #include "utils.h"
 
 void
-BomHandler::run(QXmlStreamReader& xml)
+BomHandler::run(QXmlStreamReader& xml, Odb& odb)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();

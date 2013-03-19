@@ -1,7 +1,7 @@
 #include "dictionarylinedeschandler.h"
 
 void
-DictionaryLineDescHandler::run(QXmlStreamReader& xml)
+DictionaryLineDescHandler::run(QXmlStreamReader& xml, Odb& odb)
 {
   m_units = getUnitAttribute(xml, "DictionaryLineDesc", "units");
   while (!xml.atEnd() && !xml.hasError()) {

@@ -8,7 +8,7 @@
 class DictionaryColorHandler : public Handler
 {
 public:
-  virtual void run(QXmlStreamReader& xml);
+  virtual void run(QXmlStreamReader& xml, Odb& odb);
 
 private:
   QHash<QString, Color> m_colors; // (id,EntryColor)

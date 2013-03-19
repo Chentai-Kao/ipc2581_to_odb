@@ -4,7 +4,7 @@
 #include "utils.h"
 
 void
-EcadHandler::run(QXmlStreamReader& xml)
+EcadHandler::run(QXmlStreamReader& xml, Odb& odb)
 {
   m_name = getStringAttribute(xml, "Ecad", "name");
   while (!xml.atEnd() && !xml.hasError()) {
@@ -12,12 +12,12 @@ EcadHandler::run(QXmlStreamReader& xml)
     if (xml.isStartElement()) {
       if (xml.name() == "CadHeader") {
         Handler *handler = new CadHeaderHandler();
-        handler->run(xml);
+        handler->run(xml, odb);
         delete handler;
       }
       else if (xml.name() == "CadData") {
         Handler *handler = new CadDataHandler();
-        handler->run(xml);
+        handler->run(xml, odb);
         delete handler;
       }
     }

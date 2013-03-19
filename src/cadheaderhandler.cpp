@@ -1,7 +1,7 @@
 #include "cadheaderhandler.h"
 
 void
-CadHeaderHandler::run(QXmlStreamReader& xml)
+CadHeaderHandler::run(QXmlStreamReader& xml, Odb& odb)
 {
   m_units = getUnitAttribute(xml, "CadHeader", "units");
   while (!xml.atEnd() && !xml.hasError()) {

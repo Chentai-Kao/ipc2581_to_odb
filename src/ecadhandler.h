@@ -6,7 +6,7 @@
 class EcadHandler : public Handler
 {
 public:
-  virtual void run(QXmlStreamReader& xml);
+  virtual void run(QXmlStreamReader& xml, Odb& odb);
 
 private:
   QString m_name; // attribute "name" of <Ecad>

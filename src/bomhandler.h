@@ -6,7 +6,7 @@
 class BomHandler : public Handler
 {
 public:
-  virtual void run(QXmlStreamReader& xml);
+  virtual void run(QXmlStreamReader& xml, Odb& odb);
 };
 
 #endif

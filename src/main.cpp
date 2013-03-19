@@ -1,5 +1,6 @@
 #include <QtCore>
 
+#include "odb.h"
 #include "toplevelhandler.h"
 
 int main()
@@ -12,11 +13,8 @@ int main()
     exit(1);
   }
 
-  /* Create ODB++ file system */
-  TopLevelHandler topLevelHandler;
-  topLevelHandler.createOdbFileSystem();
-
   /* Read XML */
   QXmlStreamReader xml(file);
-  topLevelHandler.run(xml);
+  Odb odb;
+  TopLevelHandler().run(xml, odb);
 }

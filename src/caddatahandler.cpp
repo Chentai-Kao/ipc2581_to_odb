@@ -1,7 +1,7 @@
 #include "caddatahandler.h"
 
 void
-CadDataHandler::run(QXmlStreamReader& xml)
+CadDataHandler::run(QXmlStreamReader& xml, Odb& odb)
 {
   m_stackup = NULL;
   while (!xml.atEnd() && !xml.hasError()) {

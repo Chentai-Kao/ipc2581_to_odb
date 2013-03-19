@@ -34,6 +34,7 @@ HEADERS += \
   layer.h \
   logicalnet.h \
   logisticheaderhandler.h \
+  odb.h \
   package.h \
   pad.h \
   phynetgroup.h \
@@ -76,6 +77,7 @@ SOURCES += \
   logicalnet.cpp \
   logisticheaderhandler.cpp \
   main.cpp \
+  odb.cpp \
   package.cpp \
   pad.cpp \
   phynet.cpp \

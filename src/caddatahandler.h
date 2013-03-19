@@ -10,7 +10,7 @@
 class CadDataHandler : public Handler
 {
 public:
-  virtual void run(QXmlStreamReader& xml);
+  virtual void run(QXmlStreamReader& xml, Odb& odb);
 
 private:
   QList<Layer> m_layers;

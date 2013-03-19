@@ -7,7 +7,7 @@
 #include "utils.h"
 
 void
-ContentHandler::run(QXmlStreamReader& xml)
+ContentHandler::run(QXmlStreamReader& xml, Odb& odb)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
@@ -30,24 +30,24 @@ ContentHandler::run(QXmlStreamReader& xml)
       }
       else if (xml.name() == "DictionaryStandard") {
         Handler *h = new DictionaryStandardHandler();
-        h->run(xml);
+        h->run(xml, odb);
         delete h;
       }
       else if (xml.name() == "DictionaryUser") {
         Handler *h = new DictionaryUserHandler();
-        h->run(xml);
+        h->run(xml, odb);
         delete h;
       }
       else if (xml.name() == "DictionaryFont") {
       }
       else if (xml.name() == "DictionaryLineDesc") {
         Handler *h = new DictionaryLineDescHandler();
-        h->run(xml);
+        h->run(xml, odb);
         delete h;
       }
       else if (xml.name() == "DictionaryColor") {
         Handler *h = new DictionaryColorHandler();
-        h->run(xml);
+        h->run(xml, odb);
         delete h;
       }
       else if (xml.name() == "DictionaryFirmware") {

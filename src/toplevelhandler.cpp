@@ -4,7 +4,7 @@
 #include "utils.h"
 
 void
-TopLevelHandler::run(QXmlStreamReader& xml)
+TopLevelHandler::run(QXmlStreamReader& xml, Odb& odb)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
@@ -26,26 +26,13 @@ TopLevelHandler::run(QXmlStreamReader& xml)
           break;
         }
         // parse inner text recursively
-        h->run(xml);
+        h->run(xml, odb);
         delete h;
       }
     }
     else if (isEndElementWithName(xml, "IPC-2581")) { // </IPC-2581> the end
       return;
     }
-  }
-}
-
-void
-TopLevelHandler::createOdbFileSystem()
-{
-  /* Delete existing ODB file system */
-  deleteDirectory(OUTPUT_PATH);
-
-  /* Create new one */
-  QDir dir(OUTPUT_PATH);
-  if (!dir.exists()) {
-    dir.mkpath(".");
   }
 }
 
@@ -62,22 +49,4 @@ TopLevelHandler::checkDocumentVersionEncoding(
     return false;
   }
   return true;
-}
-
-void
-TopLevelHandler::deleteDirectory(QString path)
-{
-  QDir dir(path);
-  // delete all files in this directory
-  QFileInfoList files = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files);
-  for (int i = 0; i < files.size(); ++i) {
-    dir.remove(files.at(i).fileName());
-  }
-  // recursively delete sub-directories
-  QFileInfoList dirs = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Dirs);
-  for (int i = 0; i < dirs.size(); ++i) {
-    deleteDirectory(dirs.at(i).absoluteFilePath());
-  }
-  // delete parent directory
-  dir.rmdir(dir.absolutePath());
 }
