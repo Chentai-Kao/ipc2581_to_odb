@@ -14,7 +14,7 @@ public:
   virtual void odbOutput(QTextStream& out, QString cmd);
 
   // getter
-  QList<Layer>& layers() { return m_layers; };
+  QList<Layer>& layers() { return m_layers; }
 
 private:
   void odbOutputLayer(QTextStream& out, int rowNum, QString context,

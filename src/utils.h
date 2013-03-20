@@ -18,7 +18,6 @@ const QString getAttributeOrCharacters(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName);
 bool hasAttribute(const QXmlStreamReader& xml, const QString attrName);
 const QString getAttribute(const QXmlStreamReader& xml, const QString attrName);
-void createOdbDir(const QString& path);
 void errorInvalidAttribute(
     const QString elementName, const QString attributeName);
 qreal getNonNegativeDoubleAttribute(QXmlStreamReader& xml,

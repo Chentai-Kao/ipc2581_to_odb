@@ -38,11 +38,6 @@ const QString getAttribute(const QXmlStreamReader& xml, const QString attrName)
   return xml.attributes().value("", attrName).toString();
 }
 
-void createOdbDir(const QString& path)
-{
-  QDir(OUTPUT_PATH).mkpath(path.toLower());
-}
-
 void errorInvalidAttribute(
     const QString elementName, const QString attributeName)
 {
@@ -128,7 +123,8 @@ QString getStringAttribute(QXmlStreamReader& xml,
   return getAttribute(xml, attributeName);
 }
 
-bool isSubstitutionGroupAttribute(QStringRef elementName) {
+bool isSubstitutionGroupAttribute(QStringRef elementName)
+{
   return (elementName == "BooleanAttribute" ||
           elementName == "DoubleAttribute" ||
           elementName == "IntegerAttribute" ||
@@ -137,41 +133,48 @@ bool isSubstitutionGroupAttribute(QStringRef elementName) {
           elementName == "TextAttribute");
 }
 
-bool isSubstitutionGroupColorGroup(QStringRef elementName) {
+bool isSubstitutionGroupColorGroup(QStringRef elementName)
+{
   return (elementName == "Color" ||
           elementName == "ColorRef");
 }
 
-bool isSubstitutionGroupFeature(QStringRef elementName) {
+bool isSubstitutionGroupFeature(QStringRef elementName)
+{
   return (isSubstitutionGroupStandardShape(elementName) ||
           isSubstitutionGroupUserShape(elementName));
 }
 
-bool isSubstitutionGroupFiducial(QStringRef elementName) {
+bool isSubstitutionGroupFiducial(QStringRef elementName)
+{
   return (elementName == "BadBoardMark" ||
           elementName == "GlobalFiducial" ||
           elementName == "GoodPanelMark" ||
           elementName == "LocalFiducial");
 }
 
-bool isSubstitutionGroupLineDescGroup(QStringRef elementName) {
+bool isSubstitutionGroupLineDescGroup(QStringRef elementName)
+{
   return (elementName == "LineDesc" ||
           elementName == "LineDescRef");
 }
 
-bool isSubstitutionGroupPolyStep(QStringRef elementName) {
+bool isSubstitutionGroupPolyStep(QStringRef elementName)
+{
   return (elementName == "PolyStepCurve" ||
           elementName == "PolyStepSegment");
 }
 
-bool isSubstitutionGroupSimple(QStringRef elementName) {
+bool isSubstitutionGroupSimple(QStringRef elementName)
+{
   return (elementName == "Arc" ||
           elementName == "Line" ||
           elementName == "Outline" ||
           elementName == "Polyline");
 }
 
-bool isSubstitutionGroupStandardPrimitive(QStringRef elementName) {
+bool isSubstitutionGroupStandardPrimitive(QStringRef elementName)
+{
   return (elementName == "Butterfly" ||
           elementName == "Circle" ||
           elementName == "Contour" ||
@@ -190,18 +193,21 @@ bool isSubstitutionGroupStandardPrimitive(QStringRef elementName) {
           elementName == "Triangle");
 }
 
-bool isSubstitutionGroupStandardShape(QStringRef elementName) {
+bool isSubstitutionGroupStandardShape(QStringRef elementName)
+{
   return (isSubstitutionGroupStandardPrimitive(elementName) ||
           elementName == "StandardPrimitiveRef");
 }
 
-bool isSubstitutionGroupUserPrimitive(QStringRef elementName) {
+bool isSubstitutionGroupUserPrimitive(QStringRef elementName)
+{
   return (isSubstitutionGroupSimple(elementName) ||
           elementName == "Text" ||
           elementName == "UserSpecial");
 }
 
-bool isSubstitutionGroupUserShape(QStringRef elementName) {
+bool isSubstitutionGroupUserShape(QStringRef elementName)
+{
   return (isSubstitutionGroupUserPrimitive(elementName) ||
           elementName == "UserPrimitiveRef");
 }

@@ -1,11 +1,21 @@
 #include "odb.h"
 #include "utils.h"
 
+Odb::Odb(TopLevelHandler& h)
+{
+  m_handler = h;
+  m_odbRootPath = OUTPUT_PATH;
+  m_allSteps = h.allSteps();
+  m_allLayers = h.allLayers();
+  m_allLayers.append("COMP_+_TOP");
+  m_allLayers.append("COMP_+_BOT");
+}
 void
 Odb::run()
 {
   createFileSystem();
   createMatrix();
+  createStepLayerHierarchy();
   // TODO
 }
 
@@ -62,25 +72,24 @@ Odb::createMatrix()
 }
 
 void
-Odb::updateOdb()
+Odb::createStepLayerHierarchy()
 {
-#if 0
-  if (m_stepRefs.empty() || m_layerRefs.empty()) {
-    qDebug("ERROR** steps or layers cannot be empty");
-    exit(1);
-  }
-  if (namesStartsWithDot(m_stepRefs) || namesStartsWithDot(m_layerRefs)) {
-    qDebug("ERROR** name cannot start with \'.\'");
-    exit(1);
-  }
-  for (int i = 0; i < m_stepRefs.size(); ++i) {
-    for (int j = 0; j < m_layerRefs.size(); ++j) {
+  for (int i = 0; i < m_allSteps.size(); ++i) {
+    for (int j = 0; j < m_allLayers.size(); ++j) {
+      if (m_allSteps[i].startsWith(".") || m_allLayers[j].startsWith(".")) {
+        qDebug("ERROR** name cannot start with \'.\'");
+        exit(1);
+      }
       createOdbDir(QString("steps/%1/layers/%2")
-                           .arg(m_stepRefs[i])
-                           .arg(m_layerRefs[j]));
+                           .arg(m_allSteps[i])
+                           .arg(m_allLayers[j]));
     }
   }
   // TODO BOM??
-#endif
 }
 
+void
+Odb::createOdbDir(const QString& path)
+{
+  m_dir.mkpath(path.toLower());
+}

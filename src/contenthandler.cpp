@@ -72,14 +72,3 @@ ContentHandler::odbOutput(QTextStream& out, QString cmd)
     }
   }
 }
-
-bool
-ContentHandler::namesStartsWithDot(const QList<QString>& nameList)
-{
-  for (int i = 0; i < nameList.size(); ++i) {
-    if (nameList[i].startsWith(".")) {
-      return true;
-    }
-  }
-  return false;
-}

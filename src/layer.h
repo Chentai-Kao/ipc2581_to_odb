@@ -55,7 +55,7 @@ public:
   enum PolarityType { POSITIVE, NEGATIVE };
 
   // getter
-  QString name() { return m_name; };
+  QString name() { return m_name; }
   QString context(); // "BOARD" or "MISC", from Odb++ job->matrix->matrix
   QString polarity() { return m_polarity == POSITIVE? "POSITIVE" : "NEGATIVE"; }
   QString type();
