@@ -38,7 +38,7 @@ CadDataHandler::odbOutput(QTextStream& out, QString cmd)
         out, rowNum++, "BOARD", "COMPONENT", "COMP_+_TOP", "POSITIVE");
     // SILK_SCREEN TOP
     for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SILKSCREEN" && m_layers[i].isTop()) {
+      if (m_layers[i].type() == "SILK_SCREEN" && m_layers[i].isTop()) {
         odbOutputSingleLayer(out, rowNum++, m_layers[i]);
         break;
       }
@@ -52,7 +52,7 @@ CadDataHandler::odbOutput(QTextStream& out, QString cmd)
     }
     // SOLDER_MASK TOP
     for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SOLDERMASK" && m_layers[i].isTop()) {
+      if (m_layers[i].type() == "SOLDER_MASK" && m_layers[i].isTop()) {
         odbOutputSingleLayer(out, rowNum++, m_layers[i]);
         break;
       }
@@ -67,7 +67,7 @@ CadDataHandler::odbOutput(QTextStream& out, QString cmd)
     }
     // SOLDER_MASK BOTTOM
     for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SOLDERMASK" && m_layers[i].isBottom()) {
+      if (m_layers[i].type() == "SOLDER_MASK" && m_layers[i].isBottom()) {
         odbOutputSingleLayer(out, rowNum++, m_layers[i]);
         break;
       }
@@ -81,7 +81,7 @@ CadDataHandler::odbOutput(QTextStream& out, QString cmd)
     }
     // SILK_SCREEN BOTTOM
     for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SILKSCREEN" && m_layers[i].isBottom()) {
+      if (m_layers[i].type() == "SILK_SCREEN" && m_layers[i].isBottom()) {
         odbOutputSingleLayer(out, rowNum++, m_layers[i]);
         break;
       }
