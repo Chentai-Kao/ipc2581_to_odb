@@ -8,9 +8,6 @@ class TextAttribute : public Attribute
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
-
-private:
-  QString m_value;
   enum TextAttributeName {
     bit,
     geometry,
@@ -19,7 +16,11 @@ private:
     comment,
     technology,
     eda_layers
-  } m_name;
+  };
+
+private:
+  QString m_value;
+  TextAttributeName m_name;
 };
 
 #endif

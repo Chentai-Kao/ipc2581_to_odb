@@ -8,9 +8,6 @@ class IntegerAttribute : public Attribute
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
-
-private:
-  int m_value;
   enum IntegerAttributeName {
     cut_line,
     design_origin_x,
@@ -18,7 +15,11 @@ private:
     num_local_fiducials,
     pilot_hole,
     testpoint_count
-  } m_name;
+  };
+
+private:
+  int m_value;
+  IntegerAttributeName m_name;
 };
 
 #endif

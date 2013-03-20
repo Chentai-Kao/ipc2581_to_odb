@@ -2,7 +2,7 @@
 #include "standardprimitivefactory.h"
 
 void
-DictionaryStandardHandler::run(QXmlStreamReader& xml, Odb& odb)
+DictionaryStandardHandler::run(QXmlStreamReader& xml)
 {
   m_units = getUnitAttribute(xml, "DictionaryUser", "units");
   while (!xml.atEnd() && !xml.hasError()) {
@@ -24,4 +24,9 @@ DictionaryStandardHandler::run(QXmlStreamReader& xml, Odb& odb)
       return;
     }
   }
+}
+
+void
+DictionaryStandardHandler::odbOutput(QTextStream& out, QString cmd)
+{
 }

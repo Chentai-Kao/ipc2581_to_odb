@@ -2,7 +2,7 @@
 #include "utils.h"
 
 void
-HistoryRecordHandler::run(QXmlStreamReader& xml, Odb& odb)
+HistoryRecordHandler::run(QXmlStreamReader& xml)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
@@ -10,4 +10,9 @@ HistoryRecordHandler::run(QXmlStreamReader& xml, Odb& odb)
       return;
     }
   }
+}
+
+void
+HistoryRecordHandler::odbOutput(QTextStream& out, QString cmd)
+{
 }

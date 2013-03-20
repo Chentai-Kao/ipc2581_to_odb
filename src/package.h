@@ -12,10 +12,6 @@ class Package
 {
 public:
   void initialize(QXmlStreamReader& xml);
-
-private:
-  // data members
-  QString m_name;
   enum PackageType {
     AXIAL_LEADED,
     BARE_DIE,
@@ -66,7 +62,15 @@ private:
     TRANSFORMER,
     TRIMPOT_SM,
     TRIMPOT_TH
-  } m_type;
+  };
+
+private:
+  // member functions
+  PackageType decidePackageType(QXmlStreamReader& xml);
+
+  // data members
+  QString m_name;
+  PackageType m_type;
   QString *m_pinOne;
   qreal *m_height;
   Outline m_outline;
@@ -75,9 +79,6 @@ private:
 //  SilkScreen *m_silkScreen;
 //  AssemblyDrawing *m_assemblyDrawing;
 //  QList<Pin> m_pins;
-
-  // member functions
-  Package::PackageType decidePackageType(QXmlStreamReader& xml);
 };
 
 #endif

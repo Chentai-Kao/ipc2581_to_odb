@@ -8,17 +8,14 @@ class PhyNetPoint
 {
 public:
   void initialize(QXmlStreamReader& xml);
+  enum NetPointType { END, MIDDLE };
+  enum ExposureType { EXPOSED, COVERED_PRIMARY, COVERED_SECONDARY, COVERED };
 
 private:
   QPointF m_point; // (x,y)
   QString m_layerRef;
-  enum NetPointType { END, MIDDLE } m_netNode;
-  enum ExposureType {
-    EXPOSED,
-    COVERED_PRIMARY,
-    COVERED_SECONDARY,
-    COVERED
-  } m_exposure;
+  NetPointType m_netNode;
+  ExposureType m_exposure;
   QString *m_layerIndex;
   QString *m_comment;
   bool *m_via;

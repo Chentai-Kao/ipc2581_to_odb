@@ -35,6 +35,51 @@ Layer::initialize(QXmlStreamReader& xml)
   }
 }
 
+QString
+Layer::context()
+{
+  if (m_layerFunction == COURTYARD ||
+      m_layerFunction == GRAPHIC ||
+      m_layerFunction == DOCUMENT ||
+      m_layerFunction == LANDPATTERN ||
+      m_layerFunction == COMPONENT_TOP ||
+      m_layerFunction == COMPONENT_BOTTOM ||
+      m_layerFunction == BOARD_OUTLINE ||
+      m_layerFunction == OTHER) {
+    return "MISC";
+  }
+  return "BOARD";
+}
+
+QString
+Layer::type()
+{
+  switch (m_layerFunction) {
+    case PLANE :
+      return "POWER_GROUND";
+    case MIXED :
+      return "MIXED";
+    case SOLDERMASK :
+      return "SOLDER_MASK";
+    case SOLDERPASTE :
+    case PASTEMASK :
+      return "SOLDER_PASTE";
+    case SILKSCREEN :
+      return "SILK_SCREEN";
+    case DRILL :
+      return "DRILL";
+    case ROUTE :
+      return "ROUT";
+    case DOCUMENT :
+      return "DOCUMENT";
+    case COMPONENT_TOP :
+    case COMPONENT_BOTTOM :
+      return "COMPONENT";
+    default :
+      return "SIGNAL";
+  }
+}
+
 Layer::LayerFunctionType
 Layer::decideLayerFunction(const QString layerFunctionStr)
 {

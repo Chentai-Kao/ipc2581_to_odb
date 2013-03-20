@@ -14,7 +14,15 @@ int main()
   }
 
   /* Read XML */
+  qDebug("----- Parse XML starts -----");
   QXmlStreamReader xml(file);
-  Odb odb;
-  TopLevelHandler().run(xml, odb);
+  TopLevelHandler h;
+  h.run(xml);
+
+  qDebug("----- Parse XML ends -----");
+  
+  /* Output to ODB file system */
+  qDebug("----- ODB starts -----");
+  Odb(h).run();
+  qDebug("----- ODB ends -----");
 }

@@ -8,10 +8,11 @@ class DoubleAttribute : public Attribute
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
+  enum DoubleAttributeName { pitch, board_thickness, layer_dielectric };
 
 private:
   qreal m_value;
-  enum DoubleAttributeName { pitch, board_thickness, layer_dielectric } m_name;
+  DoubleAttributeName m_name;
 };
 
 #endif

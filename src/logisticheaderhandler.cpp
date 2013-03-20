@@ -2,7 +2,7 @@
 #include "utils.h"
 
 void
-LogisticHeaderHandler::run(QXmlStreamReader& xml, Odb& odb)
+LogisticHeaderHandler::run(QXmlStreamReader& xml)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
@@ -10,4 +10,9 @@ LogisticHeaderHandler::run(QXmlStreamReader& xml, Odb& odb)
       return;
     }
   }
+}
+
+void
+LogisticHeaderHandler::odbOutput(QTextStream& out, QString cmd)
+{
 }

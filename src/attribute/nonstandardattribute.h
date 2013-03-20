@@ -8,11 +8,12 @@ class NonstandardAttribute : public Attribute
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
+  enum CadPropertyType { DOUBLE, INTEGER, BOOLEAN, STRING };
 
 private:
   QString m_name;
   QString m_value;
-  enum CadPropertyType { DOUBLE, INTEGER, BOOLEAN, STRING } m_type;
+  CadPropertyType m_type;
 };
 
 #endif

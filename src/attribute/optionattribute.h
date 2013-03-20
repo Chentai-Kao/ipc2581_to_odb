@@ -8,8 +8,6 @@ class OptionAttribute : public Attribute
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
-
-private:
   enum OptionValue {
     Area,
     Bottom,
@@ -35,8 +33,12 @@ private:
     polarized,
     repaired,
     via
-  } m_value;
-  enum OptionAttributeName { drill, comp, layer_hdi_type } m_name;
+  };
+  enum OptionAttributeName { drill, comp, layer_hdi_type };
+
+private:
+  OptionValue m_value;
+  OptionAttributeName m_name;
 };
 
 #endif

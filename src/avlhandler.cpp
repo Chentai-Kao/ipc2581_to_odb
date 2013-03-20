@@ -2,7 +2,7 @@
 #include "utils.h"
 
 void
-AvlHandler::run(QXmlStreamReader& xml, Odb& odb)
+AvlHandler::run(QXmlStreamReader& xml)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
@@ -10,4 +10,9 @@ AvlHandler::run(QXmlStreamReader& xml, Odb& odb)
       return;
     }
   }
+}
+
+void
+AvlHandler::odbOutput(QTextStream& out, QString cmd)
+{
 }

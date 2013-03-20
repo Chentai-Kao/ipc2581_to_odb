@@ -1,7 +1,7 @@
 #include "caddatahandler.h"
 
 void
-CadDataHandler::run(QXmlStreamReader& xml, Odb& odb)
+CadDataHandler::run(QXmlStreamReader& xml)
 {
   m_stackup = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
@@ -26,4 +26,109 @@ CadDataHandler::run(QXmlStreamReader& xml, Odb& odb)
       return;
     }
   }
+}
+
+void
+CadDataHandler::odbOutput(QTextStream& out, QString cmd)
+{
+  if (cmd == "matrixAllLayers") {
+    int rowNum = 1;
+    // COMPONENT TOP
+    odbOutputLayer(
+        out, rowNum++, "BOARD", "COMPONENT", "COMP_+_TOP", "POSITIVE");
+    // SILK_SCREEN TOP
+    for (int i = 0; i < m_layers.size(); ++i) {
+      if (m_layers[i].type() == "SILKSCREEN" && m_layers[i].isTop()) {
+        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+        break;
+      }
+    }
+    // SOLDER_PASTE TOP
+    for (int i = 0; i < m_layers.size(); ++i) {
+      if (m_layers[i].type() == "SOLDER_PASTE" && m_layers[i].isTop()) {
+        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+        break;
+      }
+    }
+    // SOLDER_MASK TOP
+    for (int i = 0; i < m_layers.size(); ++i) {
+      if (m_layers[i].type() == "SOLDERMASK" && m_layers[i].isTop()) {
+        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+        break;
+      }
+    }
+    // SIGNAL
+    for (int i = 0; i < m_layers.size(); ++i) {
+      if (m_layers[i].type() == "SIGNAL" ||
+          m_layers[i].type() == "POWER_GROUND" ||
+          m_layers[i].type() == "MIXED") {
+        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+      }
+    }
+    // SOLDER_MASK BOTTOM
+    for (int i = 0; i < m_layers.size(); ++i) {
+      if (m_layers[i].type() == "SOLDERMASK" && m_layers[i].isBottom()) {
+        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+        break;
+      }
+    }
+    // SOLDER_PASTE BOTTOM
+    for (int i = 0; i < m_layers.size(); ++i) {
+      if (m_layers[i].type() == "SOLDER_PASTE" && m_layers[i].isBottom()) {
+        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+        break;
+      }
+    }
+    // SILK_SCREEN BOTTOM
+    for (int i = 0; i < m_layers.size(); ++i) {
+      if (m_layers[i].type() == "SILKSCREEN" && m_layers[i].isBottom()) {
+        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+        break;
+      }
+    }
+    // ROUT
+    // COMPONENT BOTTOM
+    odbOutputLayer(
+        out, rowNum++, "BOARD", "COMPONENT", "COMP_+_BOT", "POSITIVE");
+    // DRILL
+    for (int i = 0; i < m_layers.size(); ++i) {
+      if (m_layers[i].type() == "DRILL") {
+        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+        break;
+      }
+    }
+    // (MISC) DOCUMENT
+    for (int i = 0; i < m_layers.size(); ++i) {
+      if (m_layers[i].type() == "DOCUMENT") {
+        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+        break;
+      }
+    }
+    // (MISC) SQA_AREAS
+    // (MISC) HEIGHT_TOP
+  }
+}
+
+void
+CadDataHandler::odbOutputLayer(QTextStream& out, int rowNum, QString context,
+    QString type, QString name, QString polarity)
+{
+  out << "LAYER {\n";
+  out << QString("   ROW=%1\n").arg(rowNum);
+  out << QString("   CONTEXT=%1\n").arg(context);
+  out << QString("   TYPE=%1\n").arg(type);
+  out << QString("   NAME=%1\n").arg(name);
+  out << QString("   OLD_NAME=\n");
+  out << QString("   POLARITY=%1\n").arg(polarity);
+  out << QString("   START_NAME=\n");
+  out << QString("   END_NAME=\n");
+  out << "}\n";
+  out << "\n";
+}
+
+void
+CadDataHandler::odbOutputSingleLayer(QTextStream& out, int rowNum, Layer& layer)
+{
+  odbOutputLayer(out, rowNum, layer.context(),
+      layer.type(), layer.name(), layer.polarity());
 }

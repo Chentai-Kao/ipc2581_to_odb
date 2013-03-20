@@ -11,9 +11,6 @@ class Layer
 public:
   void initialize(QXmlStreamReader& xml);
 
-private:
-  // data members
-  QString m_name;
   enum LayerFunctionType {
     ASSEMBLY,
     BOARD_OUTLINE,
@@ -53,15 +50,30 @@ private:
     SOLDERBUMP,
     SOLDERMASK,
     SOLDERPASTE
-  } m_layerFunction;
-  enum SideType { TOP, BOTTOM, BOTH, INTERNAL, ALL, NONE } m_side;
-  enum PolarityType { POSITIVE, NEGATIVE } m_polarity;
+  };
+  enum SideType { TOP, BOTTOM, BOTH, INTERNAL, ALL, NONE };
+  enum PolarityType { POSITIVE, NEGATIVE };
+
+  // getter
+  QString name() { return m_name; };
+  QString context(); // "BOARD" or "MISC", from Odb++ job->matrix->matrix
+  QString polarity() { return m_polarity == POSITIVE? "POSITIVE" : "NEGATIVE"; }
+  QString type();
+  bool isTop() { return m_side == TOP; }
+  bool isBottom() { return m_side == BOTTOM; }
+
+private:
+  // member functions
+  LayerFunctionType decideLayerFunction(const QString layerFunctionStr);
+  SideType decideSide(const QString sideStr);
+
+  // data members
+  QString m_name;
+  LayerFunctionType m_layerFunction;
+  SideType m_side;
+  PolarityType m_polarity;
   Span *m_span;
   QList<DrillTool> m_drillTools;
-
-  // member functions
-  Layer::LayerFunctionType decideLayerFunction(const QString layerFunctionStr);
-  Layer::SideType decideSide(const QString sideStr);
 };
 
 #endif

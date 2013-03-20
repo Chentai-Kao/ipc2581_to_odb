@@ -2,7 +2,7 @@
 #include "utils.h"
 
 void
-BomHandler::run(QXmlStreamReader& xml, Odb& odb)
+BomHandler::run(QXmlStreamReader& xml)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
@@ -10,4 +10,9 @@ BomHandler::run(QXmlStreamReader& xml, Odb& odb)
       return;
     }
   }
+}
+
+void
+BomHandler::odbOutput(QTextStream& out, QString cmd)
+{
 }

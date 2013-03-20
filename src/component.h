@@ -8,13 +8,14 @@ class Component
 {
 public:
   void initialize(QXmlStreamReader& xml);
+  enum MountType { SMT, THMT, OTHER };
 
 private:
   QString m_refDes;
   QString m_packageRef;
   QString m_part;
   QString m_layerRef;
-  enum MountType { SMT, THMT, OTHER } m_mountType;
+  MountType m_mountType;
   qreal *m_weight;
   qreal *m_height;
   qreal *m_standoff;

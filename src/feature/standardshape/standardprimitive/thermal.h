@@ -8,9 +8,10 @@ class Thermal : public StandardPrimitive
 public:
   virtual void initialize(QXmlStreamReader& xml);
   bool isValidSpokeCount();
+  enum ThermalShape { ROUND, SQUARE, HEXAGON, OCTAGON };
 
 private:
-  enum ThermalShape { ROUND, SQUARE, HEXAGON, OCTAGON } m_shape;
+  ThermalShape m_shape;
   qreal m_outerDiameter;
   qreal m_innerDiameter;
   int   m_spokeCount;

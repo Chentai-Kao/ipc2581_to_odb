@@ -15,19 +15,14 @@ class Set
 {
 public:
   void initialize(QXmlStreamReader& xml);
+  enum PolarityType { POSITIVE, NEGATIVE };
+  enum PadUsageType { TERMINATION, VIA, PLANE, TOOLING_HOLE, MASK, NONE };
 
 private:
   // attributes
   QString *m_net;
-  enum PolarityType { POSITIVE, NEGATIVE } m_polarity;
-  enum PadUsageType {
-    TERMINATION,
-    VIA,
-    PLANE,
-    TOOLING_HOLE,
-    MASK,
-    NONE
-  } m_padUsage;
+  PolarityType m_polarity;
+  PadUsageType m_padUsage;
   bool m_testPoint;
   QString *m_geometry;
   bool m_plate;

@@ -8,14 +8,15 @@ class LogicalNet
 {
 public:
   void initialize(QXmlStreamReader& xml);
+  enum NetClassType { CLK, FIXED, GROUND, SIGNAL, POWER, UNUSED };
 
 private:
+  // member functions
+  NetClassType decideNetClassType(QXmlStreamReader& xml);
+
   // data members
   QString m_name;
-  enum NetClassType { CLK, FIXED, GROUND, SIGNAL, POWER, UNUSED } m_netClass;
+  NetClassType m_netClass;
   QList<PinRef> m_pinRefs;
-
-  // member functions
-  LogicalNet::NetClassType decideNetClassType(QXmlStreamReader& xml);
 };
 #endif

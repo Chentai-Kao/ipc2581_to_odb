@@ -2,7 +2,7 @@
 #include "userprimitivefactory.h"
 
 void
-DictionaryUserHandler::run(QXmlStreamReader& xml, Odb& odb)
+DictionaryUserHandler::run(QXmlStreamReader& xml)
 {
   m_units = getUnitAttribute(xml, "DictionaryUser", "units");
   while (!xml.atEnd() && !xml.hasError()) {
@@ -26,4 +26,9 @@ DictionaryUserHandler::run(QXmlStreamReader& xml, Odb& odb)
       break;
     }
   }
+}
+
+void
+DictionaryUserHandler::odbOutput(QTextStream& out, QString cmd)
+{
 }

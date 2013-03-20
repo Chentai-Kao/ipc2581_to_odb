@@ -6,10 +6,10 @@
 class ContentHandler : public Handler
 {
 public:
-  virtual void run(QXmlStreamReader& xml, Odb& odb);
+  virtual void run(QXmlStreamReader& xml);
+  virtual void odbOutput(QTextStream& out, QString cmd);
 
 private:
-  void updateOdb();
   bool namesStartsWithDot(const QList<QString>& nameList);
 
   QList<QString> m_stepRefs;

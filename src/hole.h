@@ -7,11 +7,12 @@ class Hole
 {
 public:
   void initialize(QXmlStreamReader& xml);
+  enum PlatingStatusType { PLATED, NONPLATED, VIA };
 
 private:
   QString m_name;
   qreal m_diameter;
-  enum PlatingStatusType { PLATED, NONPLATED, VIA } m_platingStatus;
+  PlatingStatusType m_platingStatus;
   qreal m_plusTol;
   qreal m_minusTol;
   QPointF m_location; // (x,y)

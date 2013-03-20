@@ -11,10 +11,6 @@ class StackupImpedance
 {
 public:
   void initialize(QXmlStreamReader& xml);
-
-private:
-  // data members
-  qreal m_value;
   enum StackImpedanceType {
     MICROSTRIP,
     DIFFERENTIAL_PAIR,
@@ -27,7 +23,15 @@ private:
     EDGE_COUPLED_COPLANAR_WAVEGUIDE_STRIPLINE,
     EDGE_COUPLED_COPLANAR_WAVEGUIDE_MICROSTRIP,
     NONE 
-  } m_type;
+  };
+
+private:
+  // member functions
+  StackImpedanceType decideStackImpedanceType(QString type);
+
+  // data members
+  qreal m_value;
+  StackImpedanceType m_type;
   qreal m_tolPlus;
   qreal m_tolMinus;
   QString m_introduction;
@@ -36,9 +40,6 @@ private:
   QList<Polyline> m_polylines;
   QList<Contour> m_contours;
   QList<QString> m_layerRefs;
-
-  // member functions
-  StackupImpedance::StackImpedanceType decideStackImpedanceType(QString type);
 };
 
 #endif

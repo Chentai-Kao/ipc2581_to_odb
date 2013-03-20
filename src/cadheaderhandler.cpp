@@ -1,7 +1,7 @@
 #include "cadheaderhandler.h"
 
 void
-CadHeaderHandler::run(QXmlStreamReader& xml, Odb& odb)
+CadHeaderHandler::run(QXmlStreamReader& xml)
 {
   m_units = getUnitAttribute(xml, "CadHeader", "units");
   while (!xml.atEnd() && !xml.hasError()) {
@@ -21,4 +21,9 @@ CadHeaderHandler::run(QXmlStreamReader& xml, Odb& odb)
       return;
     }
   }
+}
+
+void
+CadHeaderHandler::odbOutput(QTextStream& out, QString cmd)
+{
 }

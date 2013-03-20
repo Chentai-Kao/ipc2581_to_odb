@@ -7,7 +7,7 @@
 #include "utils.h"
 
 void
-ContentHandler::run(QXmlStreamReader& xml, Odb& odb)
+ContentHandler::run(QXmlStreamReader& xml)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
@@ -30,62 +30,54 @@ ContentHandler::run(QXmlStreamReader& xml, Odb& odb)
       }
       else if (xml.name() == "DictionaryStandard") {
         Handler *h = new DictionaryStandardHandler();
-        h->run(xml, odb);
+        h->run(xml);
         delete h;
       }
       else if (xml.name() == "DictionaryUser") {
         Handler *h = new DictionaryUserHandler();
-        h->run(xml, odb);
+        h->run(xml);
         delete h;
       }
       else if (xml.name() == "DictionaryFont") {
       }
       else if (xml.name() == "DictionaryLineDesc") {
         Handler *h = new DictionaryLineDescHandler();
-        h->run(xml, odb);
+        h->run(xml);
         delete h;
       }
       else if (xml.name() == "DictionaryColor") {
         Handler *h = new DictionaryColorHandler();
-        h->run(xml, odb);
+        h->run(xml);
         delete h;
       }
       else if (xml.name() == "DictionaryFirmware") {
       }
     }
     else if (isEndElementWithName(xml, "Content")) { // </Content>
-//      updateOdb();
       return;
     }
   }
 }
 
 void
-ContentHandler::updateOdb()
+ContentHandler::odbOutput(QTextStream& out, QString cmd)
 {
-  if (m_stepRefs.empty() || m_layerRefs.empty()) {
-    qDebug("ERROR** steps or layers cannot be empty");
-    exit(1);
-  }
-  if (namesStartsWithDot(m_stepRefs) || namesStartsWithDot(m_layerRefs)) {
-    qDebug("ERROR** name cannot start with \'.\'");
-    exit(1);
-  }
-  for (int i = 0; i < m_stepRefs.size(); ++i) {
-    for (int j = 0; j < m_layerRefs.size(); ++j) {
-      createOdbDir(QString("steps/%1/layers/%2")
-                           .arg(m_stepRefs.at(i))
-                           .arg(m_layerRefs.at(j)));
+  if (cmd == "matrixAllSteps") {
+    for (int i = 0; i < m_stepRefs.size(); ++i) {
+      out << "STEP {\n";
+      out << QString("   COL=%1\n").arg(i + 1);
+      out << QString("   NAME=%1\n").arg(m_stepRefs[i]);
+      out << "}\n";
+      out << "\n";
     }
   }
-  // TODO BOM??
 }
 
 bool
 ContentHandler::namesStartsWithDot(const QList<QString>& nameList)
 {
   for (int i = 0; i < nameList.size(); ++i) {
-    if (nameList.at(i).startsWith(".")) {
+    if (nameList[i].startsWith(".")) {
       return true;
     }
   }

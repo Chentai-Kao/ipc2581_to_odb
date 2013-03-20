@@ -4,7 +4,7 @@
 #include "utils.h"
 
 void
-TopLevelHandler::run(QXmlStreamReader& xml, Odb& odb)
+TopLevelHandler::run(QXmlStreamReader& xml)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
@@ -19,20 +19,39 @@ TopLevelHandler::run(QXmlStreamReader& xml, Odb& odb)
       if (xml.name() == "IPC-2581") { // <IPC-2581>
         continue;
       }
-      else { // <Content> <LogisticHeader> <HistoryRecord> <Bom> <Ecad> <Avl>
-        Handler *h = TopLevelFactory().create(xml.name());
-        if (h == NULL) { // Invalid element name
-          qDebug("Invalid element:%s", xml.name().toAscii().data());
-          break;
-        }
-        // parse inner text recursively
-        h->run(xml, odb);
-        delete h;
+      else if (xml.name() == "Content") {
+        m_contentHandler.run(xml);
+      }
+      else if (xml.name() == "LogisticHeader") {
+        m_logisticHeaderHandler.run(xml);
+      }
+      else if (xml.name() == "HistoryRecord") {
+        m_historyRecordHandler.run(xml);
+      }
+      else if (xml.name() == "Bom") {
+        m_bomHandler.run(xml);
+      }
+      else if (xml.name() == "Ecad") {
+        m_ecadHandler.run(xml);
+      }
+      else if (xml.name() == "Avl") {
+        m_avlHandler.run(xml);
       }
     }
     else if (isEndElementWithName(xml, "IPC-2581")) { // </IPC-2581> the end
       return;
     }
+  }
+}
+
+void
+TopLevelHandler::odbOutput(QTextStream& out, QString cmd)
+{
+  if (cmd == "matrixAllSteps") {
+    m_contentHandler.odbOutput(out, cmd);
+  }
+  else if (cmd == "matrixAllLayers") {
+    m_ecadHandler.odbOutput(out, cmd);
   }
 }
 

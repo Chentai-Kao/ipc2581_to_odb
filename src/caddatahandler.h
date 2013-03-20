@@ -10,9 +10,17 @@
 class CadDataHandler : public Handler
 {
 public:
-  virtual void run(QXmlStreamReader& xml, Odb& odb);
+  virtual void run(QXmlStreamReader& xml);
+  virtual void odbOutput(QTextStream& out, QString cmd);
+
+  // getter
+  QList<Layer>& layers() { return m_layers; };
 
 private:
+  void odbOutputLayer(QTextStream& out, int rowNum, QString context,
+      QString type, QString name, QString polarity);
+  void odbOutputSingleLayer(QTextStream& out, int rowNum, Layer& layer);
+
   QList<Layer> m_layers;
   Stackup *m_stackup;
   QList<Step> m_steps;

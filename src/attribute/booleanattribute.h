@@ -8,9 +8,6 @@ class BooleanAttribute : public Attribute
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
-
-private:
-  bool m_value;
   enum BooleanAttributeName {
     critical_net,
     critical_tp,
@@ -38,7 +35,11 @@ private:
     tear_drop,
     test_point,
     tooling_hole
-  } m_name;
+  };
+
+private:
+  bool m_value;
+  BooleanAttributeName m_name;
 };
 
 #endif

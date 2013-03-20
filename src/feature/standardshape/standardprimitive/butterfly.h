@@ -6,11 +6,8 @@
 class Butterfly : public StandardPrimitive
 {
 public:
-  enum ButterflyShape {
-    ROUND,
-    SQUARE
-  };
   virtual void initialize(QXmlStreamReader& xml);
+  enum ButterflyShape { ROUND, SQUARE };
 
 private:
   ButterflyShape m_shape;

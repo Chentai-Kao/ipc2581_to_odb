@@ -8,10 +8,11 @@ class Slot
 {
 public:
   void initialize(QXmlStreamReader& xml);
+  enum PlatingStatusType { PLATED, NONPLATED, VIA };
 
 private:
   QString m_name;
-  enum PlatingStatusType { PLATED, NONPLATED, VIA } m_platingStatus;
+  PlatingStatusType m_platingStatus;
   qreal m_plusTol;
   qreal m_minusTol;
   QList<Simple*> m_simples; // Arc, Line, Outline, Polyline 

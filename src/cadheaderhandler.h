@@ -7,7 +7,8 @@
 class CadHeaderHandler : public Handler
 {
 public:
-  virtual void run(QXmlStreamReader& xml, Odb& odb);
+  virtual void run(QXmlStreamReader& xml);
+  virtual void odbOutput(QTextStream& out, QString cmd);
 
 private:
   UnitsType m_units;
