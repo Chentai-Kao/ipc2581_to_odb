@@ -9,7 +9,7 @@ class EcadHandler : public Handler
 {
 public:
   virtual void run(QXmlStreamReader& xml);
-  virtual void odbOutput(QTextStream& out, QString cmd);
+  void odbOutputMatrixAllLayers(QTextStream& out);
 
 private:
   QString m_name; // attribute "name" of <Ecad>

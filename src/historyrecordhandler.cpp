@@ -11,8 +11,3 @@ HistoryRecordHandler::run(QXmlStreamReader& xml)
     }
   }
 }
-
-void
-HistoryRecordHandler::odbOutput(QTextStream& out, QString cmd)
-{
-}

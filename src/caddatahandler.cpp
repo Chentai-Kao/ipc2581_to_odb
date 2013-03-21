@@ -29,84 +29,82 @@ CadDataHandler::run(QXmlStreamReader& xml)
 }
 
 void
-CadDataHandler::odbOutput(QTextStream& out, QString cmd)
+CadDataHandler::odbOutputMatrixAllLayers(QTextStream& out)
 {
-  if (cmd == "matrixAllLayers") {
-    int rowNum = 1;
-    // COMPONENT TOP
-    odbOutputLayer(
-        out, rowNum++, "BOARD", "COMPONENT", "COMP_+_TOP", "POSITIVE");
-    // SILK_SCREEN TOP
-    for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SILK_SCREEN" && m_layers[i].isTop()) {
-        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
-        break;
-      }
+  int rowNum = 1;
+  // COMPONENT TOP
+  odbOutputLayer(
+      out, rowNum++, "BOARD", "COMPONENT", "COMP_+_TOP", "POSITIVE");
+  // SILK_SCREEN TOP
+  for (int i = 0; i < m_layers.size(); ++i) {
+    if (m_layers[i].type() == "SILK_SCREEN" && m_layers[i].isTop()) {
+      odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+      break;
     }
-    // SOLDER_PASTE TOP
-    for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SOLDER_PASTE" && m_layers[i].isTop()) {
-        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
-        break;
-      }
-    }
-    // SOLDER_MASK TOP
-    for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SOLDER_MASK" && m_layers[i].isTop()) {
-        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
-        break;
-      }
-    }
-    // SIGNAL
-    for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SIGNAL" ||
-          m_layers[i].type() == "POWER_GROUND" ||
-          m_layers[i].type() == "MIXED") {
-        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
-      }
-    }
-    // SOLDER_MASK BOTTOM
-    for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SOLDER_MASK" && m_layers[i].isBottom()) {
-        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
-        break;
-      }
-    }
-    // SOLDER_PASTE BOTTOM
-    for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SOLDER_PASTE" && m_layers[i].isBottom()) {
-        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
-        break;
-      }
-    }
-    // SILK_SCREEN BOTTOM
-    for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "SILK_SCREEN" && m_layers[i].isBottom()) {
-        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
-        break;
-      }
-    }
-    // ROUT
-    // COMPONENT BOTTOM
-    odbOutputLayer(
-        out, rowNum++, "BOARD", "COMPONENT", "COMP_+_BOT", "POSITIVE");
-    // DRILL
-    for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "DRILL") {
-        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
-        break;
-      }
-    }
-    // (MISC) DOCUMENT
-    for (int i = 0; i < m_layers.size(); ++i) {
-      if (m_layers[i].type() == "DOCUMENT") {
-        odbOutputSingleLayer(out, rowNum++, m_layers[i]);
-        break;
-      }
-    }
-    // (MISC) SQA_AREAS
-    // (MISC) HEIGHT_TOP
   }
+  // SOLDER_PASTE TOP
+  for (int i = 0; i < m_layers.size(); ++i) {
+    if (m_layers[i].type() == "SOLDER_PASTE" && m_layers[i].isTop()) {
+      odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+      break;
+    }
+  }
+  // SOLDER_MASK TOP
+  for (int i = 0; i < m_layers.size(); ++i) {
+    if (m_layers[i].type() == "SOLDER_MASK" && m_layers[i].isTop()) {
+      odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+      break;
+    }
+  }
+  // SIGNAL
+  for (int i = 0; i < m_layers.size(); ++i) {
+    if (m_layers[i].type() == "SIGNAL" ||
+        m_layers[i].type() == "POWER_GROUND" ||
+        m_layers[i].type() == "MIXED") {
+      odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+    }
+  }
+  // SOLDER_MASK BOTTOM
+  for (int i = 0; i < m_layers.size(); ++i) {
+    if (m_layers[i].type() == "SOLDER_MASK" && m_layers[i].isBottom()) {
+      odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+      break;
+    }
+  }
+  // SOLDER_PASTE BOTTOM
+  for (int i = 0; i < m_layers.size(); ++i) {
+    if (m_layers[i].type() == "SOLDER_PASTE" && m_layers[i].isBottom()) {
+      odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+      break;
+    }
+  }
+  // SILK_SCREEN BOTTOM
+  for (int i = 0; i < m_layers.size(); ++i) {
+    if (m_layers[i].type() == "SILK_SCREEN" && m_layers[i].isBottom()) {
+      odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+      break;
+    }
+  }
+  // ROUT
+  // COMPONENT BOTTOM
+  odbOutputLayer(
+      out, rowNum++, "BOARD", "COMPONENT", "COMP_+_BOT", "POSITIVE");
+  // DRILL
+  for (int i = 0; i < m_layers.size(); ++i) {
+    if (m_layers[i].type() == "DRILL") {
+      odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+      break;
+    }
+  }
+  // (MISC) DOCUMENT
+  for (int i = 0; i < m_layers.size(); ++i) {
+    if (m_layers[i].type() == "DOCUMENT") {
+      odbOutputSingleLayer(out, rowNum++, m_layers[i]);
+      break;
+    }
+  }
+  // (MISC) SQA_AREAS
+  // (MISC) HEIGHT_TOP
 }
 
 void

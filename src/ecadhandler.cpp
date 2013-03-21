@@ -22,9 +22,7 @@ EcadHandler::run(QXmlStreamReader& xml)
 }
 
 void
-EcadHandler::odbOutput(QTextStream& out, QString cmd)
+EcadHandler::odbOutputMatrixAllLayers(QTextStream& out)
 {
-  if (cmd == "matrixAllLayers") {
-    m_cadDataHandler.odbOutput(out, cmd);
-  }
+  m_cadDataHandler.odbOutputMatrixAllLayers(out);
 }

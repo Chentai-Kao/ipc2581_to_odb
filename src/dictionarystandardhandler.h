@@ -10,7 +10,6 @@ class DictionaryStandardHandler : public Handler
 {
 public:
   virtual void run(QXmlStreamReader& xml);
-  virtual void odbOutput(QTextStream& out, QString cmd);
 
 private:
   UnitsType m_units;

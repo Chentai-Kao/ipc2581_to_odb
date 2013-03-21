@@ -11,7 +11,7 @@ class CadDataHandler : public Handler
 {
 public:
   virtual void run(QXmlStreamReader& xml);
-  virtual void odbOutput(QTextStream& out, QString cmd);
+  void odbOutputMatrixAllLayers(QTextStream& out);
 
   // getter
   QList<Layer>& layers() { return m_layers; }

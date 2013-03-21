@@ -11,8 +11,3 @@ LogisticHeaderHandler::run(QXmlStreamReader& xml)
     }
   }
 }
-
-void
-LogisticHeaderHandler::odbOutput(QTextStream& out, QString cmd)
-{
-}

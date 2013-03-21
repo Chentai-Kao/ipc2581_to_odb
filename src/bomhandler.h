@@ -7,7 +7,6 @@ class BomHandler : public Handler
 {
 public:
   virtual void run(QXmlStreamReader& xml);
-  virtual void odbOutput(QTextStream& out, QString cmd);
 };
 
 #endif

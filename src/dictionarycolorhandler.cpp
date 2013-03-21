@@ -23,8 +23,3 @@ DictionaryColorHandler::run(QXmlStreamReader& xml)
     }
   }
 }
-
-void
-DictionaryColorHandler::odbOutput(QTextStream& out, QString cmd)
-{
-}

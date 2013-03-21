@@ -7,8 +7,8 @@ Odb::Odb(TopLevelHandler& h)
   m_odbRootPath = OUTPUT_PATH;
   m_allSteps = h.allSteps();
   m_allLayers = h.allLayers();
-  m_allLayers.append("COMP_+_TOP");
-  m_allLayers.append("COMP_+_BOT");
+  m_allLayers.append("COMP_+_TOP"); // because these two layers are not
+  m_allLayers.append("COMP_+_BOT"); // in <LayerRef>
 }
 void
 Odb::run()
@@ -16,14 +16,39 @@ Odb::run()
   createFileSystem();
   createMatrix();
   createStepLayerHierarchy();
+  createLayerFeature();
   // TODO
+}
+
+void
+Odb::deleteOdbDir(const QString path)
+{
+  QDir dir(path);
+  // delete all files in this directory
+  QFileInfoList files = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files);
+  for (int i = 0; i < files.size(); ++i) {
+    dir.remove(files[i].fileName());
+  }
+  // recursively delete sub-directories
+  QFileInfoList dirs = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Dirs);
+  for (int i = 0; i < dirs.size(); ++i) {
+    deleteOdbDir(dirs[i].absoluteFilePath());
+  }
+  // delete parent directory
+  dir.rmdir(dir.absolutePath());
+}
+
+void
+Odb::createOdbDir(const QString path)
+{
+  m_dir.mkpath(path.toLower());
 }
 
 void
 Odb::createFileSystem()
 {
   /* Delete existing ODB file system */
-  deleteDir(m_odbRootPath);
+  deleteOdbDir(m_odbRootPath);
 
   /* Create new one */
   m_dir = QDir(m_odbRootPath);
@@ -40,24 +65,6 @@ Odb::createFileSystem()
   m_dir.mkpath("user");
   m_dir.mkpath("wheels");
   m_dir.mkpath("whltemps");
-}
-
-void
-Odb::deleteDir(QString path)
-{
-  QDir dir(path);
-  // delete all files in this directory
-  QFileInfoList files = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files);
-  for (int i = 0; i < files.size(); ++i) {
-    dir.remove(files[i].fileName());
-  }
-  // recursively delete sub-directories
-  QFileInfoList dirs = dir.entryInfoList(QDir::NoDotAndDotDot | QDir::Dirs);
-  for (int i = 0; i < dirs.size(); ++i) {
-    deleteDir(dirs[i].absoluteFilePath());
-  }
-  // delete parent directory
-  dir.rmdir(dir.absolutePath());
 }
 
 void
@@ -89,7 +96,6 @@ Odb::createStepLayerHierarchy()
 }
 
 void
-Odb::createOdbDir(const QString& path)
+Odb::createLayerFeature()
 {
-  m_dir.mkpath(path.toLower());
 }

@@ -7,4 +7,4 @@ Conflicts:
 
 TODO:
 1. Need to check occurence of all elements, attributes.
-2. replace all comparison by isSubstitutionGroup*() and *Factory().
+2. don't know some layers in ODB++. Ex: COMP_+_TOP, ROUT, SQA_AREAS, HEIGHT_TOP

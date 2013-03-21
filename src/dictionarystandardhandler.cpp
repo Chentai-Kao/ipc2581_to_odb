@@ -25,8 +25,3 @@ DictionaryStandardHandler::run(QXmlStreamReader& xml)
     }
   }
 }
-
-void
-DictionaryStandardHandler::odbOutput(QTextStream& out, QString cmd)
-{
-}

@@ -7,7 +7,7 @@ class ContentHandler : public Handler
 {
 public:
   virtual void run(QXmlStreamReader& xml);
-  virtual void odbOutput(QTextStream& out, QString cmd);
+  void odbOutputMatrixAllSteps(QTextStream& out);
   QList<QString>& allSteps() { return m_stepRefs; }
   QList<QString>& allLayers() { return m_layerRefs; }
 

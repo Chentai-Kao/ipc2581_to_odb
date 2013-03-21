@@ -24,8 +24,3 @@ DictionaryLineDescHandler::run(QXmlStreamReader& xml)
     }
   }
 }
-
-void
-DictionaryLineDescHandler::odbOutput(QTextStream& out, QString cmd)
-{
-}

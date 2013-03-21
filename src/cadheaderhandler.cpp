@@ -22,8 +22,3 @@ CadHeaderHandler::run(QXmlStreamReader& xml)
     }
   }
 }
-
-void
-CadHeaderHandler::odbOutput(QTextStream& out, QString cmd)
-{
-}

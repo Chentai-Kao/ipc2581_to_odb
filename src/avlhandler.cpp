@@ -11,8 +11,3 @@ AvlHandler::run(QXmlStreamReader& xml)
     }
   }
 }
-
-void
-AvlHandler::odbOutput(QTextStream& out, QString cmd)
-{
-}

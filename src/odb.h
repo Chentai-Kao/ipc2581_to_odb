@@ -13,11 +13,12 @@ public:
 
 private:
   // member functions
-  void createFileSystem();
-  void deleteDir(QString path); // path relative to odb root
+  void deleteOdbDir(const QString path); // path relative to odb root
+  void createOdbDir(const QString path); // path relative to odb root
+  void createFileSystem(); // Job->xxx
   void createMatrix(); // Job->matrix->matrix
-  void createStepLayerHierarchy();
-  void createOdbDir(const QString& path); // path relative to odb root
+  void createStepLayerHierarchy(); // Job->step->layers->xxx
+  void createLayerFeature(); // Job->step->layers->features
 
   // data members
   TopLevelHandler m_handler;

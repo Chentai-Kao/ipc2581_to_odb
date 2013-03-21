@@ -48,10 +48,10 @@ void
 TopLevelHandler::odbOutput(QTextStream& out, QString cmd)
 {
   if (cmd == "matrixAllSteps") {
-    m_contentHandler.odbOutput(out, cmd);
+    m_contentHandler.odbOutputMatrixAllSteps(out);
   }
   else if (cmd == "matrixAllLayers") {
-    m_ecadHandler.odbOutput(out, cmd);
+    m_ecadHandler.odbOutputMatrixAllLayers(out);
   }
 }
 

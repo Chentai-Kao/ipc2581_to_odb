@@ -60,15 +60,13 @@ ContentHandler::run(QXmlStreamReader& xml)
 }
 
 void
-ContentHandler::odbOutput(QTextStream& out, QString cmd)
+ContentHandler::odbOutputMatrixAllSteps(QTextStream& out)
 {
-  if (cmd == "matrixAllSteps") {
-    for (int i = 0; i < m_stepRefs.size(); ++i) {
-      out << "STEP {\n";
-      out << QString("   COL=%1\n").arg(i + 1);
-      out << QString("   NAME=%1\n").arg(m_stepRefs[i]);
-      out << "}\n";
-      out << "\n";
-    }
+  for (int i = 0; i < m_stepRefs.size(); ++i) {
+    out << "STEP {\n";
+    out << QString("   COL=%1\n").arg(i + 1);
+    out << QString("   NAME=%1\n").arg(m_stepRefs[i]);
+    out << "}\n";
+    out << "\n";
   }
 }

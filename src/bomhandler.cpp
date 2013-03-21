@@ -11,8 +11,3 @@ BomHandler::run(QXmlStreamReader& xml)
     }
   }
 }
-
-void
-BomHandler::odbOutput(QTextStream& out, QString cmd)
-{
-}
