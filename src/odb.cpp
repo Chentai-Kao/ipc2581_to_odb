@@ -4,7 +4,7 @@
 Odb::Odb(TopLevelHandler& h)
 {
   m_handler = h;
-  m_odbRootPath = OUTPUT_PATH;
+  m_odbRootPath = "bin/odb/";
   m_allSteps = h.allSteps();
   m_allLayers = h.allLayers();
   m_allLayers.append("COMP_+_TOP"); // because these two layers are not
@@ -74,8 +74,7 @@ Odb::createMatrix()
   file.open(QIODevice::WriteOnly | QIODevice::Text);
   QTextStream out(&file);
 
-  m_handler.odbOutput(out, "matrixAllSteps");
-  m_handler.odbOutput(out, "matrixAllLayers");
+  m_handler.odbOutputMatrix(out);
 }
 
 void
@@ -98,4 +97,17 @@ Odb::createStepLayerHierarchy()
 void
 Odb::createLayerFeature()
 {
+  for (int i = 0; i < m_allSteps.size(); ++i) {
+    for (int j = 0; j < m_allLayers.size(); ++j) {
+      // open file
+      QString path = QString("steps/%1/layers/%2")
+                           .arg(m_allSteps[i])
+                           .arg(m_allLayers[j]);
+      QFile file(m_odbRootPath + path);
+      file.open(QIODevice::WriteOnly | QIODevice::Text);
+      QTextStream out(&file);
+      // call sub-element to draw feature
+      m_handler.odbOutputLayerFeature(out, m_allSteps[i], m_allLayers[j]);
+    }
+  }
 }

@@ -12,6 +12,8 @@ class CadDataHandler : public Handler
 public:
   virtual void run(QXmlStreamReader& xml);
   void odbOutputMatrixAllLayers(QTextStream& out);
+  void odbOutputLayerFeature(
+      QTextStream &out, QString stepName, QString layerName);
 
   // getter
   QList<Layer>& layers() { return m_layers; }

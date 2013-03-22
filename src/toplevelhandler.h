@@ -14,9 +14,11 @@ class TopLevelHandler : public Handler
 {
 public:
   virtual void run(QXmlStreamReader& xml);
-  void odbOutput(QTextStream& out, QString cmd);
   QList<QString>& allSteps() { return m_contentHandler.allSteps(); }
   QList<QString>& allLayers() { return m_contentHandler.allLayers(); }
+  void odbOutputMatrix(QTextStream& out);
+  void odbOutputLayerFeature(
+      QTextStream &out, QString stepName, QString layerName);
 
 private:
   // member functions

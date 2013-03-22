@@ -1,5 +1,4 @@
 #include "utils.h"
-#include "settings.h"
 
 bool isEndElementWithName(const QXmlStreamReader& xml, const QString& name)
 {

@@ -1,5 +1,6 @@
 #include "step.h"
 #include "utils.h"
+#include "attributefactory.h"
 
 void
 Step::initialize(QXmlStreamReader& xml)
@@ -8,8 +9,10 @@ Step::initialize(QXmlStreamReader& xml)
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
-      if (xml.name() == "Attribute") {
-        // TODO skipped
+      if (isSubstitutionGroupAttribute(xml.name())) {
+        Attribute *a = AttributeFactory().create(xml.name());
+        a->initialize(xml);
+        m_attributes.append(a);
       }
       else if (xml.name() == "PadStack") {
         // TODO skipped
@@ -64,6 +67,17 @@ Step::initialize(QXmlStreamReader& xml)
     }
     else if (isEndElementWithName(xml, "Step")) { // </Step>
       return;
+    }
+  }
+}
+
+void
+Step::odbOutputLayerFeature(QTextStream& out, const QString layerName)
+{
+  // find the specific layer, and let it output
+  for (int i = 0; i < m_layerFeatures.size(); ++i) {
+    if (m_layerFeatures[i].layerRef() == layerName) {
+      m_layerFeatures[i].odbOutputLayerFeature(out);
     }
   }
 }

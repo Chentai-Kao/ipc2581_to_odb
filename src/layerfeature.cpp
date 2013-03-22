@@ -19,3 +19,8 @@ LayerFeature::initialize(QXmlStreamReader& xml)
     }
   }
 }
+
+void
+LayerFeature::odbOutputLayerFeature(QTextStream& out)
+{
+}

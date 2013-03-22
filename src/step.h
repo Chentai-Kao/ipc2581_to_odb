@@ -8,14 +8,20 @@
 #include "logicalnet.h"
 #include "phynetgroup.h"
 #include "layerfeature.h"
+#include "attribute.h"
 
 class Step
 {
 public:
   void initialize(QXmlStreamReader& xml);
 
+  // getter
+  QString name() { return m_name; }
+  void odbOutputLayerFeature(QTextStream& out, const QString layerName);
+
 private:
   QString m_name;
+  QList<Attribute*> m_attributes;
   QPointF m_datum; // (x,y)
   Contour m_profile;
   QList<Package> m_packages;

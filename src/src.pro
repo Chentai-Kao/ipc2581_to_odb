@@ -42,7 +42,6 @@ HEADERS += \
   phynetpoint.h \
   pinref.h \
   set.h \
-  settings.h \
   slot.h \
   span.h \
   stackupgroup.h \

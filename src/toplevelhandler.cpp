@@ -1,6 +1,5 @@
 #include "toplevelhandler.h"
 #include "toplevelfactory.h"
-#include "settings.h"
 #include "utils.h"
 
 void
@@ -45,14 +44,17 @@ TopLevelHandler::run(QXmlStreamReader& xml)
 }
 
 void
-TopLevelHandler::odbOutput(QTextStream& out, QString cmd)
+TopLevelHandler::odbOutputMatrix(QTextStream& out)
 {
-  if (cmd == "matrixAllSteps") {
-    m_contentHandler.odbOutputMatrixAllSteps(out);
-  }
-  else if (cmd == "matrixAllLayers") {
-    m_ecadHandler.odbOutputMatrixAllLayers(out);
-  }
+  m_contentHandler.odbOutputMatrixAllSteps(out); // steps
+  m_ecadHandler.odbOutputMatrixAllLayers(out); // layers
+}
+
+void
+TopLevelHandler::odbOutputLayerFeature(
+    QTextStream &out, QString stepName, QString layerName)
+{
+  m_ecadHandler.odbOutputLayerFeature(out, stepName, layerName);
 }
 
 bool

@@ -130,3 +130,15 @@ CadDataHandler::odbOutputSingleLayer(QTextStream& out, int rowNum, Layer& layer)
   odbOutputLayer(out, rowNum, layer.context(),
       layer.type(), layer.name(), layer.polarity());
 }
+
+void
+CadDataHandler::odbOutputLayerFeature(
+    QTextStream &out, QString stepName, QString layerName)
+{
+  // find the step, and let it draw
+  for (int i = 0; i < m_steps.size(); ++i) {
+    if (m_steps[i].name() == stepName) {
+      m_steps[i].odbOutputLayerFeature(out, layerName);
+    }
+  }
+}
