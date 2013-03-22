@@ -17,7 +17,9 @@ public:
 
   // getter
   QString name() { return m_name; }
-  void odbOutputLayerFeature(QTextStream& out, const QString layerName);
+  void odbOutputLayerFeature(QTextStream& out, const QString layerName,
+      const QHash<QString, StandardPrimitive*>& entryStandards,
+      const QHash<QString, UserPrimitive*>&     entryUsers);
 
 private:
   QString m_name;

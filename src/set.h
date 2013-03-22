@@ -10,6 +10,8 @@
 #include "feature.h"
 #include "colorgroup.h"
 #include "linedescgroup.h"
+#include "standardprimitive.h"
+#include "userprimitive.h"
 
 class Set
 {
@@ -17,6 +19,13 @@ public:
   void initialize(QXmlStreamReader& xml);
   enum PolarityType { POSITIVE, NEGATIVE };
   enum PadUsageType { TERMINATION, VIA, PLANE, TOOLING_HOLE, MASK, NONE };
+  void odbOutputLayerFeature(
+      QList<QString>& symbolsTable,
+      QList<QString>& attributeTable,
+      QList<QString>& attributeTexts,
+      QList<QString>& featuresList,
+      const QHash<QString, StandardPrimitive*>& entryStandards,
+      const QHash<QString, UserPrimitive*>&     entryUsers);
 
 private:
   // attributes

@@ -141,3 +141,32 @@ Set::initialize(QXmlStreamReader& xml)
     }
   }
 }
+
+void
+Set::odbOutputLayerFeature(
+    QList<QString>& symbolsTable,
+    QList<QString>& attributeTable,
+    QList<QString>& attributeTexts,
+    QList<QString>& featuresList,
+    const QHash<QString, StandardPrimitive*>& entryStandards,
+    const QHash<QString, UserPrimitive*>&     entryUsers)
+{
+  // TODO: m_attributes;
+
+  // TODO: m_pads;
+  for (int i = 0; i < m_pads.size(); ++i) {
+  }
+
+  // TODO: m_fiducials;
+
+  // TODO: m_holes;
+
+  // TODO: m_slots;
+
+  // TODO: m_features;
+
+  // TODO: m_colorGroups;
+
+  // TODO: m_lineDescGroups;
+
+}

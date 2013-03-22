@@ -13,7 +13,9 @@ public:
   virtual void run(QXmlStreamReader& xml);
   void odbOutputMatrixAllLayers(QTextStream& out);
   void odbOutputLayerFeature(
-      QTextStream &out, QString stepName, QString layerName);
+      QTextStream &out, QString stepName, QString layerName,
+      const QHash<QString, StandardPrimitive*>& entryStandards,
+      const QHash<QString, UserPrimitive*>&     entryUsers);
 
   // getter
   QList<Layer>& layers() { return m_layers; }

@@ -1,5 +1,4 @@
 #include "contenthandler.h"
-#include "settings.h"
 #include "dictionarystandardhandler.h"
 #include "dictionaryuserhandler.h"
 #include "dictionarylinedeschandler.h"
@@ -9,6 +8,10 @@
 void
 ContentHandler::run(QXmlStreamReader& xml)
 {
+  m_dictionaryStandardHandler = NULL;
+  m_dictionaryUserHandler = NULL;
+  m_dictionaryLineDescHandler = NULL;
+  m_dictionaryColorHandler = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
@@ -27,30 +30,29 @@ ContentHandler::run(QXmlStreamReader& xml)
         m_bomRefs.append(bomRefName);
       }
       else if (xml.name() == "AvlRef") {
+        // TODO skipped
       }
       else if (xml.name() == "DictionaryStandard") {
-        Handler *h = new DictionaryStandardHandler();
-        h->run(xml);
-        delete h;
+        m_dictionaryStandardHandler = new DictionaryStandardHandler();
+        m_dictionaryStandardHandler->run(xml);
       }
       else if (xml.name() == "DictionaryUser") {
-        Handler *h = new DictionaryUserHandler();
-        h->run(xml);
-        delete h;
+        m_dictionaryUserHandler = new DictionaryUserHandler();
+        m_dictionaryUserHandler->run(xml);
       }
       else if (xml.name() == "DictionaryFont") {
+        // TODO skipped
       }
       else if (xml.name() == "DictionaryLineDesc") {
-        Handler *h = new DictionaryLineDescHandler();
-        h->run(xml);
-        delete h;
+        m_dictionaryLineDescHandler = new DictionaryLineDescHandler();
+        m_dictionaryLineDescHandler->run(xml);
       }
       else if (xml.name() == "DictionaryColor") {
-        Handler *h = new DictionaryColorHandler();
-        h->run(xml);
-        delete h;
+        m_dictionaryColorHandler = new DictionaryColorHandler();
+        m_dictionaryColorHandler->run(xml);
       }
       else if (xml.name() == "DictionaryFirmware") {
+        // TODO skipped
       }
     }
     else if (isEndElementWithName(xml, "Content")) { // </Content>

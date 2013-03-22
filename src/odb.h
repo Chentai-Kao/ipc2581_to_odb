@@ -21,10 +21,12 @@ private:
 
   // data members
   TopLevelHandler m_handler;
-  QDir m_dir;
-  QString m_odbRootPath;
-  QList<QString> m_allSteps;
-  QList<QString> m_allLayers;
+  QDir            m_dir;
+  QString         m_odbRootPath;
+  QList<QString>  m_allSteps;
+  QList<QString>  m_allLayers;
+  QHash<QString, StandardPrimitive*> m_entryStandards;
+  QHash<QString, UserPrimitive*>     m_entryUsers;
 };
 
 #endif
