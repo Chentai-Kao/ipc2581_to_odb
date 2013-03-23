@@ -5,11 +5,15 @@
 #include "xform.h"
 #include "standardshape.h"
 #include "pinref.h"
+#include "utils.h"
+#include "standardprimitive.h"
 
 class Pad
 {
 public:
   void initialize(QXmlStreamReader& xml);
+  OdbFeatureRecord createFeatureRecord(
+      const QHash<QString, StandardPrimitive*>& entryStandards);
 
 private:
   Xform *m_xform;

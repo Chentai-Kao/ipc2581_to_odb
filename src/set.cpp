@@ -154,7 +154,10 @@ Set::odbOutputLayerFeature(
   // TODO: m_attributes;
 
   // TODO: m_pads;
+  QList<OdbFeatureRecord> featureRecords;
   for (int i = 0; i < m_pads.size(); ++i) {
+    OdbFeatureRecord record = m_pads[i].createFeatureRecord(entryStandards);
+    featureRecords.append(record);
   }
 
   // TODO: m_fiducials;

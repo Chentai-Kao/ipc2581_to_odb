@@ -35,3 +35,24 @@ Pad::initialize(QXmlStreamReader& xml)
     }
   }
 }
+
+OdbFeatureRecord
+Pad::createFeatureRecord(
+    const QHash<QString, StandardPrimitive*>& entryStandards)
+{
+  // create a record based on the feature
+  OdbFeatureRecord record;// = m_standardShape->createFeatureRecord();
+  if (record.m_type == OdbFeatureRecord::REF) {
+    // TODO find the feature in dictionary, and call its createFeatureRecord()
+  }
+
+  // TODO set the location (need to adjust for Polygon
+  if (record.m_type == OdbFeatureRecord::SURFACE) {
+  }
+  else {
+  }
+
+  // TODO xform?? rotation??
+
+  return record;
+}

@@ -11,6 +11,7 @@ class StandardShape : public Feature
 {
 public:
   virtual void initialize(QXmlStreamReader& xml) = 0;
+  //virtual OdbFeatureRecord createFeatureRecord() = 0;
 };
 
 #endif
