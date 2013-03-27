@@ -85,10 +85,12 @@ Thermal::odbOutputLayerFeature(
                      .arg(m_gap);
   }
   else if (m_shape == HEXAGON) {
-    // TODO skipped
+// TODO skipped
+    //throw new NonImplementedError("Thermal::HEXAGON");
   }
   else if (m_shape == OCTAGON) {
-    // TODO skipped
+// TODO skipped
+    //throw new NonImplementedError("Thermal::OCTAGON");
   }
 
   int symNum = odbInsertSymbol(symbol, symbolsTable);

@@ -1,4 +1,5 @@
 #include "cadheaderhandler.h"
+#include "error.h"
 
 void
 CadHeaderHandler::run(QXmlStreamReader& xml)
@@ -8,13 +9,16 @@ CadHeaderHandler::run(QXmlStreamReader& xml)
     xml.readNext();
     if (xml.isStartElement()) {
       if (xml.name() == "Spec") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("CadHeader::Spec");
       }
       else if (xml.name() == "SurfaceFinish") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("CadHeader::SurfaceFinish");
       }
       else if (xml.name() == "ChangeRec") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("CadHeader::ChangeRec");
       }
     }
     else if (isEndElementWithName(xml, "CadHeader")) { // </CadHeader>

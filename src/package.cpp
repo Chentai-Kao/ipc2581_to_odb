@@ -28,6 +28,18 @@ Package::initialize(QXmlStreamReader& xml)
         m_landPattern = new LandPattern();
         m_landPattern->initialize(xml);
       }
+      else if (xml.name() == "SilkScreen") {
+// TODO skipped
+        //throw new NonImplementedError("SilkScreen");
+      }
+      else if (xml.name() == "AssemblyDrawing") {
+// TODO skipped
+        //throw new NonImplementedError("AssemblyDrawing");
+      }
+      else if (xml.name() == "Pin") {
+// TODO skipped
+        //throw new NonImplementedError("Pin");
+      }
     }
     else if (isEndElementWithName(xml, "Package")) { // </Package>
       return;

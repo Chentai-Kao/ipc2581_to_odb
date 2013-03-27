@@ -1,5 +1,6 @@
 #include "logicalnet.h"
 #include "utils.h"
+#include "error.h"
 
 void
 LogicalNet::initialize(QXmlStreamReader& xml)
@@ -10,7 +11,8 @@ LogicalNet::initialize(QXmlStreamReader& xml)
     xml.readNext();
     if (xml.isStartElement()) {
       if (xml.name() == "Attribute") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("LogicalNet::Attribute");
       }
       else if (xml.name() == "PinRef") {
         PinRef pinRef;

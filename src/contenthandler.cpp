@@ -4,6 +4,7 @@
 #include "dictionarylinedeschandler.h"
 #include "dictionarycolorhandler.h"
 #include "utils.h"
+#include "error.h"
 
 void
 ContentHandler::run(QXmlStreamReader& xml)
@@ -16,6 +17,8 @@ ContentHandler::run(QXmlStreamReader& xml)
     xml.readNext();
     if (xml.isStartElement()) {
       if (xml.name() == "FunctionMode") {
+// TODO skipped
+        //throw new NonImplementedError("Content::FunctionMode");
       }
       else if (xml.name() == "StepRef") {
         QString stepRefName = getAttributeOrCharacters(xml, "StepRef", "name");
@@ -30,7 +33,8 @@ ContentHandler::run(QXmlStreamReader& xml)
         m_bomRefs.append(bomRefName);
       }
       else if (xml.name() == "AvlRef") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("AvlRef");
       }
       else if (xml.name() == "DictionaryStandard") {
         m_dictionaryStandardHandler = new DictionaryStandardHandler();
@@ -41,7 +45,8 @@ ContentHandler::run(QXmlStreamReader& xml)
         m_dictionaryUserHandler->run(xml);
       }
       else if (xml.name() == "DictionaryFont") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("DictionaryFont");
       }
       else if (xml.name() == "DictionaryLineDesc") {
         m_dictionaryLineDescHandler = new DictionaryLineDescHandler();
@@ -52,7 +57,8 @@ ContentHandler::run(QXmlStreamReader& xml)
         m_dictionaryColorHandler->run(xml);
       }
       else if (xml.name() == "DictionaryFirmware") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("DictionaryFirmware");
       }
     }
     else if (isEndElementWithName(xml, "Content")) { // </Content>

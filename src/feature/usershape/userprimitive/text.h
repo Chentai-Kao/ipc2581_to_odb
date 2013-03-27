@@ -4,11 +4,12 @@
 #include <QtCore>
 #include "utils.h"
 #include "userprimitive.h"
+#include "error.h"
 
 class Text : public UserPrimitive
 {
 public:
-  virtual void initialize(QXmlStreamReader& xml) {} // TODO skipped
+  virtual void initialize(QXmlStreamReader& xml);
 };
 
 #endif

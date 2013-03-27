@@ -70,4 +70,15 @@ private:
   QString m_name; // name
 };
 
+class NonImplementedError : public Error
+{
+public:
+  NonImplementedError(QString n) : m_name(n) {}
+  virtual void info() {
+    qDebug() << QString("ERROR** \"%1\" is not implemented").arg(m_name);
+  }
+private:
+  QString m_name; // the thing that is not implemented
+};
+
 #endif

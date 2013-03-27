@@ -1,4 +1,5 @@
 #include "donut.h"
+#include "error.h"
 
 void
 Donut::initialize(QXmlStreamReader& xml)
@@ -43,10 +44,12 @@ Donut::odbOutputLayerFeature(
         QString("donut_s%1x%2").arg(m_outerDiameter).arg(m_innerDiameter);
   }
   else if (m_shape == HEXAGON) {
-    // TODO skipped
+// TODO skipped
+    //throw new NonImplementedError("Donut::HEXAGON");
   }
   else if (m_shape == OCTAGON) {
-    // TODO skipped
+// TODO skipped
+    //throw new NonImplementedError("Donut::OCTAGON");
   }
 
   int symNum = odbInsertSymbol(symbol, symbolsTable);

@@ -7,6 +7,7 @@ HEADERS += \
   feature/usershape/userprimitive/userspecial.h
 
 SOURCES += \
+  feature/usershape/userprimitive/text.cpp \
   feature/usershape/userprimitive/userprimitivefactory.cpp \
   feature/usershape/userprimitive/userspecial.cpp
 

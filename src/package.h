@@ -75,10 +75,6 @@ private:
   qreal *m_height;
   Outline m_outline;
   LandPattern *m_landPattern;
-  // TODO skipped
-//  SilkScreen *m_silkScreen;
-//  AssemblyDrawing *m_assemblyDrawing;
-//  QList<Pin> m_pins;
 };
 
 #endif

@@ -1,6 +1,7 @@
 #include "step.h"
 #include "utils.h"
 #include "attributefactory.h"
+#include "error.h"
 
 void
 Step::initialize(QXmlStreamReader& xml)
@@ -15,10 +16,12 @@ Step::initialize(QXmlStreamReader& xml)
         m_attributes.append(a);
       }
       else if (xml.name() == "PadStack") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("PadStack");
       }
       else if (xml.name() == "Route") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("Route");
       }
       else if (xml.name() == "Datum") {
         m_datum = QPointF(getDoubleAttribute(xml, "Step", "x"),
@@ -28,7 +31,8 @@ Step::initialize(QXmlStreamReader& xml)
         m_profile.initialize(xml);
       }
       else if (xml.name() == "StepRepeat") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("StepRepeat");
       }
       else if (xml.name() == "Package") {
         Package package;
@@ -41,10 +45,12 @@ Step::initialize(QXmlStreamReader& xml)
         m_components.append(component);
       }
       else if (xml.name() == "VplPackage") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("VplPackage");
       }
       else if (xml.name() == "VplComponent") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("VplComponent");
       }
       else if (xml.name() == "LogicalNet") {
         LogicalNet logicalNet;
@@ -62,7 +68,8 @@ Step::initialize(QXmlStreamReader& xml)
         m_layerFeatures.append(layerFeature);
       }
       else if (xml.name() == "DfxMeasurementList") {
-        // TODO skipped
+// TODO skipped
+        //throw new NonImplementedError("DfxMeasurementList");
       }
     }
     else if (isEndElementWithName(xml, "Step")) { // </Step>
