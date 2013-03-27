@@ -46,7 +46,9 @@ LayerFeature::odbOutputLayerFeature(QTextStream& out,
   out << "#Feature symbol names\n";
   out << "#\n";
   for (int i = 0; i < symbolsTable.size(); ++i) {
-    out << symbolsTable[i];
+    out << QString("$%1 %2\n")
+                   .arg(i)
+                   .arg(symbolsTable[i]);
   }
   out << "#\n";
   out << "#Feature attribute names\n";

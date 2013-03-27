@@ -25,8 +25,6 @@ private:
   QString         m_odbRootPath;
   QList<QString>  m_allSteps;
   QList<QString>  m_allLayers;
-  QHash<QString, StandardPrimitive*> m_entryStandards;
-  QHash<QString, UserPrimitive*>     m_entryUsers;
 };
 
 #endif

@@ -12,7 +12,12 @@ class Pad
 {
 public:
   void initialize(QXmlStreamReader& xml);
-  OdbFeatureRecord createFeatureRecord(
+  void odbOutputLayerFeature(
+      QList<QString>& symbolsTable,
+      QList<QString>& attributeTable,
+      QList<QString>& attributeTexts,
+      QList<QString>& featuresList,
+      QString polarity,
       const QHash<QString, StandardPrimitive*>& entryStandards);
 
 private:

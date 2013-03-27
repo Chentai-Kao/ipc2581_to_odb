@@ -57,3 +57,47 @@ Thermal::isValidSpokeCount()
   }
   return true;
 }
+
+void
+Thermal::odbOutputLayerFeature(
+    QList<QString>& symbolsTable,
+    QList<QString>& attributeTable,
+    QList<QString>& attributeTexts,
+    QList<QString>& featuresList,
+    QString polarity,
+    QPointF location, Xform *xform)
+{
+  QString symbol;
+  if (m_shape == ROUND) {
+    symbol = QString("ths%1x%2x%3x%4x%5")
+                     .arg(m_outerDiameter)
+                     .arg(m_innerDiameter)
+                     .arg(m_spokeStartAngle)
+                     .arg(m_spokeCount)
+                     .arg(m_gap);
+  }
+  else if (m_shape == SQUARE) {
+    symbol = QString("s_ths%1x%2x%3x%4x%5")
+                     .arg(m_outerDiameter)
+                     .arg(m_innerDiameter)
+                     .arg(m_spokeStartAngle)
+                     .arg(m_spokeCount)
+                     .arg(m_gap);
+  }
+  else if (m_shape == HEXAGON) {
+    // TODO skipped
+  }
+  else if (m_shape == OCTAGON) {
+    // TODO skipped
+  }
+
+  int symNum = odbInsertSymbol(symbol, symbolsTable);
+  QPointF newLocation = odbDecideTransformedLocation(location, xform);
+  int orient = odbDecideOrient(xform);
+  featuresList.append(QString("P %1 %2 %3 %4 0 %5\n")
+                              .arg(newLocation.x())
+                              .arg(newLocation.y())
+                              .arg(symNum)
+                              .arg(polarity)
+                              .arg(orient));
+}

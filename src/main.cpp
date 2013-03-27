@@ -2,6 +2,7 @@
 
 #include "odb.h"
 #include "toplevelhandler.h"
+#include "utils.h"
 
 int main()
 {

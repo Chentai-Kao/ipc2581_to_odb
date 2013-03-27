@@ -211,3 +211,81 @@ bool isSubstitutionGroupUserShape(QStringRef elementName)
           elementName == "UserPrimitiveRef");
 }
 
+QPointF odbDecideTransformedLocation(QPointF location, Xform *xform)
+{
+  if (xform == NULL) {
+    return location;
+  }
+  return QPointF(location.x() + xform->offset().x() * xform->scale(),
+                 location.y() + xform->offset().y() * xform->scale());
+}
+
+int odbDecideOrient(Xform *xform)
+{
+  // 0 : 0 degrees, no mirror
+  // 1 : 90 degrees, no mirror
+  // 2 : 180 degrees, no mirror
+  // 3 : 270 degrees, no mirror
+  // 4 : 0 degrees, mirror in X axis
+  // 5 : 90 degrees, mirror in X axis
+  // 6 : 180 degrees, mirror in X axis
+  // 7 : 270 degrees, mirror in X axis
+  if (xform == NULL) {
+    return 0;
+  }
+
+  qreal degree = xform->rotation();
+  bool mirror = xform->mirror();
+  if (!mirror) {
+    if (degree < 45 || degree >= 315) {
+      return 0;
+    }
+    else if (degree < 135) {
+      return 1;
+    }
+    else if (degree < 225) {
+      return 2;
+    }
+    else if (degree < 315) {
+      return 3;
+    }
+  }
+  else {
+    if (degree < 45 || degree >= 315) {
+      return 4;
+    }
+    else if (degree < 135) {
+      return 5;
+    }
+    else if (degree < 225) {
+      return 6;
+    }
+    else if (degree < 315) {
+      return 7;
+    }
+  }
+}
+
+int odbInsertSymbol(const QString symbol, QList<QString>& symbolsTable)
+{
+  // insert symbol if necessary, return its final index
+  int symNum = symbolsTable.indexOf(symbol);
+  if (symNum == -1) {
+    symNum = symbolsTable.size();
+    symbolsTable.append(symbol);
+  }
+  return symNum;
+}
+
+qreal calcCorrectAngle(QPointF p0, QPointF p1)
+{
+  QPointF v = p1 - p0;
+  qreal arcTan = qAtan(v.y() / v.x());
+  if (v.x() < 0) {
+    return arcTan + M_PI;
+  }
+  else if (v.y() < 0) {
+    return arcTan + 2 * M_PI;
+  }
+  return arcTan;
+}

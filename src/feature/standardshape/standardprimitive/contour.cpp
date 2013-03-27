@@ -21,3 +21,25 @@ Contour::initialize(QXmlStreamReader& xml)
     }
   }
 }
+
+void
+Contour::odbOutputLayerFeature(
+    QList<QString>& symbolsTable,
+    QList<QString>& attributeTable,
+    QList<QString>& attributeTexts,
+    QList<QString>& featuresList,
+    QString polarity,
+    QPointF location, Xform *xform)
+{
+  m_polygon.odbOutputLayerFeature(
+      symbolsTable, attributeTable, attributeTexts, featuresList,
+      polarity, location, xform, POLYGON);
+
+  // cutout has inverse polarity
+  QString invPolarity = (polarity == "P")? "N" : "P";
+  for (int i = 0; i < m_cutouts.size(); ++i) {
+    m_cutouts[i].odbOutputLayerFeature(
+        symbolsTable, attributeTable, attributeTexts, featuresList,
+        invPolarity, location, xform, CUTOUT);
+  }
+}

@@ -154,10 +154,11 @@ Set::odbOutputLayerFeature(
   // TODO: m_attributes;
 
   // TODO: m_pads;
-  QList<OdbFeatureRecord> featureRecords;
   for (int i = 0; i < m_pads.size(); ++i) {
-    OdbFeatureRecord record = m_pads[i].createFeatureRecord(entryStandards);
-    featureRecords.append(record);
+    QString polarity = (m_polarity == POSITIVE)? "P" : "N";
+    m_pads[i].odbOutputLayerFeature(
+        symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
+        entryStandards);
   }
 
   // TODO: m_fiducials;

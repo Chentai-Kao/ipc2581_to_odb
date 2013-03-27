@@ -2,13 +2,29 @@
 #define __UTILS_H__
 
 #include <QtCore>
+#include "xform.h"
 
 #define print(t, s) qDebug("%s:%s", (t), (s).toAscii().data())
+#define SQR(x) ((x)*(x)) // square of a number
 
 enum UnitsType {
   MILLIMETER,
   MICRON,
   INCH
+};
+
+enum PolygonType {
+  POLYGON,
+  CUTOUT
+};
+
+struct PolygonEdge
+{
+  QPointF m_startPoint;
+  QPointF m_endPoint;
+  QPointF m_centerPoint;
+  bool m_clockwise;
+  QString m_odbType; // "OS" for segment, or "OC" for curve
 };
 
 /* XML element and attribute. */
@@ -47,90 +63,10 @@ bool isSubstitutionGroupStandardShape(QStringRef elementName);
 bool isSubstitutionGroupUserPrimitive(QStringRef elementName);
 bool isSubstitutionGroupUserShape(QStringRef elementName);
 
-/* struct used while creating ODB++ features file */
-struct OdbFeatureParamLine 
-{
-  qreal m_xs; // start point
-  qreal m_ys;
-  qreal m_xe; // end point
-  qreal m_ye;
-  QString m_symName; // the name in the "feature symbol names" section.
-                     // don't store the reference number because it should
-                     // be decide by the outer class that uses this struct
-  QString m_polarity; // "P" or "N"
-};
-
-struct OdbFeatureParamPad 
-{
-  qreal m_x; // center point
-  qreal m_y;
-  QString m_symName; // the name in the "feature symbol names" section.
-                     // don't store the reference number because it should
-                     // be decide by the outer class that uses this struct
-  QString m_polarity; // "P" or "N"
-  int m_orient; // 0, 1, 2, ..., 7
-};
-
-struct OdbFeatureParamArc 
-{
-  qreal m_xs; // start point
-  qreal m_ys;
-  qreal m_xe; // end point
-  qreal m_ye;
-  qreal m_xc; // center point
-  qreal m_yc;
-  QString m_symName; // the name in the "feature symbol names" section.
-                     // don't store the reference number because it should
-                     // be decide by the outer class that uses this struct
-  QString m_polarity; // "P" or "N"
-  QString m_cw; // "Y" for clockwise, "N" for counter clockwise
-};
-
-struct OdbFeatureParamText 
-{
-  // TODO skipped
-};
-
-struct OdbFeatureParamBarcode 
-{
-  // TODO skipped
-};
-
-struct OdbFeatureParamSurface 
-{
-  QString m_polarity; // "P" or "N"
-  qreal m_xbs; // polygon start point
-  qreal m_ybs;
-  QString m_polyType; // "I" for island, "H" for hole
-};
-
-struct OdbFeaturePolygonStep
-{
-  enum StepType { SEGMENT, CURVE } m_type;
-  // for both segment (x,y) and curve (xe,ye)
-  qreal m_x; // end point
-  qreal m_y;
-  // for curve only
-  qreal m_xc; // curve center point
-  qreal m_yc;
-  QString m_cw; // "Y" for clockwise, "N" for counter clockwise
-};
-
-struct OdbFeatureRecord
-{
-  // <type> (add REF here denote it is a reference to other feature)
-  enum FeatureType { LINE, PAD, ARC, TEXT, BARCODE, SURFACE, REF } m_type;
-  // <params>
-  OdbFeatureParamLine    *m_paramLine;
-  OdbFeatureParamPad     *m_paramPad;
-  OdbFeatureParamArc     *m_paramArc;
-  OdbFeatureParamText    *m_paramText;
-  OdbFeatureParamBarcode *m_paramBarcode;
-  OdbFeatureParamSurface *m_paramSurface;
-  // <atr, value>
-  QHash<QString, QString> m_attribute;
-  // (Surface only) polygon segments or curves
-  QList<OdbFeaturePolygonStep> m_polygonSteps;
-};
+/* for ODB++ feature */
+QPointF odbDecideTransformedLocation(QPointF location, Xform *xform);
+int odbDecideOrient(Xform *xform); // 0 (0 degrees, no mirror), 1 (90 degrees...
+int odbInsertSymbol(const QString symbol, QList<QString>& symbolsTable);
+qreal calcCorrectAngle(QPointF p0, QPointF p1); // (0~2pi) direction: p0->p1
 
 #endif

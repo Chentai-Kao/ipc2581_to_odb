@@ -52,12 +52,12 @@ TopLevelHandler::odbOutputMatrix(QTextStream& out)
 
 void
 TopLevelHandler::odbOutputLayerFeature(
-    QTextStream &out, QString stepName, QString layerName,
-    const QHash<QString, StandardPrimitive*>& entryStandards,
-    const QHash<QString, UserPrimitive*>&     entryUsers)
+    QTextStream &out, QString stepName, QString layerName)
 {
   m_ecadHandler.odbOutputLayerFeature(
-      out, stepName, layerName, entryStandards, entryUsers);
+      out, stepName, layerName,
+      m_contentHandler.entryStandards(),
+      m_contentHandler.entryUsers());
 }
 
 bool

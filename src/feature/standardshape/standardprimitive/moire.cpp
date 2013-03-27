@@ -24,3 +24,31 @@ Moire::initialize(QXmlStreamReader& xml)
     }
   }
 }
+
+void
+Moire::odbOutputLayerFeature(
+    QList<QString>& symbolsTable,
+    QList<QString>& attributeTable,
+    QList<QString>& attributeTexts,
+    QList<QString>& featuresList,
+    QString polarity,
+    QPointF location, Xform *xform)
+{
+  QString symbol = QString("moire%1x%2x%3x%4x%5x%6")
+                           .arg(m_ringWidth)
+                           .arg(m_ringGap - m_ringWidth * 0.5) // different
+                           .arg(m_ringNumber)
+                           .arg(m_lineWidth)
+                           .arg(m_lineLength)
+                           .arg(m_lineAngle);
+
+  int symNum = odbInsertSymbol(symbol, symbolsTable);
+  QPointF newLocation = odbDecideTransformedLocation(location, xform);
+  int orient = odbDecideOrient(xform);
+  featuresList.append(QString("P %1 %2 %3 %4 0 %5\n")
+                              .arg(newLocation.x())
+                              .arg(newLocation.y())
+                              .arg(symNum)
+                              .arg(polarity)
+                              .arg(orient));
+}

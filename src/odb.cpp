@@ -9,8 +9,6 @@ Odb::Odb(TopLevelHandler& h)
   m_allLayers = h.allLayers();
   m_allLayers.append("COMP_+_TOP"); // because these two layers are not
   m_allLayers.append("COMP_+_BOT"); // in <LayerRef>
-  m_entryStandards = m_handler.entryStandards();
-  m_entryUsers = m_handler.entryUsers();
 }
 void
 Odb::run()
@@ -110,8 +108,7 @@ Odb::createLayerFeature()
       file.open(QIODevice::WriteOnly | QIODevice::Text);
       QTextStream out(&file);
       // call sub-element to draw feature
-      m_handler.odbOutputLayerFeature(
-          out, m_allSteps[i], m_allLayers[j], m_entryStandards, m_entryUsers);
+      m_handler.odbOutputLayerFeature(out, m_allSteps[i], m_allLayers[j]);
     }
   }
 }

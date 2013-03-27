@@ -7,3 +7,4 @@ bin/*
 *.xml
 samples/*
 testcase1
+spec/odb (copy).pdf

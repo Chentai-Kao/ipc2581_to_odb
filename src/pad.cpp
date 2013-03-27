@@ -36,23 +36,24 @@ Pad::initialize(QXmlStreamReader& xml)
   }
 }
 
-OdbFeatureRecord
-Pad::createFeatureRecord(
+void
+Pad::odbOutputLayerFeature(
+    QList<QString>& symbolsTable,
+    QList<QString>& attributeTable,
+    QList<QString>& attributeTexts,
+    QList<QString>& featuresList,
+    QString polarity,
     const QHash<QString, StandardPrimitive*>& entryStandards)
 {
-  // create a record based on the feature
-  OdbFeatureRecord record;// = m_standardShape->createFeatureRecord();
-  if (record.m_type == OdbFeatureRecord::REF) {
-    // TODO find the feature in dictionary, and call its createFeatureRecord()
+  QString refId = m_standardShape->refId();
+  if (refId != "") { // it is <standardPrimitiveRef>, call the reference
+    entryStandards[refId]->odbOutputLayerFeature(
+        symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
+        m_location, m_xform);
   }
-
-  // TODO set the location (need to adjust for Polygon
-  if (record.m_type == OdbFeatureRecord::SURFACE) {
+  else { // it is a normal feature
+    m_standardShape->odbOutputLayerFeature(
+        symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
+        m_location, m_xform);
   }
-  else {
-  }
-
-  // TODO xform?? rotation??
-
-  return record;
 }

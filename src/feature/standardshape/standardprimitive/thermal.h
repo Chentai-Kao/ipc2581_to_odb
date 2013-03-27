@@ -9,6 +9,13 @@ public:
   virtual void initialize(QXmlStreamReader& xml);
   bool isValidSpokeCount();
   enum ThermalShape { ROUND, SQUARE, HEXAGON, OCTAGON };
+  virtual void odbOutputLayerFeature(
+      QList<QString>& symbolsTable,
+      QList<QString>& attributeTable,
+      QList<QString>& attributeTexts,
+      QList<QString>& featuresList,
+      QString polarity,
+      QPointF location, Xform *xform);
 
 private:
   ThermalShape m_shape;

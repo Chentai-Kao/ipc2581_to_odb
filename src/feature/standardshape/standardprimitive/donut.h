@@ -8,6 +8,13 @@ class Donut : public StandardPrimitive
 public:
   virtual void initialize(QXmlStreamReader& xml);
   enum DonutShape { ROUND, SQUARE, HEXAGON, OCTAGON };
+  virtual void odbOutputLayerFeature(
+      QList<QString>& symbolsTable,
+      QList<QString>& attributeTable,
+      QList<QString>& attributeTexts,
+      QList<QString>& featuresList,
+      QString polarity,
+      QPointF location, Xform *xform);
 
 private:
   DonutShape m_shape;

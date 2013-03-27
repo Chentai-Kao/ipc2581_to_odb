@@ -16,19 +16,11 @@ public:
   virtual void run(QXmlStreamReader& xml);
   void odbOutputMatrix(QTextStream& out);
   void odbOutputLayerFeature(
-      QTextStream &out, QString stepName, QString layerName,
-      const QHash<QString, StandardPrimitive*>& entryStandards,
-      const QHash<QString, UserPrimitive*>&     entryUsers);
+      QTextStream &out, QString stepName, QString layerName);
 
   // getter
   QList<QString>& allSteps() { return m_contentHandler.allSteps(); }
   QList<QString>& allLayers() { return m_contentHandler.allLayers(); }
-  QHash<QString, StandardPrimitive*> entryStandards() {
-    return m_contentHandler.entryStandards();
-  }
-  QHash<QString, UserPrimitive*> entryUsers() {
-    return m_contentHandler.entryUsers();
-  }
 
 private:
   // member functions
