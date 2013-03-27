@@ -1,4 +1,5 @@
 #include "butterfly.h"
+#include "error.h"
 
 void
 Butterfly::initialize(QXmlStreamReader& xml)
@@ -12,8 +13,7 @@ Butterfly::initialize(QXmlStreamReader& xml)
     m_shape = Butterfly::SQUARE;
   }
   else {
-    errorInvalidAttribute("Butterfly", "shape");
-    exit(1);
+    throw new InvalidAttributeError("Butterfly", "shape");
   }
   // diameter and side
   if (m_shape == Butterfly::ROUND) {

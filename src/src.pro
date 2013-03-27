@@ -26,6 +26,7 @@ HEADERS += \
   dictionaryuserhandler.h \
   drilltool.h \
   ecadhandler.h \
+  error.h \
   handler.h \
   historyrecordhandler.h \
   hole.h \

@@ -1,5 +1,6 @@
 #include "booleanattribute.h"
 #include "utils.h"
+#include "error.h"
 
 void
 BooleanAttribute::initialize(QXmlStreamReader& xml)
@@ -85,7 +86,6 @@ BooleanAttribute::initialize(QXmlStreamReader& xml)
     m_name = BooleanAttribute::tooling_hole;
   }
   else {
-    errorInvalidAttribute("BooleanAttribute", "name");
-    exit(1);
+    throw new InvalidAttributeError("BooleanAttribute", "name");
   }
 }

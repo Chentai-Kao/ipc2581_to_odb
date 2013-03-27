@@ -2,20 +2,22 @@
 #include "simplefactory.h"
 #include "text.h"
 #include "userspecial.h"
+#include "error.h"
 
 UserPrimitive*
 UserPrimitiveFactory::create(QStringRef elementName)
 {
-  UserPrimitive *u = SimpleFactory().create(elementName);
-  if (u != NULL) {
-    return u;
-  }
-
   if (elementName == "Text") {
     return new Text();
   }
   else if (elementName == "UserSpecial") {
     return new UserSpecial();
   }
-  return NULL;
+  else if (elementName == "Arc" ||
+           elementName == "Line" ||
+           elementName == "Outline" ||
+           elementName == "Polyline") {
+    return SimpleFactory().create(elementName);
+  }
+  throw new InvalidElementError(elementName);
 }

@@ -1,4 +1,5 @@
 #include "dictionarylinedeschandler.h"
+#include "error.h"
 
 void
 DictionaryLineDescHandler::run(QXmlStreamReader& xml)
@@ -10,8 +11,7 @@ DictionaryLineDescHandler::run(QXmlStreamReader& xml)
       QString id = getStringAttribute(xml, "EntryLineDesc", "id");
       // id must be unique
       if (m_entryLineDescs.contains(id)) {
-        qDebug("ERROR** duplicate id in DictionaryLineDesc");
-        exit(1);
+        throw new DuplicateIdError(id, "DictionaryLineDesc");
       }
       // create element and insert to hash table
       xml.readNextStartElement(); // <LineDesc>

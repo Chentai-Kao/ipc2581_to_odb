@@ -1,4 +1,5 @@
 #include "stackupimpedance.h"
+#include "error.h"
 
 void
 StackupImpedance::initialize(QXmlStreamReader& xml)
@@ -81,6 +82,5 @@ StackupImpedance::decideStackImpedanceType(QString type)
   else if (type == "NONE") {
     return StackupImpedance::NONE;
   }
-  errorInvalidAttribute("StackupImpedance", "type");
-  exit(1);
+  throw new InvalidAttributeError("StackupImpedance", "type");
 }

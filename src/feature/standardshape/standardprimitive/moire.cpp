@@ -1,4 +1,5 @@
 #include "moire.h"
+#include "error.h"
 
 void
 Moire::initialize(QXmlStreamReader& xml)
@@ -19,8 +20,7 @@ Moire::initialize(QXmlStreamReader& xml)
   if (hasAttribute(xml, "lineAngle")) {
     m_lineAngle = getNonNegativeDoubleAttribute(xml, "Moire", "lineAngle");
     if (m_lineAngle < 0 || m_lineAngle > 90) {
-      errorInvalidAttribute("Moire", "lineAngle");
-      exit(1);
+      throw new InvalidAttributeError("Moire", "lineAngle");
     }
   }
 }

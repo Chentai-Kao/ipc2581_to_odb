@@ -1,5 +1,6 @@
 #include "package.h"
 #include "utils.h"
+#include "error.h"
 
 void
 Package::initialize(QXmlStreamReader& xml)
@@ -185,6 +186,5 @@ Package::decidePackageType(QXmlStreamReader& xml)
   else if (packageType == "TRIMPOT_TH") {
     return Package::TRIMPOT_TH;
   }
-  errorInvalidAttribute("Package", "type");
-  exit(1);
+  throw new InvalidAttributeError("Package", "type");
 }

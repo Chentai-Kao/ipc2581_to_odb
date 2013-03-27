@@ -1,5 +1,6 @@
 #include "slot.h"
 #include "simplefactory.h"
+#include "error.h"
 
 void
 Slot::initialize(QXmlStreamReader& xml)
@@ -16,8 +17,7 @@ Slot::initialize(QXmlStreamReader& xml)
     m_platingStatus = Slot::VIA;
   }
   else {
-    errorInvalidAttribute("Slot", "platingStatus");
-    exit(1);
+    throw new InvalidAttributeError("Slot", "platingStatus");
   }
   m_plusTol = getNonNegativeDoubleAttribute(xml, "Slot", "plusTol");
   m_minusTol = getNonNegativeDoubleAttribute(xml, "Slot", "minusTol");
@@ -27,10 +27,6 @@ Slot::initialize(QXmlStreamReader& xml)
     if (xml.isStartElement()) {
       if (isSubstitutionGroupSimple(xml.name())) {
         Simple *s = SimpleFactory().create(xml.name());
-        if (s == NULL) {
-          errorInvalidAttribute(xml.name().toString(), "");
-          exit(1);
-        }
         s->initialize(xml);
         m_simples.append(s);
       }

@@ -1,5 +1,6 @@
 #include "linedesc.h"
 #include "utils.h"
+#include "error.h"
 
 void
 LineDesc::initialize(QXmlStreamReader& xml)
@@ -16,7 +17,7 @@ LineDesc::initialize(QXmlStreamReader& xml)
     m_lineEnd = LineDesc::NONE;
   }
   else {
-    errorInvalidAttribute("LineDesc", "lineEnd");
+    throw new InvalidAttributeError("LineDesc", "lineEnd");
   }
   // lineWidth
   m_lineWidth = getNonNegativeDoubleAttribute(xml, "LineDesc", "lineWidth");

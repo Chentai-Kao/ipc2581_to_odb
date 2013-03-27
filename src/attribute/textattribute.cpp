@@ -1,5 +1,6 @@
 #include "textattribute.h"
 #include "utils.h"
+#include "error.h"
 
 void
 TextAttribute::initialize(QXmlStreamReader& xml)
@@ -28,7 +29,6 @@ TextAttribute::initialize(QXmlStreamReader& xml)
     m_name = TextAttribute::eda_layers;
   }
   else {
-    errorInvalidAttribute("TextAttribute", "name");
-    exit(1);
+    throw new InvalidAttributeError("TextAttribute", "name");
   }
 }

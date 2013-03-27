@@ -1,5 +1,6 @@
 #include "nonstandardattribute.h"
 #include "utils.h"
+#include "error.h"
 
 void
 NonstandardAttribute::initialize(QXmlStreamReader& xml)
@@ -20,7 +21,6 @@ NonstandardAttribute::initialize(QXmlStreamReader& xml)
     m_type = NonstandardAttribute::STRING;
   }
   else {
-    errorInvalidAttribute("NonstandardAttribute", "type");
-    exit(1);
+    throw new InvalidAttributeError("NonstandardAttribute", "type");
   }
 }

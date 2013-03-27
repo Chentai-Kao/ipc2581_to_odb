@@ -1,4 +1,5 @@
 #include "simplefactory.h"
+#include "error.h"
 #include "arc.h"
 #include "line.h"
 #include "outline.h"
@@ -19,5 +20,5 @@ SimpleFactory::create(QStringRef elementName)
   else if (elementName == "Polyline") {
     return new Polyline();
   }
-  return NULL;
+  throw new InvalidElementError(elementName);
 }

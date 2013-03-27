@@ -18,10 +18,6 @@ Target::initialize(QXmlStreamReader& xml)
       }
       else if (isSubstitutionGroupStandardShape(xml.name())) {
         m_standardShape = StandardShapeFactory().create(xml.name());
-        if (m_standardShape == NULL) {
-          errorInvalidAttribute(xml.name().toString(), "");
-          exit(1);
-        }
         m_standardShape->initialize(xml);
       }
     }

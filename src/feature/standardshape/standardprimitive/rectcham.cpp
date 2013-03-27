@@ -1,4 +1,5 @@
 #include "rectcham.h"
+#include "error.h"
 
 void
 RectCham::initialize(QXmlStreamReader& xml)
@@ -7,8 +8,7 @@ RectCham::initialize(QXmlStreamReader& xml)
   m_height = getNonNegativeDoubleAttribute(xml, "RectCham", "height");
   m_chamfer = getNonNegativeDoubleAttribute(xml, "RectCham", "chamfer");
   if (2 * m_chamfer > m_width || 2 * m_chamfer > m_height) {
-    errorInvalidAttribute("RectCham", "chamfer");
-    exit(1);
+    throw new InvalidAttributeError("RectCham", "chamfer");
   }
   m_upperRight = getBoolAttribute(xml, "upperRight");
   m_upperLeft = getBoolAttribute(xml, "upperLeft");

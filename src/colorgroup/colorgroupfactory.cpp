@@ -1,4 +1,5 @@
 #include "colorgroupfactory.h"
+#include "error.h"
 #include "color.h"
 #include "colorref.h"
 
@@ -11,5 +12,5 @@ ColorGroupFactory::create(QStringRef elementName)
   else if (elementName == "ColorRef") {
     return new ColorRef();
   }
-  return NULL;
+  throw new InvalidElementError(elementName);
 }

@@ -1,5 +1,6 @@
 #include "drilltool.h"
 #include "utils.h"
+#include "error.h"
 
 void
 DrillTool::initialize(QXmlStreamReader& xml)
@@ -22,8 +23,7 @@ DrillTool::initialize(QXmlStreamReader& xml)
     m_type = DrillTool::EXTENSION;
   }
   else {
-    errorInvalidAttribute("DrillTool", "type");
-    exit(1);
+    throw new InvalidAttributeError("DrillTool", "type");
   }
   m_tolPlus = getNonNegativeDoubleAttribute(xml, "DrillTool", "tolPlus");
   m_tolMinus = getNonNegativeDoubleAttribute(xml, "DrillTool", "tolMinus");
@@ -42,8 +42,7 @@ DrillTool::initialize(QXmlStreamReader& xml)
       m_bitUnit = DrillTool::METRIC;
     }
     else {
-      errorInvalidAttribute("DrillTool", "bitUnit");
-      exit(1);
+      throw new InvalidAttributeError("DrillTool", "bitUnit");
     }
   }
   m_finishSize = getNonNegativeDoubleAttribute(xml, "DrillTool", "finishSize");

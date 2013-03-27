@@ -1,5 +1,6 @@
 #include "doubleattribute.h"
 #include "utils.h"
+#include "error.h"
 
 void
 DoubleAttribute::initialize(QXmlStreamReader& xml)
@@ -16,7 +17,6 @@ DoubleAttribute::initialize(QXmlStreamReader& xml)
     m_name = DoubleAttribute::layer_dielectric;
   }
   else {
-    errorInvalidAttribute("DoubleAttribute", "name");
-    exit(1);
+    throw new InvalidAttributeError("DoubleAttribute", "name");
   }
 }

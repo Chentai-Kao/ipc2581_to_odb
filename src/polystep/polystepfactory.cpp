@@ -1,6 +1,7 @@
 #include "polystepfactory.h"
 #include "polystepcurve.h"
 #include "polystepsegment.h"
+#include "error.h"
 
 PolyStep*
 PolyStepFactory::create(QStringRef elementName)
@@ -11,5 +12,5 @@ PolyStepFactory::create(QStringRef elementName)
   else if (elementName == "PolyStepSegment") {
     return new PolyStepSegment();
   }
-  return NULL;
+  throw new InvalidElementError(elementName);
 }

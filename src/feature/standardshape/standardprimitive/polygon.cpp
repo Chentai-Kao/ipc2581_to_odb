@@ -1,6 +1,6 @@
 #include "polygon.h"
 #include "polystepfactory.h"
-#include <cassert>
+#include "error.h"
 
 void
 Polygon::initialize(QXmlStreamReader& xml)
@@ -14,10 +14,6 @@ Polygon::initialize(QXmlStreamReader& xml)
       }
       else if (isSubstitutionGroupPolyStep(xml.name())) {
         PolyStep *p = PolyStepFactory().create(xml.name());
-        if (p == NULL) {
-          errorInvalidAttribute(xml.name().toString(), "");
-          exit(1);
-        }
         p->initialize(xml);
         m_polySteps.append(p);
       }
@@ -28,8 +24,7 @@ Polygon::initialize(QXmlStreamReader& xml)
     }
   }
   if (!isClosedShape()) {
-    errorInvalidAttribute("Polygon", "");
-    exit(1);
+    throw new InvalidElementError("Polygon");
   }
 }
 

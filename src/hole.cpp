@@ -1,5 +1,6 @@
 #include "hole.h"
 #include "utils.h"
+#include "error.h"
 
 void
 Hole::initialize(QXmlStreamReader& xml)
@@ -17,8 +18,7 @@ Hole::initialize(QXmlStreamReader& xml)
     m_platingStatus = Hole::VIA;
   }
   else {
-    errorInvalidAttribute("Hole", "platingStatus");
-    exit(1);
+    throw new InvalidAttributeError("Hole", "platingStatus");
   }
   m_plusTol = getNonNegativeDoubleAttribute(xml, "Hole", "plusTol");
   m_minusTol = getNonNegativeDoubleAttribute(xml, "Hole", "minusTol");

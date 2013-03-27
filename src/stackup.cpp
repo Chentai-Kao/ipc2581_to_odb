@@ -1,4 +1,5 @@
 #include "stackup.h"
+#include "error.h"
 
 void
 Stackup::initialize(QXmlStreamReader& xml)
@@ -21,8 +22,7 @@ Stackup::initialize(QXmlStreamReader& xml)
     m_whereMeasured = Stackup::OTHER;
   }
   else {
-    errorInvalidAttribute("Stackup", "whereMeasured");
-    exit(1);
+    throw new InvalidAttributeError("Stackup", "whereMeasured");
   }
 
   while (!xml.atEnd() && !xml.hasError()) {

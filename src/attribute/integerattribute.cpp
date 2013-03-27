@@ -1,5 +1,6 @@
 #include "integerattribute.h"
 #include "utils.h"
+#include "error.h"
 
 void
 IntegerAttribute::initialize(QXmlStreamReader& xml)
@@ -25,7 +26,6 @@ IntegerAttribute::initialize(QXmlStreamReader& xml)
     m_name = IntegerAttribute::testpoint_count;
   }
   else {
-    errorInvalidAttribute("IntegerAttribute", "name");
-    exit(1);
+    throw new InvalidAttributeError("IntegerAttribute", "name");
   }
 }

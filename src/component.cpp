@@ -1,5 +1,6 @@
 #include "component.h"
 #include "utils.h"
+#include "error.h"
 
 void
 Component::initialize(QXmlStreamReader& xml)
@@ -20,8 +21,7 @@ Component::initialize(QXmlStreamReader& xml)
     m_mountType = Component::OTHER;
   }
   else {
-    errorInvalidAttribute("Component", "mountType");
-    exit(1);
+    throw new InvalidAttributeError("Component", "mountType");
   }
   m_weight = NULL;
   if (hasAttribute(xml, "weight")) {

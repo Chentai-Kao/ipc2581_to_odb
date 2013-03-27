@@ -1,5 +1,6 @@
 #include "set.h"
 #include "utils.h"
+#include "error.h"
 #include "attributefactory.h"
 #include "fiducialfactory.h"
 #include "featurefactory.h"
@@ -23,8 +24,7 @@ Set::initialize(QXmlStreamReader& xml)
       m_polarity = Set::NEGATIVE;
     }
     else {
-      errorInvalidAttribute("Set", "polarity");
-      exit(1);
+      throw new InvalidAttributeError("Set", "polarity");
     }
   }
   m_padUsage = Set::NONE;
@@ -49,8 +49,7 @@ Set::initialize(QXmlStreamReader& xml)
       m_padUsage = Set::NONE;
     }
     else {
-      errorInvalidAttribute("Set", "padUsage");
-      exit(1);
+      throw new InvalidAttributeError("Set", "padUsage");
     }
   }
 
@@ -77,10 +76,6 @@ Set::initialize(QXmlStreamReader& xml)
     if (xml.isStartElement()) {
       if (isSubstitutionGroupAttribute(xml.name())) {
         Attribute *a = AttributeFactory().create(xml.name());
-        if (a == NULL) {
-          errorInvalidAttribute(xml.name().toString(), "");
-          exit(1);
-        }
         a->initialize(xml);
         m_attributes.append(a);
       }
@@ -91,10 +86,6 @@ Set::initialize(QXmlStreamReader& xml)
       }
       else if (isSubstitutionGroupFiducial(xml.name())) {
         Fiducial *f = FiducialFactory().create(xml.name());
-        if (f == NULL) {
-          errorInvalidAttribute(xml.name().toString(), "");
-          exit(1);
-        }
         f->initialize(xml);
         m_fiducials.append(f);
       }
@@ -110,28 +101,16 @@ Set::initialize(QXmlStreamReader& xml)
       }
       else if (isSubstitutionGroupFeature(xml.name())) {
         Feature* f = FeatureFactory().create(xml.name());
-        if (f == NULL) {
-          errorInvalidAttribute(xml.name().toString(), "");
-          exit(1);
-        }
         f->initialize(xml);
         m_features.append(f);
       }
       else if (isSubstitutionGroupColorGroup(xml.name())) {
         ColorGroup *c = ColorGroupFactory().create(xml.name());
-        if (c == NULL) {
-          errorInvalidAttribute(xml.name().toString(), "");
-          exit(1);
-        }
         c->initialize(xml);
         m_colorGroups.append(c);
       }
       else if (isSubstitutionGroupLineDescGroup(xml.name())) {
         LineDescGroup *l = LineDescGroupFactory().create(xml.name());
-        if (l == NULL) {
-          errorInvalidAttribute(xml.name().toString(), "");
-          exit(1);
-        }
         l->initialize(xml);
         m_lineDescGroups.append(l);
       }

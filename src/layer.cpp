@@ -1,4 +1,5 @@
 #include "layer.h"
+#include "error.h"
 
 void
 Layer::initialize(QXmlStreamReader& xml)
@@ -197,8 +198,7 @@ Layer::decideLayerFunction(const QString layerFunctionStr)
   else if (layerFunctionStr == "SOLDERPASTE") {
     return Layer::SOLDERPASTE;
   }
-  errorInvalidAttribute("Layer", "layerFunction");
-  exit(1);
+  throw new InvalidAttributeError("Layer", "layerFunction");
 }
 
 Layer::SideType
@@ -222,6 +222,5 @@ Layer::decideSide(const QString sideStr)
   else if (sideStr == "NONE") {
     return Layer::NONE;
   }
-  errorInvalidAttribute("Layer", "side");
-  exit(1);
+  throw new InvalidAttributeError("Layer", "side");
 }

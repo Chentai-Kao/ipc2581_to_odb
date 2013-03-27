@@ -1,5 +1,6 @@
 #include "optionattribute.h"
 #include "utils.h"
+#include "error.h"
 
 void
 OptionAttribute::initialize(QXmlStreamReader& xml)
@@ -78,8 +79,7 @@ OptionAttribute::initialize(QXmlStreamReader& xml)
     m_value = OptionAttribute::via;
   }
   else {
-    errorInvalidAttribute("OptionAttribute", "value");
-    exit(1);
+    throw new InvalidAttributeError("OptionAttribute", "value");
   }
 
   QString name = getStringAttribute(xml, "OptionAttribute", "name");
@@ -93,7 +93,6 @@ OptionAttribute::initialize(QXmlStreamReader& xml)
     m_name = OptionAttribute::layer_hdi_type;
   }
   else {
-    errorInvalidAttribute("OptionAttribute", "name");
-    exit(1);
+    throw new InvalidAttributeError("OptionAttribute", "name");
   }
 }

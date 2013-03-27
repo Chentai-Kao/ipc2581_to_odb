@@ -1,4 +1,5 @@
 #include "utils.h"
+#include "error.h"
 
 bool isEndElementWithName(const QXmlStreamReader& xml, const QString& name)
 {
@@ -21,8 +22,7 @@ const QString getAttributeOrCharacters(QXmlStreamReader& xml,
   }
   // if still failed, it is an error
   if (value == "") {
-    errorInvalidAttribute(elementName, attributeName);
-    exit(1);
+    throw new InvalidAttributeError(elementName, attributeName);
   }
   return value;
 }
@@ -37,21 +37,12 @@ const QString getAttribute(const QXmlStreamReader& xml, const QString attrName)
   return xml.attributes().value("", attrName).toString();
 }
 
-void errorInvalidAttribute(
-    const QString elementName, const QString attributeName)
-{
-  qDebug("ERROR** invalid attribute \"%s\" in <%s>",
-      attributeName.toAscii().data(),
-      elementName.toAscii().data());
-}
-
 qreal getNonNegativeDoubleAttribute(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName)
 {
   qreal value = getDoubleAttribute(xml, elementName, attributeName);
   if (value < 0) {
-    errorInvalidAttribute(elementName, attributeName);
-    exit(1);
+    throw new InvalidAttributeError(elementName, attributeName);
   }
   return value;
 }
@@ -62,8 +53,7 @@ qreal getDoubleAttribute(QXmlStreamReader& xml,
   bool ok;
   qreal value = getAttribute(xml, attributeName).toDouble(&ok);
   if (!ok) {
-    errorInvalidAttribute(elementName, attributeName);
-    exit(1);
+    throw new InvalidAttributeError(elementName, attributeName);
   }
   return value;
 }
@@ -73,8 +63,7 @@ int getNonNegativeIntAttribute(QXmlStreamReader& xml,
 {
   int value = getIntAttribute(xml, elementName, attributeName);
   if (value < 0) {
-    errorInvalidAttribute(elementName, attributeName);
-    exit(1);
+    throw new InvalidAttributeError(elementName, attributeName);
   }
   return value;
 }
@@ -85,8 +74,7 @@ int getIntAttribute(QXmlStreamReader& xml,
   bool ok;
   int value = getAttribute(xml, attributeName).toInt(&ok);
   if (!ok) {
-    errorInvalidAttribute(elementName, attributeName);
-    exit(1);
+    throw new InvalidAttributeError(elementName, attributeName);
   }
   return value;
 }
@@ -109,9 +97,7 @@ UnitsType getUnitAttribute(QXmlStreamReader& xml,
   else if (units == "INCH") {
     return INCH;
   }
-  errorInvalidAttribute(elementName, attributeName);
-  exit(1);
-  return INCH;
+  throw new InvalidAttributeError(elementName, attributeName);
 }
 
 QString getStringAttribute(QXmlStreamReader& xml,

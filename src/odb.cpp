@@ -1,5 +1,6 @@
 #include "odb.h"
 #include "utils.h"
+#include "error.h"
 
 Odb::Odb(TopLevelHandler& h)
 {
@@ -81,10 +82,12 @@ void
 Odb::createStepLayerHierarchy()
 {
   for (int i = 0; i < m_allSteps.size(); ++i) {
+    if (m_allSteps[i].startsWith(".")) {
+      throw new NameStartWithDotError(m_allSteps[i]);
+    }
     for (int j = 0; j < m_allLayers.size(); ++j) {
-      if (m_allSteps[i].startsWith(".") || m_allLayers[j].startsWith(".")) {
-        qDebug("ERROR** name cannot start with \'.\'");
-        exit(1);
+      if (m_allLayers[j].startsWith(".")) {
+        throw new NameStartWithDotError(m_allLayers[j]);
       }
       createOdbDir(QString("steps/%1/layers/%2")
                            .arg(m_allSteps[i])

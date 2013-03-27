@@ -1,4 +1,5 @@
 #include "thermal.h"
+#include "error.h"
 
 void
 Thermal::initialize(QXmlStreamReader& xml)
@@ -23,8 +24,7 @@ Thermal::initialize(QXmlStreamReader& xml)
   if (hasAttribute(xml, "spokeCount")) {
     m_spokeCount = getIntAttribute(xml, "Thermal", "spokeCount");
     if (!isValidSpokeCount()) {
-      errorInvalidAttribute("Thermal", "spokeCount");
-      exit(1);
+      throw new InvalidAttributeError("Thermal", "spokeCount");
     }
   }
   else {

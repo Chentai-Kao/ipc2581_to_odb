@@ -1,17 +1,38 @@
 #include "featurefactory.h"
 #include "standardshapefactory.h"
 #include "usershapefactory.h"
+#include "error.h"
 
 Feature*
 FeatureFactory::create(QStringRef elementName)
 {
-  Feature *f = StandardShapeFactory().create(elementName);
-  if (f != NULL) {
-    return f;
+  if (elementName == "StandardPrimitiveRef" ||
+      elementName == "Butterfly" ||
+      elementName == "Circle" ||
+      elementName == "Contour" ||
+      elementName == "Diamond" ||
+      elementName == "Donut" ||
+      elementName == "Ellipse" ||
+      elementName == "Hexagon" ||
+      elementName == "Moire" ||
+      elementName == "Octagon" ||
+      elementName == "Oval" ||
+      elementName == "RectCenter" ||
+      elementName == "RectCham" ||
+      elementName == "RectCorner" ||
+      elementName == "RectRound" ||
+      elementName == "Thermal" ||
+      elementName == "Triangle") {
+    return StandardShapeFactory().create(elementName);
   }
-  f = UserShapeFactory().create(elementName);
-  if (f != NULL) {
-    return f;
+  else if (elementName == "UserPrimitiveRef" ||
+           elementName == "Text" ||
+           elementName == "UserSpecial" ||
+           elementName == "Arc" ||
+           elementName == "Line" ||
+           elementName == "Outline" ||
+           elementName == "Polyline") {
+    return UserShapeFactory().create(elementName);
   }
-  return NULL;
+  throw new InvalidElementError(elementName);
 }

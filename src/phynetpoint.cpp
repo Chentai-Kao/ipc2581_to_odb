@@ -1,6 +1,7 @@
 #include "phynetpoint.h"
 #include "utils.h"
 #include "standardshapefactory.h"
+#include "error.h"
 
 void
 PhyNetPoint::initialize(QXmlStreamReader& xml)
@@ -17,7 +18,7 @@ PhyNetPoint::initialize(QXmlStreamReader& xml)
     m_netNode = PhyNetPoint::MIDDLE;
   }
   else {
-    errorInvalidAttribute("PhyNetPoint", "netNode");
+    throw new InvalidAttributeError("PhyNetPoint", "netNode");
   }
 
   QString exposure = getStringAttribute(xml, "PhyNetPoint", "exposure");
@@ -34,7 +35,7 @@ PhyNetPoint::initialize(QXmlStreamReader& xml)
     m_exposure = PhyNetPoint::COVERED;
   }
   else {
-    errorInvalidAttribute("PhyNetPoint", "exposure");
+    throw new InvalidAttributeError("PhyNetPoint", "exposure");
   }
 
   m_layerIndex = NULL;
@@ -84,10 +85,6 @@ PhyNetPoint::initialize(QXmlStreamReader& xml)
     if (xml.isStartElement()) {
       if (isSubstitutionGroupStandardShape(xml.name())) {
         m_standardShape = StandardShapeFactory().create(xml.name());
-        if (m_standardShape == NULL) {
-          errorInvalidAttribute(xml.name().toString(), "");
-          exit(1);
-        }
         m_standardShape->initialize(xml);
       }
     }

@@ -1,4 +1,5 @@
 #include "fiducialfactory.h"
+#include "error.h"
 #include "badboardmark.h"
 #include "globalfiducial.h"
 #include "goodpanelmark.h"
@@ -19,5 +20,5 @@ FiducialFactory::create(QStringRef elementName)
   else if (elementName == "LocalFiducial") {
     return new LocalFiducial();
   }
-  return NULL;
+  throw new InvalidElementError(elementName);
 }

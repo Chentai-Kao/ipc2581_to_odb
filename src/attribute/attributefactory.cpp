@@ -1,4 +1,5 @@
 #include "attributefactory.h"
+#include "error.h"
 #include "booleanattribute.h"
 #include "doubleattribute.h"
 #include "integerattribute.h"
@@ -27,5 +28,5 @@ AttributeFactory::create(QStringRef elementName)
   else if (elementName == "TextAttribute") {
     return new TextAttribute();
   }
-  return NULL;
+  throw new InvalidElementError(elementName);
 }

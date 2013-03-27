@@ -1,4 +1,5 @@
 #include "linedescgroupfactory.h"
+#include "error.h"
 #include "linedesc.h"
 #include "linedescref.h"
 
@@ -11,5 +12,5 @@ LineDescGroupFactory::create(QStringRef elementName)
   else if (elementName == "LineDescRef") {
     return new LineDescRef();
   }
-  return NULL;
+  throw new InvalidElementError(elementName);
 }

@@ -1,3 +1,4 @@
+#include "error.h"
 #include "standardprimitivefactory.h"
 #include "butterfly.h"
 #include "circle.h"
@@ -67,6 +68,5 @@ StandardPrimitiveFactory::create(QStringRef elementName)
   else if (elementName == "Triangle") {
     return new Triangle();
   }
-
-  return NULL;
+  throw new InvalidElementError(elementName);
 }
