@@ -51,6 +51,7 @@ Donut::odbOutputLayerFeature(
 // TODO skipped
     //throw new NonImplementedError("Donut::OCTAGON");
   }
+  symbol += odbRotationSuffix(xform);
 
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);

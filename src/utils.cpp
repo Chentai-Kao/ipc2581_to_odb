@@ -223,31 +223,37 @@ int odbDecideOrient(Xform *xform)
   qreal degree = xform->rotation();
   bool mirror = xform->mirror();
   if (!mirror) {
-    if (degree < 45 || degree >= 315) {
+    if (degree == 0) {
       return 0;
     }
-    else if (degree < 135) {
+    else if (degree == 90) {
       return 1;
     }
-    else if (degree < 225) {
+    else if (degree == 180) {
       return 2;
     }
-    else if (degree < 315) {
+    else if (degree == 270) {
       return 3;
+    }
+    else { // not 90 increment
+      return 0;
     }
   }
   else {
-    if (degree < 45 || degree >= 315) {
+    if (degree == 0) {
       return 4;
     }
-    else if (degree < 135) {
+    else if (degree == 90) {
       return 5;
     }
-    else if (degree < 225) {
+    else if (degree == 180) {
       return 6;
     }
-    else if (degree < 315) {
+    else if (degree == 270) {
       return 7;
+    }
+    else { // not 90 increment
+      return 4;
     }
   }
 }
@@ -274,4 +280,19 @@ qreal calcCorrectAngle(QPointF p0, QPointF p1)
     return arcTan + 2 * M_PI;
   }
   return arcTan;
+}
+
+QString odbRotationSuffix(Xform *xform)
+{
+  if (xform == NULL) {
+    return "";
+  }
+  qreal degree = xform->rotation();
+  if (degree ==   0 ||
+      degree ==  90 ||
+      degree == 180 ||
+      degree == 270) {
+    return ""; // 90 increment, no need to suffix (handled by 'orient')
+  }
+  return QString("_%1").arg(degree);
 }

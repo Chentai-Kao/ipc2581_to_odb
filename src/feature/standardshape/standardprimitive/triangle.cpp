@@ -17,6 +17,7 @@ Triangle::odbOutputLayerFeature(
     QPointF location, Xform *xform)
 {
   QString symbol = QString("tri%1x%2").arg(m_base).arg(m_height);
+  symbol += odbRotationSuffix(xform);
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);
   int orient = odbDecideOrient(xform);

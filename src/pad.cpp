@@ -42,14 +42,9 @@ Pad::odbOutputLayerFeature(
     const QHash<QString, StandardPrimitive*>& entryStandards)
 {
   QString refId = m_standardShape->refId();
-  if (refId != "") { // it is <standardPrimitiveRef>, call the reference
-    entryStandards[refId]->odbOutputLayerFeature(
-        symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
-        m_location, m_xform);
-  }
-  else { // it is a normal feature
-    m_standardShape->odbOutputLayerFeature(
-        symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
-        m_location, m_xform);
-  }
+  // if the shape is a reference, find it in the list
+  StandardShape *shape = (refId == "")? m_standardShape : entryStandards[refId];
+  shape->odbOutputLayerFeature(
+      symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
+      m_location, m_xform);
 }

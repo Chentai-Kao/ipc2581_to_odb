@@ -19,6 +19,7 @@ Octagon::odbOutputLayerFeature(
   qreal w = r * (2 + qSqrt(2));
   qreal h = w;
   QString symbol = QString("oct%1x%2x%3").arg(w).arg(h).arg(r);
+  symbol += odbRotationSuffix(xform);
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);
   int orient = odbDecideOrient(xform);

@@ -34,6 +34,7 @@ RectRound::odbOutputLayerFeature(
                            .arg(m_height)
                            .arg(m_radius)
                            .arg(corners);
+  symbol += odbRotationSuffix(xform);
 
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);

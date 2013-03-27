@@ -19,6 +19,7 @@ Hexagon::odbOutputLayerFeature(
                            .arg(m_length * 0.5 * qSqrt(3))
                            .arg(m_length)
                            .arg(m_length * 0.25);
+  symbol += odbRotationSuffix(xform);
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);
   int orient = odbDecideOrient(xform);

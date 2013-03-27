@@ -34,6 +34,7 @@ RectCham::odbOutputLayerFeature(
                            .arg(m_height)
                            .arg(m_chamfer)
                            .arg(corners);
+  symbol += odbRotationSuffix(xform);
 
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);

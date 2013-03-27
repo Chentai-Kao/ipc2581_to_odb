@@ -41,6 +41,7 @@ Moire::odbOutputLayerFeature(
                            .arg(m_lineWidth)
                            .arg(m_lineLength)
                            .arg(m_lineAngle);
+  symbol += odbRotationSuffix(xform);
 
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);

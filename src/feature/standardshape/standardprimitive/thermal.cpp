@@ -92,6 +92,7 @@ Thermal::odbOutputLayerFeature(
 // TODO skipped
     //throw new NonImplementedError("Thermal::OCTAGON");
   }
+  symbol += odbRotationSuffix(xform);
 
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);

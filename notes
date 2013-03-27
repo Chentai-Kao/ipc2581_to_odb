@@ -12,7 +12,3 @@ TODO:
 2. don't know some layers in ODB++. Ex: COMP_+_TOP, ROUT, SQA_AREAS, HEIGHT_TOP
 3. adjust the unit (only inch in ODB++). maybe always store in inch
 4. decompose symbol in ODB++ (e.g. hexagon donut...) marked as TODO
-5. handle "rotation != 90 increment",
-   because "orient" is always "90 increment + mirror", need to support
-   arbitrary rotation angle by name (see ODB++ spec pp. 143)
-6. replace all "TODO skipped" with exception

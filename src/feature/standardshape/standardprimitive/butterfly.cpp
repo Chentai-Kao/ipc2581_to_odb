@@ -40,6 +40,7 @@ Butterfly::odbOutputLayerFeature(
   else { // bfs<s>
     symbol = QString("bfs%1").arg(m_side);
   }
+  symbol += odbRotationSuffix(xform);
 
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);

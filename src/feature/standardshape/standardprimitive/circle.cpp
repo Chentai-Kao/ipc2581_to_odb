@@ -16,6 +16,7 @@ Circle::odbOutputLayerFeature(
     QPointF location, Xform *xform)
 {
   QString symbol = QString("r%1").arg(m_diameter);
+  symbol += odbRotationSuffix(xform);
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);
   int orient = odbDecideOrient(xform);

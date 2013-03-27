@@ -17,6 +17,7 @@ RectCenter::odbOutputLayerFeature(
     QPointF location, Xform *xform)
 {
   QString symbol = QString("rect%1x%2").arg(m_width).arg(m_height);
+  symbol += odbRotationSuffix(xform);
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);
   int orient = odbDecideOrient(xform);

@@ -21,6 +21,7 @@ RectCorner::odbOutputLayerFeature(
   qreal w = m_upperRightX - m_lowerLeftX;
   qreal h = m_upperRightY - m_lowerLeftY;
   QString symbol = QString("rect%1x%2").arg(w).arg(h);
+  symbol += odbRotationSuffix(xform);
 
   int symNum = odbInsertSymbol(symbol, symbolsTable);
   QPointF newLocation = odbDecideTransformedLocation(location, xform);
