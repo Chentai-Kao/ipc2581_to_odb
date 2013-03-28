@@ -1,5 +1,6 @@
 #include "pad.h"
 #include "standardshapefactory.h"
+#include "error.h"
 
 void
 Pad::initialize(QXmlStreamReader& xml)
@@ -41,10 +42,21 @@ Pad::odbOutputLayerFeature(
     QString polarity,
     const QHash<QString, StandardPrimitive*>& entryStandards)
 {
-  QString refId = m_standardShape->refId();
   // if the shape is a reference, find it in the list
-  StandardShape *shape = (refId == "")? m_standardShape : entryStandards[refId];
-  shape->odbOutputLayerFeature(
+  QString refId = m_standardShape->refId();
+  StandardShape *s;
+  if (refId == "") {
+    s = m_standardShape;
+  }
+  else if (entryStandards.contains(refId)) {
+    s = entryStandards[refId];
+  }
+  else {
+    throw new InvalidIdError(refId);
+  }
+
+  // call the shape to output
+  s->odbOutputLayerFeature(
       symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
       m_location, m_xform);
 }

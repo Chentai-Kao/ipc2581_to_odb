@@ -11,6 +11,13 @@ class Simple : public UserPrimitive
 {
 public:
   virtual void initialize(QXmlStreamReader& xml) = 0;
+  virtual void odbOutputLayerFeature(
+      QList<QString>& symbolsTable,
+      QList<QString>& attributeTable,
+      QList<QString>& attributeTexts,
+      QList<QString>& featuresList,
+      QString polarity,
+      QPointF location, Xform *xform) = 0;
 };
 
 #endif

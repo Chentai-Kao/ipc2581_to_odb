@@ -35,6 +35,17 @@ private:
   QString m_id; // id
 };
 
+class InvalidIdError : public Error
+{
+public:
+  InvalidIdError(QString id) : m_id(id) {}
+  virtual void info() {
+    qDebug() << QString("ERROR** invalid id \"%1\"").arg(m_id);
+  }
+private:
+  QString m_id; // id
+};
+
 class InvalidElementError : public Error
 {
 public:

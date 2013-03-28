@@ -17,3 +17,16 @@ Line::initialize(QXmlStreamReader& xml)
   }
   m_lineDescGroup->initialize(xml);
 }
+
+void
+Line::odbOutputLayerFeature(
+    QList<QString>& symbolsTable,
+    QList<QString>& attributeTable,
+    QList<QString>& attributeTexts,
+    QList<QString>& featuresList,
+    QString polarity,
+    QPointF location, Xform *xform)
+{
+  // TODO skipped
+  // throw new NonImplementedError("Line::odbOutputLayerFeatre()");
+}

@@ -27,6 +27,7 @@ HEADERS += \
   drilltool.h \
   ecadhandler.h \
   error.h \
+  featuresgroup.h \
   handler.h \
   historyrecordhandler.h \
   hole.h \
@@ -69,6 +70,7 @@ SOURCES += \
   dictionaryuserhandler.cpp \
   drilltool.cpp \
   ecadhandler.cpp \
+  featuresgroup.cpp \
   historyrecordhandler.cpp \
   hole.cpp \
   landpattern.cpp \

@@ -10,6 +10,13 @@ class UserSpecial : public UserPrimitive
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
+  virtual void odbOutputLayerFeature(
+      QList<QString>& symbolsTable,
+      QList<QString>& attributeTable,
+      QList<QString>& attributeTexts,
+      QList<QString>& featuresList,
+      QString polarity,
+      QPointF location, Xform *xform);
 
 private:
   QList<Feature*> m_features;

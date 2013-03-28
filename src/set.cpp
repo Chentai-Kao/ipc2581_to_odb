@@ -6,6 +6,7 @@
 #include "featurefactory.h"
 #include "colorgroupfactory.h"
 #include "linedescgroupfactory.h"
+#include "featuresgroup.h"
 
 void
 Set::initialize(QXmlStreamReader& xml)
@@ -99,10 +100,10 @@ Set::initialize(QXmlStreamReader& xml)
         slot.initialize(xml);
         m_slots.append(slot);
       }
-      else if (isSubstitutionGroupFeature(xml.name())) {
-        Feature* f = FeatureFactory().create(xml.name());
-        f->initialize(xml);
-        m_features.append(f);
+      else if (xml.name() == "Features") {
+        Features features;
+        features.initialize(xml);
+        m_featureses.append(features);
       }
       else if (isSubstitutionGroupColorGroup(xml.name())) {
         ColorGroup *c = ColorGroupFactory().create(xml.name());
@@ -147,6 +148,12 @@ Set::odbOutputLayerFeature(
   // TODO: m_slots;
 
   // TODO: m_features;
+  for (int i = 0; i < m_featureses.size(); ++i) {
+    QString polarity = (m_polarity == POSITIVE)? "P" : "N";
+    m_featureses[i].odbOutputLayerFeature(
+        symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
+        entryStandards, entryUsers);
+  }
 
   // TODO: m_colorGroups;
 

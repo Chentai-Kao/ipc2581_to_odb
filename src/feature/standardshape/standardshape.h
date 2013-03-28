@@ -12,7 +12,7 @@ class StandardShape : public Feature
 {
 public:
   virtual void initialize(QXmlStreamReader& xml) = 0;
-  virtual QString refId() { return ""; } // used by StandardPrimitiveRef
+  virtual QString refId() = 0; // used by StandardPrimitiveRef
   virtual void odbOutputLayerFeature(
       QList<QString>& symbolsTable,
       QList<QString>& attributeTable,

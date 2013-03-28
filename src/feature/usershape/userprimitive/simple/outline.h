@@ -11,6 +11,13 @@ class Outline : public Simple
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
+  virtual void odbOutputLayerFeature(
+      QList<QString>& symbolsTable,
+      QList<QString>& attributeTable,
+      QList<QString>& attributeTexts,
+      QList<QString>& featuresList,
+      QString polarity,
+      QPointF location, Xform *xform);
 
 private:
   Polygon m_polygon;

@@ -20,3 +20,16 @@ Arc::initialize(QXmlStreamReader& xml)
   }
   m_lineDescGroup->initialize(xml);
 }
+
+void
+Arc::odbOutputLayerFeature(
+    QList<QString>& symbolsTable,
+    QList<QString>& attributeTable,
+    QList<QString>& attributeTexts,
+    QList<QString>& featuresList,
+    QString polarity,
+    QPointF location, Xform *xform)
+{
+  // TODO skipped
+  // throw new NonImplementedError("Arc::odbOutputLayerFeature");
+}

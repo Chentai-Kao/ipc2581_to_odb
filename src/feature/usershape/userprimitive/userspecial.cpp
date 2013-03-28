@@ -17,3 +17,16 @@ UserSpecial::initialize(QXmlStreamReader& xml)
     }
   }
 }
+
+void
+UserSpecial::odbOutputLayerFeature(
+    QList<QString>& symbolsTable,
+    QList<QString>& attributeTable,
+    QList<QString>& attributeTexts,
+    QList<QString>& featuresList,
+    QString polarity,
+    QPointF location, Xform *xform)
+{
+  // TODO skipped
+  // throw new NonImplementedError("UserSpecial::odbOutputLayerFeatre");
+}

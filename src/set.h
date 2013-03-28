@@ -7,7 +7,7 @@
 #include "fiducial.h"
 #include "hole.h"
 #include "slot.h"
-#include "feature.h"
+#include "featuresgroup.h"
 #include "colorgroup.h"
 #include "linedescgroup.h"
 #include "standardprimitive.h"
@@ -43,7 +43,7 @@ private:
   QList<Fiducial*> m_fiducials;
   QList<Hole> m_holes;
   QList<Slot> m_slots;
-  QList<Feature*> m_features;
+  QList<Features> m_featureses;
   QList<ColorGroup*> m_colorGroups;
   QList<LineDescGroup*> m_lineDescGroups;
 };

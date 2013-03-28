@@ -34,3 +34,16 @@ Polyline::initialize(QXmlStreamReader& xml)
     }
   }
 }
+
+void
+Polyline::odbOutputLayerFeature(
+    QList<QString>& symbolsTable,
+    QList<QString>& attributeTable,
+    QList<QString>& attributeTexts,
+    QList<QString>& featuresList,
+    QString polarity,
+    QPointF location, Xform *xform)
+{
+  // TODO skipped 
+  // throw new NonImplementedError("Polyline::odbOutputLayerFeature");
+}

@@ -23,3 +23,16 @@ Outline::initialize(QXmlStreamReader& xml)
     }
   }
 }
+
+void
+Outline::odbOutputLayerFeature(
+    QList<QString>& symbolsTable,
+    QList<QString>& attributeTable,
+    QList<QString>& attributeTexts,
+    QList<QString>& featuresList,
+    QString polarity,
+    QPointF location, Xform *xform)
+{
+  // TODO skipped
+  // throw new NonImplementedError("Outline::odbOutputLayerFeature");
+}

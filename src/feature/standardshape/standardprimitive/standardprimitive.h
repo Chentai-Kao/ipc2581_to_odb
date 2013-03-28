@@ -13,6 +13,7 @@ class StandardPrimitive : public StandardShape
 {
 public:
   virtual void initialize(QXmlStreamReader& xml) = 0;
+  virtual QString refId() { return ""; }
   virtual void odbOutputLayerFeature(
       QList<QString>& symbolsTable,
       QList<QString>& attributeTable,
