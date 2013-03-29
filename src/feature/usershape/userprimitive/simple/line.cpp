@@ -36,7 +36,7 @@ Line::odbOutputLayerFeature(
     QString polarity,
     QPointF location, Xform *xform)
 {
-  QString symbol = QString("%1%2")
+  QString symbol = QString("%1%2") // square (e.g. s5) or round (e.g. r2)
                            .arg(m_lineDescGroup->endType())
                            .arg(m_lineDescGroup->lineWidth() * 0.5);
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());

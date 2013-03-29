@@ -32,7 +32,7 @@ Polyline::initialize(QXmlStreamReader& xml)
     }
     else if (isEndElementWithName(xml, "Polyline")) { // </Polyline>
       if (m_lineDescGroup == NULL) {
-        throw new InvalidElementError("Outline");
+        throw new InvalidElementError("Polyline");
       }
       break;
     }
