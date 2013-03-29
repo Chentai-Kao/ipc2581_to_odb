@@ -36,6 +36,18 @@ Line::odbOutputLayerFeature(
     QString polarity,
     QPointF location, Xform *xform)
 {
-  // TODO skipped
-  // throw new NonImplementedError("Line::odbOutputLayerFeatre()");
+  QString symbol = QString("%1%2")
+                           .arg(m_lineDescGroup->endType())
+                           .arg(m_lineDescGroup->lineWidth() * 0.5);
+  int symNum = odbInsertSymbol(symbol, file.symbolsTable());
+  QPointF newLocation = calcTransformedLocation(location, xform);
+  QPointF newStart  = newLocation + calcTransformedLocation(m_start, xform);
+  QPointF newEnd    = newLocation + calcTransformedLocation(m_end, xform);
+  file.featuresList().append(QString("L %1 %2 %3 %4 %5 %6 0\n")
+                             .arg(newStart.x())
+                             .arg(newStart.y())
+                             .arg(newEnd.x())
+                             .arg(newEnd.y())
+                             .arg(symNum)
+                             .arg(polarity));
 }

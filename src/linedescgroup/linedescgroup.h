@@ -10,6 +10,7 @@ class LineDescGroup
 public:
   virtual void initialize(QXmlStreamReader& xml) = 0;
   virtual qreal lineWidth() = 0;
+  virtual QString endType() = 0;
 };
 
 #endif

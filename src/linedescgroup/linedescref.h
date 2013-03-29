@@ -11,6 +11,7 @@ public:
   virtual qreal lineWidth() {
     throw new ProgramLogicError("LineDescRef::lineWidth()");
   }
+  virtual QString endType() { return ""; }
 
 private:
   QString m_id;
