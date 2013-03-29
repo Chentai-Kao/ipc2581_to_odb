@@ -20,6 +20,7 @@ HEADERS += \
   cadheaderhandler.h \
   component.h \
   contenthandler.h \
+  dictionary.h \
   dictionarycolorhandler.h \
   dictionarylinedeschandler.h \
   dictionarystandardhandler.h \
@@ -37,6 +38,7 @@ HEADERS += \
   logicalnet.h \
   logisticheaderhandler.h \
   odb.h \
+  odbfeaturefile.h \
   package.h \
   pad.h \
   phynetgroup.h \

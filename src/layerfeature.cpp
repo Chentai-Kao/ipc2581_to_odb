@@ -1,5 +1,6 @@
 #include "layerfeature.h"
 #include "utils.h"
+#include "odbfeaturefile.h"
 
 void
 LayerFeature::initialize(QXmlStreamReader& xml)
@@ -22,50 +23,44 @@ LayerFeature::initialize(QXmlStreamReader& xml)
 
 void
 LayerFeature::odbOutputLayerFeature(QTextStream& out,
-      const QHash<QString, StandardPrimitive*>& entryStandards,
-      const QHash<QString, UserPrimitive*>&     entryUsers)
+    const Dictionary& dictionary)
 {
   /* The feature file has 4 sections:
    * Symbols table, Attribute table, Attribute texts, and Features list.
    * Collect the full information of them, then output to file.
    */
-  QList<QString> symbolsTable;
-  QList<QString> attributeTable;
-  QList<QString> attributeTexts;
-  QList<QString> featuresList;
+  OdbFeatureFile file;
 
   // collect information
   for (int i = 0; i < m_sets.size(); ++i) {
-    m_sets[i].odbOutputLayerFeature(
-        symbolsTable, attributeTable, attributeTexts, featuresList,
-        entryStandards, entryUsers);
+    m_sets[i].odbOutputLayerFeature(file, dictionary);
   }
 
   // output to file
   out << "#\n";
   out << "#Feature symbol names\n";
   out << "#\n";
-  for (int i = 0; i < symbolsTable.size(); ++i) {
+  for (int i = 0; i < file.symbolsTable().size(); ++i) {
     out << QString("$%1 %2\n")
                    .arg(i)
-                   .arg(symbolsTable[i]);
+                   .arg(file.symbolsTable()[i]);
   }
   out << "#\n";
   out << "#Feature attribute names\n";
   out << "#\n";
-  for (int i = 0; i < attributeTable.size(); ++i) {
-    out << attributeTable[i];
+  for (int i = 0; i < file.attributeTable().size(); ++i) {
+    out << file.attributeTable()[i];
   }
   out << "#\n";
   out << "#Feature attribute text strings\n";
   out << "#\n";
-  for (int i = 0; i < attributeTexts.size(); ++i) {
-    out << attributeTexts[i];
+  for (int i = 0; i < file.attributeTexts().size(); ++i) {
+    out << file.attributeTexts()[i];
   }
   out << "#\n";
   out << "#Layer features\n";
   out << "#\n";
-  for (int i = 0; i < featuresList.size(); ++i) {
-    out << featuresList[i];
+  for (int i = 0; i < file.featuresList().size(); ++i) {
+    out << file.featuresList()[i];
   }
 }

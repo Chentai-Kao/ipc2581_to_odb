@@ -8,22 +8,31 @@ Line::initialize(QXmlStreamReader& xml)
   m_end = QPointF(getDoubleAttribute(xml, "Line", "endX"),
                   getDoubleAttribute(xml, "Line", "endY"));
   // LineDescGroup
-  xml.readNextStartElement();
-  if (xml.name() == "LineDesc") {
-    m_lineDescGroup = new LineDesc();
+  m_lineDescGroup = NULL;
+  while (!xml.atEnd() && !xml.hasError()) {
+    xml.readNext();
+    if (xml.isStartElement()) {
+      if (xml.name() == "LineDesc") {
+        m_lineDescGroup = new LineDesc();
+        m_lineDescGroup->initialize(xml);
+      }
+      else if (xml.name() == "LineDescRef") {
+        m_lineDescGroup = new LineDescRef();
+        m_lineDescGroup->initialize(xml);
+      }
+    }
+    else if (isEndElementWithName(xml, "Line")) { // </Line>
+      if (m_lineDescGroup == NULL) {
+        throw new InvalidElementError("Line");
+      }
+      return;
+    }
   }
-  else {
-    m_lineDescGroup = new LineDescRef();
-  }
-  m_lineDescGroup->initialize(xml);
 }
 
 void
 Line::odbOutputLayerFeature(
-    QList<QString>& symbolsTable,
-    QList<QString>& attributeTable,
-    QList<QString>& attributeTexts,
-    QList<QString>& featuresList,
+    OdbFeatureFile& file,
     QString polarity,
     QPointF location, Xform *xform)
 {

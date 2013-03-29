@@ -8,10 +8,7 @@ Octagon::initialize(QXmlStreamReader& xml)
 
 void
 Octagon::odbOutputLayerFeature(
-    QList<QString>& symbolsTable,
-    QList<QString>& attributeTable,
-    QList<QString>& attributeTexts,
-    QList<QString>& featuresList,
+    OdbFeatureFile& file,
     QString polarity,
     QPointF location, Xform *xform)
 {
@@ -19,11 +16,10 @@ Octagon::odbOutputLayerFeature(
   qreal w = r * (2 + qSqrt(2));
   qreal h = w;
   QString symbol = QString("oct%1x%2x%3").arg(w).arg(h).arg(r);
-  symbol += odbRotationSuffix(xform);
-  int symNum = odbInsertSymbol(symbol, symbolsTable);
-  QPointF newLocation = odbDecideTransformedLocation(location, xform);
+  int symNum = odbInsertSymbol(symbol, file.symbolsTable());
+  QPointF newLocation = calcTransformedLocation(location, xform);
   int orient = odbDecideOrient(xform);
-  featuresList.append(QString("P %1 %2 %3 %4 0 %5\n")
+  file.featuresList().append(QString("P %1 %2 %3 %4 0 %5\n")
                               .arg(newLocation.x())
                               .arg(newLocation.y())
                               .arg(symNum)

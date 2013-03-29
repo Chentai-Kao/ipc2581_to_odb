@@ -37,23 +37,20 @@ Polygon::isClosedShape()
 
 void
 Polygon::odbOutputLayerFeature(
-    QList<QString>& symbolsTable,
-    QList<QString>& attributeTable,
-    QList<QString>& attributeTexts,
-    QList<QString>& featuresList,
+    OdbFeatureFile& file,
     QString polarity,
     QPointF location, Xform *xform, PolygonType type)
 {
   // island == POLYGON (must clockwise), hole == CUTOUT (must counter clockwise)
-  featuresList.append(QString("S %1 0\n").arg(polarity));
+  file.featuresList().append(QString("S %1 0\n").arg(polarity));
   if ((type == POLYGON && isClockwise()) || 
       (type == CUTOUT && !isClockwise())) {
-    odbOutputFeature(featuresList, type);
+    odbOutputFeature(file, type);
   }
   else {
-    odbOutputFeatureInv(featuresList, type);
+    odbOutputFeatureInv(file, type);
   }
-  featuresList.append(QString("SE\n"));
+  file.featuresList().append(QString("SE\n"));
 }
 
 bool
@@ -100,21 +97,21 @@ Polygon::calcPolygonEdges()
 }
 
 void
-Polygon::odbOutputFeature(QList<QString>& featuresList, PolygonType type)
+Polygon::odbOutputFeature(OdbFeatureFile& file, PolygonType type)
 {
-  featuresList.append(QString("OB %1 %2 %3\n")
+  file.featuresList().append(QString("OB %1 %2 %3\n")
                               .arg(m_polyBegin.x())
                               .arg(m_polyBegin.y())
                               .arg(type == POLYGON? "I" : "H"));
   QList<PolygonEdge> polygonEdges = calcPolygonEdges();
   for (int i = 0; i < polygonEdges.size(); ++i) {
     if (polygonEdges[i].m_odbType == "OS") {
-      featuresList.append(QString("OS %1 %2\n")
+      file.featuresList().append(QString("OS %1 %2\n")
                           .arg(polygonEdges[i].m_endPoint.x())
                           .arg(polygonEdges[i].m_endPoint.y()));
     }
     else {
-      featuresList.append(QString("OC %1 %2 %3 %4 %5\n")
+      file.featuresList().append(QString("OC %1 %2 %3 %4 %5\n")
                           .arg(polygonEdges[i].m_endPoint.x())
                           .arg(polygonEdges[i].m_endPoint.y())
                           .arg(polygonEdges[i].m_centerPoint.x())
@@ -125,21 +122,21 @@ Polygon::odbOutputFeature(QList<QString>& featuresList, PolygonType type)
 }
 
 void
-Polygon::odbOutputFeatureInv(QList<QString>& featuresList, PolygonType type)
+Polygon::odbOutputFeatureInv(OdbFeatureFile& file, PolygonType type)
 {
-  featuresList.append(QString("OB %1 %2 %3\n")
+  file.featuresList().append(QString("OB %1 %2 %3\n")
                               .arg(m_polyBegin.x())
                               .arg(m_polyBegin.y())
                               .arg(type == POLYGON? "I" : "H"));
   QList<PolygonEdge> polygonEdges = calcPolygonEdges();
   for (int i = polygonEdges.size() - 1; i >= 0; --i) {
     if (polygonEdges[i].m_odbType == "OS") {
-      featuresList.append(QString("OS %1 %2\n")
+      file.featuresList().append(QString("OS %1 %2\n")
                           .arg(polygonEdges[i].m_startPoint.x())
                           .arg(polygonEdges[i].m_startPoint.y()));
     }
     else {
-      featuresList.append(QString("OC %1 %2 %3 %4 %5\n")
+      file.featuresList().append(QString("OC %1 %2 %3 %4 %5\n")
                           .arg(polygonEdges[i].m_startPoint.x())
                           .arg(polygonEdges[i].m_startPoint.y())
                           .arg(polygonEdges[i].m_centerPoint.x())

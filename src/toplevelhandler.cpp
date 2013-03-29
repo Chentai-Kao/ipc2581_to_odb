@@ -56,8 +56,15 @@ TopLevelHandler::odbOutputLayerFeature(
 {
   m_ecadHandler.odbOutputLayerFeature(
       out, stepName, layerName,
-      m_contentHandler.entryStandards(),
-      m_contentHandler.entryUsers());
+      m_dictionary);
+}
+
+void
+TopLevelHandler::createDictionary()
+{
+  m_dictionary.setEntryStandards(m_contentHandler.entryStandards());
+  m_dictionary.setEntryUsers(m_contentHandler.entryUsers());
+  m_dictionary.setEntryLineDescs(m_contentHandler.entryLineDescs());
 }
 
 bool

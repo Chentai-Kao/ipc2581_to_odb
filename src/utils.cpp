@@ -197,7 +197,7 @@ bool isSubstitutionGroupUserShape(QStringRef elementName)
           elementName == "UserPrimitiveRef");
 }
 
-QPointF odbDecideTransformedLocation(QPointF location, Xform *xform)
+QPointF calcTransformedLocation(QPointF location, Xform *xform)
 {
   if (xform == NULL) {
     return location;

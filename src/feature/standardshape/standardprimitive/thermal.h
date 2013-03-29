@@ -3,6 +3,7 @@
 
 #include "standardprimitive.h"
 
+
 class Thermal : public StandardPrimitive
 {
 public:
@@ -10,10 +11,7 @@ public:
   bool isValidSpokeCount();
   enum ThermalShape { ROUND, SQUARE, HEXAGON, OCTAGON };
   virtual void odbOutputLayerFeature(
-      QList<QString>& symbolsTable,
-      QList<QString>& attributeTable,
-      QList<QString>& attributeTexts,
-      QList<QString>& featuresList,
+      OdbFeatureFile& file,
       QString polarity,
       QPointF location, Xform *xform);
 

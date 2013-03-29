@@ -14,3 +14,4 @@ TODO:
 4. decompose symbol in ODB++ (e.g. hexagon donut...) marked as TODO
 5. (rewrite) "non 90 degree increment" should be defined as user symbol
 6. user symbol (under symbols/feature)
+7. need to handle <LineDescRef> in Simple group (arc, line, outline, polyline)

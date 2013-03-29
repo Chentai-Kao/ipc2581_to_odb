@@ -3,16 +3,14 @@
 
 #include "standardprimitive.h"
 
+
 class Butterfly : public StandardPrimitive
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
   enum ButterflyShape { ROUND, SQUARE };
   virtual void odbOutputLayerFeature(
-      QList<QString>& symbolsTable,
-      QList<QString>& attributeTable,
-      QList<QString>& attributeTexts,
-      QList<QString>& featuresList,
+      OdbFeatureFile& file,
       QString polarity,
       QPointF location, Xform *xform);
 

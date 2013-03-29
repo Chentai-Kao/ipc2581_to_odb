@@ -80,13 +80,12 @@ Step::initialize(QXmlStreamReader& xml)
 
 void
 Step::odbOutputLayerFeature(QTextStream& out, const QString layerName,
-      const QHash<QString, StandardPrimitive*>& entryStandards,
-      const QHash<QString, UserPrimitive*>&     entryUsers)
+      const Dictionary& dictionary)
 {
   // find the specific layer, and let it output
   for (int i = 0; i < m_layerFeatures.size(); ++i) {
     if (m_layerFeatures[i].layerRef() == layerName) {
-      m_layerFeatures[i].odbOutputLayerFeature(out, entryStandards, entryUsers);
+      m_layerFeatures[i].odbOutputLayerFeature(out, dictionary);
     }
   }
 }

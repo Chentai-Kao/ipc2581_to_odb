@@ -9,10 +9,7 @@ Text::initialize(QXmlStreamReader& xml)
 
 void
 Text::odbOutputLayerFeature(
-    QList<QString>& symbolsTable,
-    QList<QString>& attributeTable,
-    QList<QString>& attributeTexts,
-    QList<QString>& featuresList,
+    OdbFeatureFile& file,
     QString polarity,
     QPointF location, Xform *xform)
 {

@@ -14,6 +14,7 @@ private:
   // member functions
   void deleteOdbDir(const QString path); // path relative to odb root
   void createOdbDir(const QString path); // path relative to odb root
+  void createDictionary(); // collect all dictionary to m_dictionary
   void createFileSystem(); // Job->xxx
   void createMatrix(); // Job->matrix->matrix
   void createStepLayerHierarchy(); // Job->step->layers->xxx
@@ -25,6 +26,7 @@ private:
   QString         m_odbRootPath;
   QList<QString>  m_allSteps;
   QList<QString>  m_allLayers;
+  Dictionary      m_dictionary;
 };
 
 #endif

@@ -3,6 +3,7 @@
 void
 Polyline::initialize(QXmlStreamReader& xml)
 {
+  m_lineDescGroup = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
@@ -29,7 +30,10 @@ Polyline::initialize(QXmlStreamReader& xml)
         m_lineDescGroup->initialize(xml);
       }
     }
-    else if (isEndElementWithName(xml, "Polyline")) {
+    else if (isEndElementWithName(xml, "Polyline")) { // </Polyline>
+      if (m_lineDescGroup == NULL) {
+        throw new InvalidElementError("Outline");
+      }
       break;
     }
   }
@@ -37,10 +41,7 @@ Polyline::initialize(QXmlStreamReader& xml)
 
 void
 Polyline::odbOutputLayerFeature(
-    QList<QString>& symbolsTable,
-    QList<QString>& attributeTable,
-    QList<QString>& attributeTexts,
-    QList<QString>& featuresList,
+    OdbFeatureFile& file,
     QString polarity,
     QPointF location, Xform *xform)
 {

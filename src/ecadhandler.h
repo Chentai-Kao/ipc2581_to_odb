@@ -4,6 +4,7 @@
 #include "handler.h"
 #include "cadheaderhandler.h"
 #include "caddatahandler.h"
+#include "dictionary.h"
 
 class EcadHandler : public Handler
 {
@@ -12,8 +13,7 @@ public:
   void odbOutputMatrixAllLayers(QTextStream& out);
   void odbOutputLayerFeature(
       QTextStream &out, QString stepName, QString layerName,
-      const QHash<QString, StandardPrimitive*>& entryStandards,
-      const QHash<QString, UserPrimitive*>&     entryUsers);
+      const Dictionary& dictionary);
 
 private:
   QString m_name; // attribute "name" of <Ecad>

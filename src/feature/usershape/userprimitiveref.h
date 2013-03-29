@@ -10,10 +10,7 @@ public:
   virtual void initialize(QXmlStreamReader& xml);
   virtual QString refId() { return m_id; }
   virtual void odbOutputLayerFeature(
-      QList<QString>& symbolsTable,
-      QList<QString>& attributeTable,
-      QList<QString>& attributeTexts,
-      QList<QString>& featuresList,
+      OdbFeatureFile& file,
       QString polarity,
       QPointF location, Xform *xform) {}
 

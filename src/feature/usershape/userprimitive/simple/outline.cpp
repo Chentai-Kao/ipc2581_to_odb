@@ -3,6 +3,7 @@
 void
 Outline::initialize(QXmlStreamReader& xml)
 {
+  m_lineDescGroup = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
@@ -19,6 +20,9 @@ Outline::initialize(QXmlStreamReader& xml)
       }
     }
     else if (isEndElementWithName(xml, "Outline")) { // </Outline> the end
+      if (m_lineDescGroup == NULL) {
+        throw new InvalidElementError("Outline");
+      }
       break;
     }
   }
@@ -26,10 +30,7 @@ Outline::initialize(QXmlStreamReader& xml)
 
 void
 Outline::odbOutputLayerFeature(
-    QList<QString>& symbolsTable,
-    QList<QString>& attributeTable,
-    QList<QString>& attributeTexts,
-    QList<QString>& featuresList,
+    OdbFeatureFile& file,
     QString polarity,
     QPointF location, Xform *xform)
 {

@@ -92,4 +92,16 @@ private:
   QString m_name; // the thing that is not implemented
 };
 
+class ProgramLogicError : public Error
+{
+public:
+  ProgramLogicError(QString n) : m_function(n) {}
+  virtual void info() {
+    qDebug() << QString("ERROR** program should not execute here: \"%1\"")
+                        .arg(m_function);
+  }
+private:
+  QString m_function; // function name
+};
+
 #endif

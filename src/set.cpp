@@ -124,12 +124,8 @@ Set::initialize(QXmlStreamReader& xml)
 
 void
 Set::odbOutputLayerFeature(
-    QList<QString>& symbolsTable,
-    QList<QString>& attributeTable,
-    QList<QString>& attributeTexts,
-    QList<QString>& featuresList,
-    const QHash<QString, StandardPrimitive*>& entryStandards,
-    const QHash<QString, UserPrimitive*>&     entryUsers)
+    OdbFeatureFile& file,
+    const Dictionary& dictionary)
 {
   // TODO: m_attributes;
 
@@ -137,8 +133,9 @@ Set::odbOutputLayerFeature(
   for (int i = 0; i < m_pads.size(); ++i) {
     QString polarity = (m_polarity == POSITIVE)? "P" : "N";
     m_pads[i].odbOutputLayerFeature(
-        symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
-        entryStandards);
+        file,
+        polarity,
+        dictionary);
   }
 
   // TODO: m_fiducials;
@@ -147,12 +144,13 @@ Set::odbOutputLayerFeature(
 
   // TODO: m_slots;
 
-  // TODO: m_features;
+  // TODO: m_featureses;
   for (int i = 0; i < m_featureses.size(); ++i) {
     QString polarity = (m_polarity == POSITIVE)? "P" : "N";
     m_featureses[i].odbOutputLayerFeature(
-        symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
-        entryStandards, entryUsers);
+        file,
+        polarity,
+        dictionary);
   }
 
   // TODO: m_colorGroups;

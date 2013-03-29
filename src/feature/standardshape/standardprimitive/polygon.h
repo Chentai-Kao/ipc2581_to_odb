@@ -5,16 +5,14 @@
 #include "polystep.h"
 #include "xform.h"
 #include "utils.h"
+#include "odbfeaturefile.h"
 
 class Polygon
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
   virtual void odbOutputLayerFeature(
-      QList<QString>& symbolsTable,
-      QList<QString>& attributeTable,
-      QList<QString>& attributeTexts,
-      QList<QString>& featuresList,
+      OdbFeatureFile& file,
       QString polarity,
       QPointF location, Xform *xform, PolygonType type);
 
@@ -24,8 +22,8 @@ private:
   bool isClockwise();
   QList<PolygonEdge> calcPolygonEdges();
   // output feature in inverse order or not
-  void odbOutputFeature(QList<QString>& featuresList, PolygonType type);
-  void odbOutputFeatureInv(QList<QString>& featuresList, PolygonType type);
+  void odbOutputFeature(OdbFeatureFile& file, PolygonType type);
+  void odbOutputFeatureInv(OdbFeatureFile& file, PolygonType type);
 
   // data member
   QPointF m_polyBegin;

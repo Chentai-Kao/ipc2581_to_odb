@@ -10,6 +10,9 @@ class DictionaryLineDescHandler : public Handler
 {
 public:
   virtual void run(QXmlStreamReader& xml);
+  
+  // getter
+  QHash<QString, LineDesc> entryLineDescs() { return m_entryLineDescs; }
 
 private:
   UnitsType m_units;

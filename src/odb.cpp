@@ -5,9 +5,10 @@
 Odb::Odb(TopLevelHandler& h)
 {
   m_handler = h;
+  m_handler.createDictionary();
   m_odbRootPath = "bin/odb/";
-  m_allSteps = h.allSteps();
-  m_allLayers = h.allLayers();
+  m_allSteps = m_handler.allSteps();
+  m_allLayers = m_handler.allLayers();
   m_allLayers.append("COMP_+_TOP"); // because these two layers are not
   m_allLayers.append("COMP_+_BOT"); // in <LayerRef>
 }

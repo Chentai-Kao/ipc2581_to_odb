@@ -20,6 +20,7 @@ Features::initialize(QXmlStreamReader& xml)
       }
       else if (isSubstitutionGroupFeature(xml.name())) {
         m_feature = FeatureFactory().create(xml.name());
+        m_feature->initialize(xml);
       }
     }
     else if (isEndElementWithName(xml, "Features")) { // </Features>
@@ -33,24 +34,20 @@ Features::initialize(QXmlStreamReader& xml)
 
 void
 Features::odbOutputLayerFeature(
-    QList<QString>& symbolsTable,
-    QList<QString>& attributeTable,
-    QList<QString>& attributeTexts,
-    QList<QString>& featuresList,
+    OdbFeatureFile& file,
     QString polarity,
-    const QHash<QString, StandardPrimitive*>& entryStandards,
-    const QHash<QString, UserPrimitive*>& entryUsers)
+    const Dictionary& dictionary)
 {
   QString refId = m_feature->refId();
   Feature *f;
   if (refId == "") { // not a reference to others
     f = m_feature;
   }
-  else if (entryStandards.contains(refId)) { // a reference to standard shape
-    f = entryStandards[refId];
+  else if (dictionary.entryStandards().contains(refId)) {
+    f = dictionary.entryStandards()[refId]; // a reference to standard shape
   }
-  else if (entryUsers.contains(refId)) { // a reference to user shape
-    f = entryUsers[refId];
+  else if (dictionary.entryUsers().contains(refId)) {
+    f = dictionary.entryUsers()[refId]; // a reference to user shape
   }
   else { // cannot find id in dictionary
     throw new InvalidIdError(refId);
@@ -58,6 +55,7 @@ Features::odbOutputLayerFeature(
 
   // call the feature to output
   f->odbOutputLayerFeature(
-      symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
+      file,
+      polarity,
       m_location, m_xform);
 }

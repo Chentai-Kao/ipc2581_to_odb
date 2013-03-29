@@ -24,22 +24,19 @@ Contour::initialize(QXmlStreamReader& xml)
 
 void
 Contour::odbOutputLayerFeature(
-    QList<QString>& symbolsTable,
-    QList<QString>& attributeTable,
-    QList<QString>& attributeTexts,
-    QList<QString>& featuresList,
+    OdbFeatureFile& file,
     QString polarity,
     QPointF location, Xform *xform)
 {
   m_polygon.odbOutputLayerFeature(
-      symbolsTable, attributeTable, attributeTexts, featuresList,
+      file,
       polarity, location, xform, POLYGON);
 
   // cutout has inverse polarity
   QString invPolarity = (polarity == "P")? "N" : "P";
   for (int i = 0; i < m_cutouts.size(); ++i) {
     m_cutouts[i].odbOutputLayerFeature(
-        symbolsTable, attributeTable, attributeTexts, featuresList,
+        file,
         invPolarity, location, xform, CUTOUT);
   }
 }

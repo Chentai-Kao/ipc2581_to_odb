@@ -12,21 +12,24 @@ class ContentHandler : public Handler
 public:
   virtual void run(QXmlStreamReader& xml);
   void odbOutputMatrixAllSteps(QTextStream& out);
-  QList<QString>& allSteps() { return m_stepRefs; }
-  QList<QString>& allLayers() { return m_layerRefs; }
 
   // getter
+  QList<QString>& allSteps() { return m_stepRefs; }
+  QList<QString>& allLayers() { return m_layerRefs; }
   QHash<QString, StandardPrimitive*> entryStandards() {
-    if (m_dictionaryStandardHandler == NULL) {
-      return QHash<QString, StandardPrimitive*>();
-    }
-    return m_dictionaryStandardHandler->entryStandards();
+    return (m_dictionaryStandardHandler == NULL)?
+        QHash<QString, StandardPrimitive*>() :
+        m_dictionaryStandardHandler->entryStandards();
   }
   QHash<QString, UserPrimitive*> entryUsers() {
-    if (m_dictionaryUserHandler == NULL) {
-      return QHash<QString, UserPrimitive*>();
-    }
-    return m_dictionaryUserHandler->entryUsers();
+    return (m_dictionaryUserHandler == NULL)?
+        QHash<QString, UserPrimitive*>() :
+        m_dictionaryUserHandler->entryUsers();
+  }
+  QHash<QString, LineDesc> entryLineDescs() {
+    return (m_dictionaryLineDescHandler == NULL)?
+        QHash<QString, LineDesc>() :
+        m_dictionaryLineDescHandler->entryLineDescs();
   }
 
 private:

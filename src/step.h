@@ -9,6 +9,7 @@
 #include "phynetgroup.h"
 #include "layerfeature.h"
 #include "attribute.h"
+#include "dictionary.h"
 
 class Step
 {
@@ -18,8 +19,7 @@ public:
   // getter
   QString name() { return m_name; }
   void odbOutputLayerFeature(QTextStream& out, const QString layerName,
-      const QHash<QString, StandardPrimitive*>& entryStandards,
-      const QHash<QString, UserPrimitive*>&     entryUsers);
+      const Dictionary& dictionary);
 
 private:
   QString m_name;

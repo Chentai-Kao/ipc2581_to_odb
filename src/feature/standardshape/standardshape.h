@@ -5,6 +5,7 @@
 #include "utils.h"
 #include "feature.h"
 #include "xform.h"
+#include "odbfeaturefile.h"
 
 // Base class of "StandardShape":
 // StandardPrimitive, StandardPrimitiveRef
@@ -14,10 +15,7 @@ public:
   virtual void initialize(QXmlStreamReader& xml) = 0;
   virtual QString refId() = 0; // used by StandardPrimitiveRef
   virtual void odbOutputLayerFeature(
-      QList<QString>& symbolsTable,
-      QList<QString>& attributeTable,
-      QList<QString>& attributeTexts,
-      QList<QString>& featuresList,
+      OdbFeatureFile& file,
       QString polarity,
       QPointF location, Xform *xform) = 0;
 };

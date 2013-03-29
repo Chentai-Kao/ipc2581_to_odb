@@ -3,15 +3,13 @@
 
 #include "standardprimitive.h"
 
+
 class Hexagon : public StandardPrimitive
 {
 public:
   virtual void initialize(QXmlStreamReader& xml);
   virtual void odbOutputLayerFeature(
-      QList<QString>& symbolsTable,
-      QList<QString>& attributeTable,
-      QList<QString>& attributeTexts,
-      QList<QString>& featuresList,
+      OdbFeatureFile& file,
       QString polarity,
       QPointF location, Xform *xform);
 

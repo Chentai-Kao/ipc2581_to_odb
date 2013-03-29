@@ -7,18 +7,17 @@
 #include "pinref.h"
 #include "utils.h"
 #include "standardprimitive.h"
+#include "odbfeaturefile.h"
+#include "dictionary.h"
 
 class Pad
 {
 public:
   void initialize(QXmlStreamReader& xml);
   void odbOutputLayerFeature(
-      QList<QString>& symbolsTable,
-      QList<QString>& attributeTable,
-      QList<QString>& attributeTexts,
-      QList<QString>& featuresList,
+      OdbFeatureFile& file,
       QString polarity,
-      const QHash<QString, StandardPrimitive*>& entryStandards);
+      const Dictionary& dictionary);
 
 private:
   Xform *m_xform;

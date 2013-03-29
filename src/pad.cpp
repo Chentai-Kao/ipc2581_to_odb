@@ -35,12 +35,9 @@ Pad::initialize(QXmlStreamReader& xml)
 
 void
 Pad::odbOutputLayerFeature(
-    QList<QString>& symbolsTable,
-    QList<QString>& attributeTable,
-    QList<QString>& attributeTexts,
-    QList<QString>& featuresList,
+    OdbFeatureFile& file,
     QString polarity,
-    const QHash<QString, StandardPrimitive*>& entryStandards)
+    const Dictionary& dictionary)
 {
   // if the shape is a reference, find it in the list
   QString refId = m_standardShape->refId();
@@ -48,8 +45,8 @@ Pad::odbOutputLayerFeature(
   if (refId == "") {
     s = m_standardShape;
   }
-  else if (entryStandards.contains(refId)) {
-    s = entryStandards[refId];
+  else if (dictionary.entryStandards().contains(refId)) {
+    s = dictionary.entryStandards()[refId];
   }
   else {
     throw new InvalidIdError(refId);
@@ -57,6 +54,7 @@ Pad::odbOutputLayerFeature(
 
   // call the shape to output
   s->odbOutputLayerFeature(
-      symbolsTable, attributeTable, attributeTexts, featuresList, polarity,
+      file,
+      polarity,
       m_location, m_xform);
 }

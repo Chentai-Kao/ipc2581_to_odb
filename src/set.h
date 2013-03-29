@@ -12,6 +12,8 @@
 #include "linedescgroup.h"
 #include "standardprimitive.h"
 #include "userprimitive.h"
+#include "odbfeaturefile.h"
+#include "dictionary.h"
 
 class Set
 {
@@ -20,12 +22,8 @@ public:
   enum PolarityType { POSITIVE, NEGATIVE };
   enum PadUsageType { TERMINATION, VIA, PLANE, TOOLING_HOLE, MASK, NONE };
   void odbOutputLayerFeature(
-      QList<QString>& symbolsTable,
-      QList<QString>& attributeTable,
-      QList<QString>& attributeTexts,
-      QList<QString>& featuresList,
-      const QHash<QString, StandardPrimitive*>& entryStandards,
-      const QHash<QString, UserPrimitive*>&     entryUsers);
+      OdbFeatureFile& file,
+      const Dictionary& dictionary);
 
 private:
   // attributes
