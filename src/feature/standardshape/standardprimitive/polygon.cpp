@@ -119,6 +119,7 @@ Polygon::odbOutputFeature(OdbFeatureFile& file, PolygonType type)
                           .arg(polygonEdges[i].m_clockwise? "Y" : "N"));
     }
   }
+  file.featuresList().append(QString("OE\n"));
 }
 
 void
@@ -144,4 +145,5 @@ Polygon::odbOutputFeatureInv(OdbFeatureFile& file, PolygonType type)
                           .arg(polygonEdges[i].m_clockwise? "N" : "Y"));
     }
   }
+  file.featuresList().append(QString("OE\n"));
 }
