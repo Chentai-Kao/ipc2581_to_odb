@@ -139,6 +139,7 @@ CadDataHandler::odbOutputLayerFeature(
   for (int i = 0; i < m_steps.size(); ++i) {
     if (m_steps[i].name() == stepName) {
       m_steps[i].odbOutputLayerFeature(out, layerName);
+      break;
     }
   }
 }

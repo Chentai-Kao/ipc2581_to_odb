@@ -85,6 +85,7 @@ Step::odbOutputLayerFeature(QTextStream& out, const QString layerName)
   for (int i = 0; i < m_layerFeatures.size(); ++i) {
     if (m_layerFeatures[i].layerRef() == layerName) {
       m_layerFeatures[i].odbOutputLayerFeature(out);
+      break;
     }
   }
 }

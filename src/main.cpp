@@ -11,14 +11,14 @@ int main()
     qDebug("----- Program starts -----");
     /* Open file */
     QString fileName = "test.xml";
-    QFile *file = new QFile(fileName);
-    if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
       throw new InvalidFileError(fileName);
     }
 
     /* Read XML */
     qDebug("----- Parse XML starts -----");
-    QXmlStreamReader xml(file);
+    QXmlStreamReader xml(&file);
     TopLevelHandler h;
     h.run(xml);
 
