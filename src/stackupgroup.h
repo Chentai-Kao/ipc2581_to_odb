@@ -3,11 +3,12 @@
 
 #include <QtCore>
 #include "stackuplayer.h"
+#include "utils.h"
 
 class StackupGroup
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
 
 private:
   QString m_name;

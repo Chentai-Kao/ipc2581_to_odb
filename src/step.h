@@ -9,11 +9,12 @@
 #include "phynetgroup.h"
 #include "layerfeature.h"
 #include "attribute.h"
+#include "utils.h"
 
 class Step
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
 
   // getter
   QString name() { return m_name; }

@@ -2,15 +2,15 @@
 #define __CADDATAHANDLER_H__
 
 #include <QtCore>
-#include "handler.h"
 #include "layer.h"
 #include "stackup.h"
 #include "step.h"
+#include "utils.h"
 
-class CadDataHandler : public Handler
+class CadDataHandler
 {
 public:
-  virtual void run(QXmlStreamReader& xml);
+  virtual void run(QXmlStreamReader& xml, UnitsType units);
   void odbOutputMatrixAllLayers(QTextStream& out);
   void odbOutputLayerFeature(
       QTextStream &out, QString stepName, QString layerName);

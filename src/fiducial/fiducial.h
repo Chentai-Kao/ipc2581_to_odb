@@ -12,7 +12,7 @@
 class Fiducial
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
 
 private:
   Xform *m_xform;

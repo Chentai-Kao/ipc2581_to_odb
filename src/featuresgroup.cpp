@@ -4,7 +4,7 @@
 #include "globals.h"
 
 void
-Features::initialize(QXmlStreamReader& xml)
+Features::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_xform = NULL;
   m_feature = NULL;
@@ -16,12 +16,13 @@ Features::initialize(QXmlStreamReader& xml)
         m_xform->initialize(xml);
       }
       else if (xml.name() == "Location") {
-        m_location = QPointF(getDoubleAttribute(xml, "Location", "x"),
-                             getDoubleAttribute(xml, "Location", "y"));
+        m_location = QPointF(
+            toInch(getDoubleAttribute(xml, "Location", "x"), units),
+            toInch(getDoubleAttribute(xml, "Location", "y"), units));
       }
       else if (isSubstitutionGroupFeature(xml.name())) {
         m_feature = FeatureFactory().create(xml.name());
-        m_feature->initialize(xml);
+        m_feature->initialize(xml, units);
       }
     }
     else if (isEndElementWithName(xml, "Features")) { // </Features>

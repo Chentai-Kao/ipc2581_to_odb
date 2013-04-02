@@ -1,10 +1,12 @@
 #include "rectcenter.h"
 
 void
-RectCenter::initialize(QXmlStreamReader& xml)
+RectCenter::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_width = getNonNegativeDoubleAttribute(xml, "RectCenter", "width");
-  m_height = getNonNegativeDoubleAttribute(xml, "RectCenter", "height");
+  m_width = toMil(
+      getNonNegativeDoubleAttribute(xml, "RectCenter", "width"), units);
+  m_height = toMil(
+      getNonNegativeDoubleAttribute(xml, "RectCenter", "height"), units);
 }
 
 void

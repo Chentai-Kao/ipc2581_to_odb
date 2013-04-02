@@ -3,7 +3,7 @@
 #include "error.h"
 
 void
-Package::initialize(QXmlStreamReader& xml)
+Package::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_name = getStringAttribute(xml, "Package", "name");
   m_type = decidePackageType(xml);
@@ -22,11 +22,11 @@ Package::initialize(QXmlStreamReader& xml)
     xml.readNext();
     if (xml.isStartElement()) {
       if (xml.name() == "Outline") {
-        m_outline.initialize(xml);
+        m_outline.initialize(xml, units);
       }
       else if (xml.name() == "LandPattern") {
         m_landPattern = new LandPattern();
-        m_landPattern->initialize(xml);
+        m_landPattern->initialize(xml, units);
       }
       else if (xml.name() == "SilkScreen") {
 // TODO skipped

@@ -108,6 +108,36 @@ QString getStringAttribute(QXmlStreamReader& xml,
   return getAttribute(xml, attributeName);
 }
 
+qreal toInch(qreal num, UnitsType currentUnits)
+{
+  switch (currentUnits) {
+    case MILLIMETER :
+      return num / 25.4f;
+    case MICRON :
+      return num / 1000 / 25.4f;
+    case INCH :
+      return num;
+    default :
+      break;
+  }
+  throw new ProgramLogicError("toInch");
+}
+
+qreal toMil(qreal num, UnitsType currentUnits)
+{
+  switch (currentUnits) {
+    case MILLIMETER :
+      return num * 1000 / 25.4f;
+    case MICRON :
+      return num / 25.4f;
+    case INCH :
+      return num * 1000;
+    default :
+      break;
+  }
+  throw new ProgramLogicError("toMil");
+}
+
 bool isSubstitutionGroupAttribute(QStringRef elementName)
 {
   return (elementName == "BooleanAttribute" ||

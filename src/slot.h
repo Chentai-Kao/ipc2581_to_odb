@@ -3,11 +3,12 @@
 
 #include <QtCore>
 #include "simple.h"
+#include "utils.h"
 
 class Slot
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
   enum PlatingStatusType { PLATED, NONPLATED, VIA };
 
 private:

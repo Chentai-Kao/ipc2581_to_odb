@@ -6,11 +6,12 @@
 #include "outline.h"
 #include "polyline.h"
 #include "contour.h"
+#include "utils.h"
 
 class StackupImpedance
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
   enum StackImpedanceType {
     MICROSTRIP,
     DIFFERENTIAL_PAIR,

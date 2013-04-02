@@ -1,10 +1,12 @@
 #include "ellipse.h"
 
 void
-Ellipse::initialize(QXmlStreamReader& xml)
+Ellipse::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_width = getNonNegativeDoubleAttribute(xml, "Ellipse", "width");
-  m_height = getNonNegativeDoubleAttribute(xml, "Ellipse", "height");
+  m_width = toMil(
+      getNonNegativeDoubleAttribute(xml, "Ellipse", "width"), units);
+  m_height = toMil(
+      getNonNegativeDoubleAttribute(xml, "Ellipse", "height"), units);
 }
 
 void

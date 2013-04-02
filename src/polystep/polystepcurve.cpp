@@ -1,12 +1,14 @@
 #include "polystepcurve.h"
 
 void
-PolyStepCurve::initialize(QXmlStreamReader& xml)
+PolyStepCurve::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_point = QPointF(getDoubleAttribute(xml, "PolyStepCurve", "x"),
-                    getDoubleAttribute(xml, "PolyStepCurve", "y"));
-  m_centerPoint = QPointF(getDoubleAttribute(xml, "PolyStepCurve", "centerX"),
-                          getDoubleAttribute(xml, "PolyStepCurve", "centerY"));
+  m_point = QPointF(
+      toMil(getDoubleAttribute(xml, "PolyStepCurve", "x"), units),
+      toMil(getDoubleAttribute(xml, "PolyStepCurve", "y"), units));
+  m_centerPoint = QPointF(
+      toMil(getDoubleAttribute(xml, "PolyStepCurve", "centerX"), units),
+      toMil(getDoubleAttribute(xml, "PolyStepCurve", "centerY"), units));
   m_clockwise = getBoolAttribute(xml, "clockwise");
 }
 

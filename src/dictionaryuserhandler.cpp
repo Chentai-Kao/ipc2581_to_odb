@@ -19,7 +19,7 @@ DictionaryUserHandler::run(QXmlStreamReader& xml)
         // create element and insert to hash table
         xml.readNextStartElement(); // <Simple>, <Text>, <UserSpecial>
         UserPrimitive* u = UserPrimitiveFactory().create(xml.name());
-        u->initialize(xml);
+        u->initialize(xml, m_units);
         g_entryUsers.insert(id, u);
       }
     }

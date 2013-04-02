@@ -4,7 +4,7 @@
 #include "error.h"
 
 void
-Step::initialize(QXmlStreamReader& xml)
+Step::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_name = getStringAttribute(xml, "Step", "name");
   while (!xml.atEnd() && !xml.hasError()) {
@@ -24,11 +24,12 @@ Step::initialize(QXmlStreamReader& xml)
         //throw new NonImplementedError("Route");
       }
       else if (xml.name() == "Datum") {
-        m_datum = QPointF(getDoubleAttribute(xml, "Step", "x"),
-                          getDoubleAttribute(xml, "Step", "y"));
+        m_datum = QPointF(
+            toInch(getDoubleAttribute(xml, "Step", "x"), units),
+            toInch(getDoubleAttribute(xml, "Step", "y"), units));
       }
       else if (xml.name() == "Profile") {
-        m_profile.initialize(xml);
+        m_profile.initialize(xml, units);
       }
       else if (xml.name() == "StepRepeat") {
 // TODO skipped
@@ -36,7 +37,7 @@ Step::initialize(QXmlStreamReader& xml)
       }
       else if (xml.name() == "Package") {
         Package package;
-        package.initialize(xml);
+        package.initialize(xml, units);
         m_packages.append(package);
       }
       else if (xml.name() == "Component") {
@@ -59,12 +60,12 @@ Step::initialize(QXmlStreamReader& xml)
       }
       else if (xml.name() == "PhyNetGroup") {
         PhyNetGroup phyNetGroup;
-        phyNetGroup.initialize(xml);
+        phyNetGroup.initialize(xml, units);
         m_phyNetGroups.append(phyNetGroup);
       }
       else if (xml.name() == "LayerFeature") {
         LayerFeature layerFeature;
-        layerFeature.initialize(xml);
+        layerFeature.initialize(xml, units);
         m_layerFeatures.append(layerFeature);
       }
       else if (xml.name() == "DfxMeasurementList") {

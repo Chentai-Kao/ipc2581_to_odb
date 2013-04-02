@@ -9,7 +9,7 @@
 #include "featuresgroup.h"
 
 void
-Set::initialize(QXmlStreamReader& xml)
+Set::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_net = NULL;
   if (hasAttribute(xml, "net")) {
@@ -82,12 +82,12 @@ Set::initialize(QXmlStreamReader& xml)
       }
       else if (xml.name() == "Pad") {
         Pad pad;
-        pad.initialize(xml);
+        pad.initialize(xml, units);
         m_pads.append(pad);
       }
       else if (isSubstitutionGroupFiducial(xml.name())) {
         Fiducial *f = FiducialFactory().create(xml.name());
-        f->initialize(xml);
+        f->initialize(xml, units);
         m_fiducials.append(f);
       }
       else if (xml.name() == "Hole") {
@@ -97,12 +97,12 @@ Set::initialize(QXmlStreamReader& xml)
       }
       else if (xml.name() == "Slot") {
         Slot slot;
-        slot.initialize(xml);
+        slot.initialize(xml, units);
         m_slots.append(slot);
       }
       else if (xml.name() == "Features") {
         Features features;
-        features.initialize(xml);
+        features.initialize(xml, units);
         m_featureses.append(features);
       }
       else if (isSubstitutionGroupColorGroup(xml.name())) {
@@ -112,7 +112,7 @@ Set::initialize(QXmlStreamReader& xml)
       }
       else if (isSubstitutionGroupLineDescGroup(xml.name())) {
         LineDescGroup *l = LineDescGroupFactory().create(xml.name());
-        l->initialize(xml);
+        l->initialize(xml, units);
         m_lineDescGroups.append(l);
       }
     }

@@ -4,7 +4,7 @@
 #include "globals.h"
 
 void
-Pad::initialize(QXmlStreamReader& xml)
+Pad::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_xform = NULL;
   m_pinRef = NULL;
@@ -16,12 +16,13 @@ Pad::initialize(QXmlStreamReader& xml)
         m_xform->initialize(xml);
       }
       else if (xml.name() == "Location") {
-        m_location = QPointF(getDoubleAttribute(xml, "Location", "x"),
-                             getDoubleAttribute(xml, "Location", "y"));
+        m_location = QPointF(
+            toInch(getDoubleAttribute(xml, "Location", "x"), units),
+            toInch(getDoubleAttribute(xml, "Location", "y"), units));
       }
       else if (isSubstitutionGroupStandardShape(xml.name())) {
         m_standardShape = StandardShapeFactory().create(xml.name());
-        m_standardShape->initialize(xml);
+        m_standardShape->initialize(xml, units);
       }
       else if (xml.name() == "PinRef") {
         m_pinRef = new PinRef();
@@ -51,8 +52,5 @@ Pad::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
   }
 
   // call the shape to output
-  s->odbOutputLayerFeature(
-      file,
-      polarity,
-      m_location, m_xform);
+  s->odbOutputLayerFeature(file, polarity, m_location, m_xform);
 }

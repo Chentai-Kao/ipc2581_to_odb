@@ -3,7 +3,7 @@
 #include "standardshapefactory.h"
 
 void
-Fiducial::initialize(QXmlStreamReader& xml)
+Fiducial::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_xform = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
@@ -19,7 +19,7 @@ Fiducial::initialize(QXmlStreamReader& xml)
       }
       else if (isSubstitutionGroupStandardShape(xml.name())) {
         m_standardShape = StandardShapeFactory().create(xml.name());
-        m_standardShape->initialize(xml);
+        m_standardShape->initialize(xml, units);
       }
     }
     else if (isEndElementWithName(xml, "Fiducial")) { // </Fiducial>

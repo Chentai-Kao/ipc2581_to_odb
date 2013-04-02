@@ -7,7 +7,7 @@
 class PolyStepSegment : public PolyStep
 {
 public:
-  virtual void initialize(QXmlStreamReader& xml);
+  virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   virtual qreal calcLineIntegral(QPointF prevPoint);
   virtual void setEdge(PolygonEdge& edge);
 

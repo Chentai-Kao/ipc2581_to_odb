@@ -3,7 +3,7 @@
 #include "phynetpoint.h"
 
 void
-PhyNet::initialize(QXmlStreamReader& xml)
+PhyNet::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_name = getStringAttribute(xml, "PhyNet", "name");
   while (!xml.atEnd() && !xml.hasError()) {
@@ -11,7 +11,7 @@ PhyNet::initialize(QXmlStreamReader& xml)
     if (xml.isStartElement()) {
       if (xml.name() == "PhyNetPoint") {
         PhyNetPoint phyNetPoint;
-        phyNetPoint.initialize(xml);
+        phyNetPoint.initialize(xml, units);
         m_phyNetPoints.append(phyNetPoint);
       }
     }

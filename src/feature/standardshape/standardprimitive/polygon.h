@@ -10,7 +10,7 @@
 class Polygon
 {
 public:
-  virtual void initialize(QXmlStreamReader& xml);
+  virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   virtual void odbOutputLayerFeature(
       OdbFeatureFile& file,
       QString polarity,

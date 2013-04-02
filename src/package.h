@@ -7,11 +7,12 @@
 //#include "silkscreen.h"
 //#include "assemblydrawing.h"
 //#include "pin.h"
+#include "utils.h"
 
 class Package
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
   enum PackageType {
     AXIAL_LEADED,
     BARE_DIE,

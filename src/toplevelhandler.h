@@ -2,7 +2,6 @@
 #define __TOPLEVELHANDLER_H__
 
 #include <QtCore>
-#include "handler.h"
 #include "contenthandler.h"
 #include "logisticheaderhandler.h"
 #include "historyrecordhandler.h"
@@ -10,7 +9,7 @@
 #include "ecadhandler.h"
 #include "avlhandler.h"
 
-class TopLevelHandler : public Handler
+class TopLevelHandler
 {
 public:
   virtual void run(QXmlStreamReader& xml);

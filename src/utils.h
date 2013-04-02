@@ -47,6 +47,8 @@ UnitsType getUnitAttribute(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName);
 QString getStringAttribute(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName);
+qreal toInch(qreal num, UnitsType currentUnits);
+qreal toMil(qreal num, UnitsType currentUnits);
 
 /* Check for substitution groups. */
 bool isSubstitutionGroupAttribute(QStringRef elementName);

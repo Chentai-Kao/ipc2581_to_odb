@@ -1,9 +1,9 @@
 #ifndef __LOGISTICHEADERHANDLER_H__
 #define __LOGISTICHEADERHANDLER_H__
 
-#include "handler.h"
+#include <QtCore>
 
-class LogisticHeaderHandler : public Handler
+class LogisticHeaderHandler
 {
 public:
   virtual void run(QXmlStreamReader& xml);

@@ -3,7 +3,7 @@
 #include "odbfeaturefile.h"
 
 void
-LayerFeature::initialize(QXmlStreamReader& xml)
+LayerFeature::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_layerRef = getStringAttribute(xml, "LayerFeature", "layerRef");
   while (!xml.atEnd() && !xml.hasError()) {
@@ -11,7 +11,7 @@ LayerFeature::initialize(QXmlStreamReader& xml)
     if (xml.isStartElement()) {
       if (xml.name() == "Set") {
         Set set;
-        set.initialize(xml);
+        set.initialize(xml, units);
         m_sets.append(set);
       }
     }

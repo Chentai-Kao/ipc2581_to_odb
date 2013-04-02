@@ -2,13 +2,17 @@
 #include "error.h"
 
 void
-Moire::initialize(QXmlStreamReader& xml)
+Moire::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   // required attributes
-  m_diameter = getNonNegativeDoubleAttribute(xml, "Moire", "diameter");
-  m_ringWidth = getNonNegativeDoubleAttribute(xml, "Moire", "ringWidth");
-  m_ringGap = getNonNegativeDoubleAttribute(xml, "Moire", "ringGap");
-  m_ringGap = getNonNegativeDoubleAttribute(xml, "Moire", "ringGap");
+  m_diameter = toMil(
+      getNonNegativeDoubleAttribute(xml, "Moire", "diameter"), units);
+  m_ringWidth = toMil(
+      getNonNegativeDoubleAttribute(xml, "Moire", "ringWidth"), units);
+  m_ringGap = toMil(
+      getNonNegativeDoubleAttribute(xml, "Moire", "ringGap"), units);
+  m_ringGap = toMil(
+      getNonNegativeDoubleAttribute(xml, "Moire", "ringGap"), units);
   m_ringNumber = getNonNegativeIntAttribute(xml, "Moire", "ringNumber");
   // optional attributes
   if (hasAttribute(xml, "lineWidth")) {

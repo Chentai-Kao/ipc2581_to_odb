@@ -2,7 +2,7 @@
 #include "error.h"
 
 void
-Butterfly::initialize(QXmlStreamReader& xml)
+Butterfly::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   // shape
   QString shape = getStringAttribute(xml, "Butterfly", "shape");
@@ -17,10 +17,12 @@ Butterfly::initialize(QXmlStreamReader& xml)
   }
   // diameter and side
   if (m_shape == Butterfly::ROUND) {
-    m_diameter = getNonNegativeDoubleAttribute(xml, "Butterfly", "diameter");
+    m_diameter = toMil(
+        getNonNegativeDoubleAttribute(xml, "Butterfly", "diameter"), units);
   }
   else if (m_shape == Butterfly::SQUARE) {
-    m_side = getNonNegativeDoubleAttribute(xml, "Butterfly", "side");
+    m_side = toMil(
+        getNonNegativeDoubleAttribute(xml, "Butterfly", "side"), units);
   }
 }
 

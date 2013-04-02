@@ -3,11 +3,12 @@
 
 #include <QtCore>
 #include "set.h"
+#include "utils.h"
 
 class LayerFeature
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
   void odbOutputLayerFeature(QTextStream& out);
 
   // getter

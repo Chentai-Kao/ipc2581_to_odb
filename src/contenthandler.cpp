@@ -9,10 +9,6 @@
 void
 ContentHandler::run(QXmlStreamReader& xml)
 {
-  m_dictionaryStandardHandler = NULL;
-  m_dictionaryUserHandler = NULL;
-  m_dictionaryLineDescHandler = NULL;
-  m_dictionaryColorHandler = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
@@ -37,24 +33,20 @@ ContentHandler::run(QXmlStreamReader& xml)
         //throw new NonImplementedError("AvlRef");
       }
       else if (xml.name() == "DictionaryStandard") {
-        m_dictionaryStandardHandler = new DictionaryStandardHandler();
-        m_dictionaryStandardHandler->run(xml);
+        m_dictionaryStandardHandler.run(xml);
       }
       else if (xml.name() == "DictionaryUser") {
-        m_dictionaryUserHandler = new DictionaryUserHandler();
-        m_dictionaryUserHandler->run(xml);
+        m_dictionaryUserHandler.run(xml);
       }
       else if (xml.name() == "DictionaryFont") {
 // TODO skipped
         //throw new NonImplementedError("DictionaryFont");
       }
       else if (xml.name() == "DictionaryLineDesc") {
-        m_dictionaryLineDescHandler = new DictionaryLineDescHandler();
-        m_dictionaryLineDescHandler->run(xml);
+        m_dictionaryLineDescHandler.run(xml);
       }
       else if (xml.name() == "DictionaryColor") {
-        m_dictionaryColorHandler = new DictionaryColorHandler();
-        m_dictionaryColorHandler->run(xml);
+        m_dictionaryColorHandler.run(xml);
       }
       else if (xml.name() == "DictionaryFirmware") {
 // TODO skipped

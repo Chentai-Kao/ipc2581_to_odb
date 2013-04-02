@@ -8,7 +8,7 @@ class Moire : public StandardPrimitive
 {
 public:
   Moire() : m_lineWidth(0), m_lineLength(0), m_lineAngle(0) {}
-  virtual void initialize(QXmlStreamReader& xml);
+  virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   virtual void odbOutputLayerFeature(
       OdbFeatureFile& file,
       QString polarity,

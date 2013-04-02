@@ -1,5 +1,4 @@
 #include "toplevelhandler.h"
-#include "toplevelfactory.h"
 #include "utils.h"
 
 void

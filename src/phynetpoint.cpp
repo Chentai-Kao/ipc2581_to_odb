@@ -4,7 +4,7 @@
 #include "error.h"
 
 void
-PhyNetPoint::initialize(QXmlStreamReader& xml)
+PhyNetPoint::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_point = QPointF(getDoubleAttribute(xml, "PhyNetPoint", "x"),
                     getDoubleAttribute(xml, "PhyNetPoint", "y"));
@@ -85,7 +85,7 @@ PhyNetPoint::initialize(QXmlStreamReader& xml)
     if (xml.isStartElement()) {
       if (isSubstitutionGroupStandardShape(xml.name())) {
         m_standardShape = StandardShapeFactory().create(xml.name());
-        m_standardShape->initialize(xml);
+        m_standardShape->initialize(xml, units);
       }
     }
     else if (isEndElementWithName(xml, "PhyNetPoint")) { // </PhyNetPoint>

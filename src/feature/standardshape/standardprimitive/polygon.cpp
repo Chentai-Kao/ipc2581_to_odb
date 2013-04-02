@@ -3,18 +3,20 @@
 #include "error.h"
 
 void
-Polygon::initialize(QXmlStreamReader& xml)
+Polygon::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
       if (xml.name() == "PolyBegin") {
-        m_polyBegin.rx() = getDoubleAttribute(xml, "PolyBegin", "x");
-        m_polyBegin.ry() = getDoubleAttribute(xml, "PolyBegin", "y");
+        m_polyBegin.rx() = toMil(
+            getDoubleAttribute(xml, "PolyBegin", "x"), units);
+        m_polyBegin.ry() = toMil(
+            getDoubleAttribute(xml, "PolyBegin", "y"), units);
       }
       else if (isSubstitutionGroupPolyStep(xml.name())) {
         PolyStep *p = PolyStepFactory().create(xml.name());
-        p->initialize(xml);
+        p->initialize(xml, units);
         m_polySteps.append(p);
       }
     }

@@ -3,7 +3,7 @@
 #include "error.h"
 
 void
-LineDesc::initialize(QXmlStreamReader& xml)
+LineDesc::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   // lineEnd
   QString lineEnd = getStringAttribute(xml, "LineDesc", "lineEnd");
@@ -20,5 +20,6 @@ LineDesc::initialize(QXmlStreamReader& xml)
     throw new InvalidAttributeError("LineDesc", "lineEnd");
   }
   // lineWidth
-  m_lineWidth = getNonNegativeDoubleAttribute(xml, "LineDesc", "lineWidth");
+  m_lineWidth = toInch(
+      getNonNegativeDoubleAttribute(xml, "LineDesc", "lineWidth"), units);
 }

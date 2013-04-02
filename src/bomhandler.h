@@ -1,9 +1,9 @@
 #ifndef __BOMHANDLER_H__
 #define __BOMHANDLER_H__
 
-#include "handler.h"
+#include <QtCore>
 
-class BomHandler : public Handler
+class BomHandler
 {
 public:
   virtual void run(QXmlStreamReader& xml);

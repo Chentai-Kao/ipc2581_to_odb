@@ -12,7 +12,7 @@ EcadHandler::run(QXmlStreamReader& xml)
         m_cadHeaderHandler.run(xml);
       }
       else if (xml.name() == "CadData") {
-        m_cadDataHandler.run(xml);
+        m_cadDataHandler.run(xml, m_cadHeaderHandler.units());
       }
     }
     else if (isEndElementWithName(xml, "Ecad")) { // </Ecad>

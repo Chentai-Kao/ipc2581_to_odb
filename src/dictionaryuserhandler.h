@@ -2,10 +2,9 @@
 #define __DICTIONARYUSERHANDLER_H__
 
 #include <QtCore>
-#include "handler.h"
 #include "userprimitive.h"
 
-class DictionaryUserHandler : public Handler
+class DictionaryUserHandler
 {
 public:
   virtual void run(QXmlStreamReader& xml);

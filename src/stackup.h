@@ -4,11 +4,12 @@
 #include <QtCore>
 #include "stackupgroup.h"
 #include "stackupimpedance.h"
+#include "utils.h"
 
 class Stackup
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
   enum WhereMeasuredType { LAMINATE, METAL, MASK, OTHER };
 
 private:

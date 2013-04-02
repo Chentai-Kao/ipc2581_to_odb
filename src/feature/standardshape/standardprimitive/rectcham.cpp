@@ -2,11 +2,14 @@
 #include "error.h"
 
 void
-RectCham::initialize(QXmlStreamReader& xml)
+RectCham::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_width = getNonNegativeDoubleAttribute(xml, "RectCham", "width");
-  m_height = getNonNegativeDoubleAttribute(xml, "RectCham", "height");
-  m_chamfer = getNonNegativeDoubleAttribute(xml, "RectCham", "chamfer");
+  m_width = toMil(
+      getNonNegativeDoubleAttribute(xml, "RectCham", "width"), units);
+  m_height = toMil(
+      getNonNegativeDoubleAttribute(xml, "RectCham", "height"), units);
+  m_chamfer = toMil(
+      getNonNegativeDoubleAttribute(xml, "RectCham", "chamfer"), units);
   if (2 * m_chamfer > m_width || 2 * m_chamfer > m_height) {
     throw new InvalidAttributeError("RectCham", "chamfer");
   }

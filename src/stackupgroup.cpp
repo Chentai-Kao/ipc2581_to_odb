@@ -2,7 +2,7 @@
 #include "utils.h"
 
 void
-StackupGroup::initialize(QXmlStreamReader& xml)
+StackupGroup::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_name = getStringAttribute(xml, "StackupGroup", "name");
   m_thickness = getNonNegativeDoubleAttribute(xml, "StackupGroup", "thickness");

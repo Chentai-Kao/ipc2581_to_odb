@@ -2,10 +2,12 @@
 #include "error.h"
 
 void
-Oval::initialize(QXmlStreamReader& xml)
+Oval::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_width = getNonNegativeDoubleAttribute(xml, "Oval", "width");
-  m_height = getNonNegativeDoubleAttribute(xml, "Oval", "height");
+  m_width = toMil(
+      getNonNegativeDoubleAttribute(xml, "Oval", "width"), units);
+  m_height = toMil(
+      getNonNegativeDoubleAttribute(xml, "Oval", "height"), units);
   if (m_height > m_width) {
     throw new InvalidAttributeError("Oval", "height");
   }

@@ -1,9 +1,9 @@
 #ifndef __HISTORYRECORDHANDLER_H__
 #define __HISTORYRECORDHANDLER_H__
 
-#include "handler.h"
+#include <QtCore>
 
-class HistoryRecordHandler : public Handler
+class HistoryRecordHandler
 {
 public:
   virtual void run(QXmlStreamReader& xml);

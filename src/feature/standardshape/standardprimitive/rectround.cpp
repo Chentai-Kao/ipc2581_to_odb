@@ -2,11 +2,14 @@
 #include "error.h"
 
 void
-RectRound::initialize(QXmlStreamReader& xml)
+RectRound::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_width = getNonNegativeDoubleAttribute(xml, "RectRound", "width");
-  m_height = getNonNegativeDoubleAttribute(xml, "RectRound", "height");
-  m_radius = getNonNegativeDoubleAttribute(xml, "RectRound", "radius");
+  m_width = toMil(
+      getNonNegativeDoubleAttribute(xml, "RectRound", "width"), units);
+  m_height = toMil(
+      getNonNegativeDoubleAttribute(xml, "RectRound", "height"), units);
+  m_radius = toMil(
+      getNonNegativeDoubleAttribute(xml, "RectRound", "radius"), units);
   if (2 * m_radius > m_width || 2 * m_radius > m_height) {
     throw new InvalidAttributeError("RectRound", "radius");
   }

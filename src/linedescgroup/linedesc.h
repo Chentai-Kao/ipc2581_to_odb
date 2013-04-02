@@ -2,11 +2,12 @@
 #define __LINEDESC_H__
 
 #include "linedescgroup.h"
+#include "utils.h"
 
 class LineDesc : public LineDescGroup
 {
 public:
-  virtual void initialize(QXmlStreamReader& xml);
+  virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   enum LineEnd { ROUND, SQUARE, NONE };
 
   // getter

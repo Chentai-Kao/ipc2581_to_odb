@@ -1,11 +1,11 @@
 #ifndef __ECADHANDLER_H__
 #define __ECADHANDLER_H__
 
-#include "handler.h"
+#include <QtCore>
 #include "cadheaderhandler.h"
 #include "caddatahandler.h"
 
-class EcadHandler : public Handler
+class EcadHandler
 {
 public:
   virtual void run(QXmlStreamReader& xml);

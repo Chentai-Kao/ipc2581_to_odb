@@ -54,7 +54,6 @@ HEADERS += \
   stackuplayer.h \
   step.h \
   target.h \
-  toplevelfactory.h \
   toplevelhandler.h \
   utils.h \
   xform.h
@@ -98,7 +97,6 @@ SOURCES += \
   stackuplayer.cpp \
   step.cpp \
   target.cpp \
-  toplevelfactory.cpp \
   toplevelhandler.cpp \
   utils.cpp \
   xform.cpp

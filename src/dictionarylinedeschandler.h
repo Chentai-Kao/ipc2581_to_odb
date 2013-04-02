@@ -2,11 +2,10 @@
 #define __DICTIONARYLINEDESCHANDLER_H__
 
 #include <QtCore>
-#include "handler.h"
 #include "linedesc.h"
 #include "utils.h"
 
-class DictionaryLineDescHandler : public Handler
+class DictionaryLineDescHandler
 {
 public:
   virtual void run(QXmlStreamReader& xml);

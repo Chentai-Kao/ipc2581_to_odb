@@ -3,11 +3,12 @@
 
 #include <QtCore>
 #include "phynetpoint.h"
+#include "utils.h"
 
 class PhyNet
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
 
 private:
   QString m_name;

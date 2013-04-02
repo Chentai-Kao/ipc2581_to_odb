@@ -10,7 +10,7 @@
 class Feature
 {
 public:
-  virtual void initialize(QXmlStreamReader& xml) = 0;
+  virtual void initialize(QXmlStreamReader& xml, UnitsType units) = 0;
   virtual QString refId() = 0; // by StandardPrimitiveRef and UserPrimitiveRef
   virtual void odbOutputLayerFeature(
       OdbFeatureFile& file,

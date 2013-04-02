@@ -1,9 +1,10 @@
 #include "hexagon.h"
 
 void
-Hexagon::initialize(QXmlStreamReader& xml)
+Hexagon::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_length = getNonNegativeDoubleAttribute(xml, "Hexagon", "length");
+  m_length = toMil(
+      getNonNegativeDoubleAttribute(xml, "Hexagon", "length"), units);
 }
 
 void

@@ -1,33 +1,28 @@
 #include "polyline.h"
+#include "linedescgroupfactory.h"
+#include "polystepfactory.h"
 
 void
-Polyline::initialize(QXmlStreamReader& xml)
+Polyline::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_lineDescGroup = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
       if (xml.name() == "PolyBegin") {
-        m_polyBegin.rx() = getDoubleAttribute(xml, "PolyBegin", "x");
-        m_polyBegin.ry() = getDoubleAttribute(xml, "PolyBegin", "y");
+        m_polyBegin.rx() = toMil(
+            getDoubleAttribute(xml, "PolyBegin", "x"), units);
+        m_polyBegin.ry() = toMil(
+            getDoubleAttribute(xml, "PolyBegin", "y"), units);
       }
-      else if (xml.name() == "PolyStepCurve") {
-        PolyStep *polyStep = new PolyStepCurve();
-        polyStep->initialize(xml);
-        m_polySteps.append(polyStep);
+      else if (isSubstitutionGroupPolyStep(xml.name())) {
+        PolyStep *p = PolyStepFactory().create(xml.name());
+        p->initialize(xml, units);
+        m_polySteps.append(p);
       }
-      else if (xml.name() == "PolyStepSegment") {
-        PolyStep *polyStep = new PolyStepSegment();
-        polyStep->initialize(xml);
-        m_polySteps.append(polyStep);
-      }
-      else if (xml.name() == "LineDesc") {
-        m_lineDescGroup = new LineDesc();
-        m_lineDescGroup->initialize(xml);
-      }
-      else if (xml.name() == "LineDescRef") {
-        m_lineDescGroup = new LineDescRef();
-        m_lineDescGroup->initialize(xml);
+      else if (isSubstitutionGroupLineDescGroup(xml.name())) {
+        m_lineDescGroup = LineDescGroupFactory().create(xml.name());
+        m_lineDescGroup->initialize(xml, units);
       }
     }
     else if (isEndElementWithName(xml, "Polyline")) { // </Polyline>

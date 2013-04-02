@@ -7,7 +7,7 @@
 class Butterfly : public StandardPrimitive
 {
 public:
-  virtual void initialize(QXmlStreamReader& xml);
+  virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   enum ButterflyShape { ROUND, SQUARE };
   virtual void odbOutputLayerFeature(
       OdbFeatureFile& file,

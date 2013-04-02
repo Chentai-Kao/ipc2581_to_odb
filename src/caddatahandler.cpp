@@ -1,7 +1,7 @@
 #include "caddatahandler.h"
 
 void
-CadDataHandler::run(QXmlStreamReader& xml)
+CadDataHandler::run(QXmlStreamReader& xml, UnitsType units)
 {
   m_stackup = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
@@ -14,11 +14,11 @@ CadDataHandler::run(QXmlStreamReader& xml)
       }
       else if (xml.name() == "Stackup") {
         m_stackup = new Stackup();
-        m_stackup->initialize(xml);
+        m_stackup->initialize(xml, units);
       }
       else if (xml.name() == "Step") {
         Step step;
-        step.initialize(xml);
+        step.initialize(xml, units);
         m_steps.append(step);
       }
     }

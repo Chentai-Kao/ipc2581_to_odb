@@ -1,22 +1,19 @@
 #include "outline.h"
+#include "linedescgroupfactory.h"
 
 void
-Outline::initialize(QXmlStreamReader& xml)
+Outline::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_lineDescGroup = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
       if (xml.name() == "Polygon") {
-        m_polygon.initialize(xml);
+        m_polygon.initialize(xml, units);
       }
-      else if (xml.name() == "LineDesc") {
-        m_lineDescGroup = new LineDesc();
-        m_lineDescGroup->initialize(xml);
-      }
-      else if (xml.name() == "LineDescRef") {
-        m_lineDescGroup = new LineDescRef();
-        m_lineDescGroup->initialize(xml);
+      else if (isSubstitutionGroupLineDescGroup(xml.name())) {
+        m_lineDescGroup = LineDescGroupFactory().create(xml.name());
+        m_lineDescGroup->initialize(xml, units);
       }
     }
     else if (isEndElementWithName(xml, "Outline")) { // </Outline> the end

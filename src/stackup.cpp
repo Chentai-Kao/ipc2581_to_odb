@@ -2,7 +2,7 @@
 #include "error.h"
 
 void
-Stackup::initialize(QXmlStreamReader& xml)
+Stackup::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_overallThickness =
       getNonNegativeDoubleAttribute(xml, "Stackup", "overallThickness");
@@ -30,12 +30,12 @@ Stackup::initialize(QXmlStreamReader& xml)
     if (xml.isStartElement()) {
       if (xml.name() == "StackupGroup") {
         StackupGroup stackupGroup;
-        stackupGroup.initialize(xml);
+        stackupGroup.initialize(xml, units);
         m_stackupGroups.append(stackupGroup);
       }
       else if (xml.name() == "StackupImpedance") {
         StackupImpedance stackupImpedance;
-        stackupImpedance.initialize(xml);
+        stackupImpedance.initialize(xml, units);
         m_stackupImpedances.append(stackupImpedance);
       }
     }

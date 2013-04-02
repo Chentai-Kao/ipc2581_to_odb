@@ -1,10 +1,12 @@
 #include "triangle.h"
 
 void
-Triangle::initialize(QXmlStreamReader& xml)
+Triangle::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_base = getNonNegativeDoubleAttribute(xml, "Triangle", "base");
-  m_height = getNonNegativeDoubleAttribute(xml, "Triangle", "height");
+  m_base = toMil(
+      getNonNegativeDoubleAttribute(xml, "Triangle", "base"), units);
+  m_height = toMil(
+      getNonNegativeDoubleAttribute(xml, "Triangle", "height"), units);
 }
 
 void

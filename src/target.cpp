@@ -2,7 +2,7 @@
 #include "standardshapefactory.h"
 
 void
-Target::initialize(QXmlStreamReader& xml)
+Target::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_xform = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
@@ -18,7 +18,7 @@ Target::initialize(QXmlStreamReader& xml)
       }
       else if (isSubstitutionGroupStandardShape(xml.name())) {
         m_standardShape = StandardShapeFactory().create(xml.name());
-        m_standardShape->initialize(xml);
+        m_standardShape->initialize(xml, units);
       }
     }
     else if (isEndElementWithName(xml, "Target")) { // </Target>

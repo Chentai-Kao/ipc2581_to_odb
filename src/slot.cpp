@@ -3,7 +3,7 @@
 #include "error.h"
 
 void
-Slot::initialize(QXmlStreamReader& xml)
+Slot::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_name = getStringAttribute(xml, "Slot", "name");
   QString platingStatus = getStringAttribute(xml, "Slot", "platingStatus");
@@ -27,7 +27,7 @@ Slot::initialize(QXmlStreamReader& xml)
     if (xml.isStartElement()) {
       if (isSubstitutionGroupSimple(xml.name())) {
         Simple *s = SimpleFactory().create(xml.name());
-        s->initialize(xml);
+        s->initialize(xml, units);
         m_simples.append(s);
       }
     }

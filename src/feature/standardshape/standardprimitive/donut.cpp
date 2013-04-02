@@ -2,7 +2,7 @@
 #include "error.h"
 
 void
-Donut::initialize(QXmlStreamReader& xml)
+Donut::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   // shape
   QString shape = getStringAttribute(xml, "Donut", "shape");
@@ -19,10 +19,10 @@ Donut::initialize(QXmlStreamReader& xml)
     m_shape = Donut::OCTAGON;
   }
   // outerDiameter/innerDiameter
-  m_outerDiameter =
-      getNonNegativeDoubleAttribute(xml, "Donut", "outerDiameter");
-  m_innerDiameter =
-      getNonNegativeDoubleAttribute(xml, "Donut", "innerDiameter");
+  m_outerDiameter = toMil(
+      getNonNegativeDoubleAttribute(xml, "Donut", "outerDiameter"), units);
+  m_innerDiameter = toMil(
+      getNonNegativeDoubleAttribute(xml, "Donut", "innerDiameter"), units);
 }
 
 void

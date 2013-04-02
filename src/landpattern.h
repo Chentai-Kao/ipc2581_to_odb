@@ -4,11 +4,12 @@
 #include <QtCore>
 #include "pad.h"
 #include "target.h"
+#include "utils.h"
 
 class LandPattern
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
 
 private:
   QList<Pad> m_pads;

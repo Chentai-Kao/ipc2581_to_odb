@@ -1,9 +1,10 @@
 #include "octagon.h"
 
 void
-Octagon::initialize(QXmlStreamReader& xml)
+Octagon::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_length = getNonNegativeDoubleAttribute(xml, "Octagon", "length");
+  m_length = toMil(
+      getNonNegativeDoubleAttribute(xml, "Octagon", "length"), units);
 }
 
 void

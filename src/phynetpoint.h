@@ -3,11 +3,12 @@
 
 #include <QtCore>
 #include "standardshape.h"
+#include "utils.h"
 
 class PhyNetPoint
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
   enum NetPointType { END, MIDDLE };
   enum ExposureType { EXPOSED, COVERED_PRIMARY, COVERED_SECONDARY, COVERED };
 

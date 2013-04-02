@@ -1,7 +1,7 @@
 #include "text.h"
 
 void
-Text::initialize(QXmlStreamReader& xml)
+Text::initialize(QXmlStreamReader& xml, UnitsType units)
 {
 // TODO skipped
   //throw new NonImplementedError("Text");

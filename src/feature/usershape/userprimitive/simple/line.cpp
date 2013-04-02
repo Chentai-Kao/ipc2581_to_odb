@@ -1,24 +1,21 @@
 #include "line.h"
+#include "linedescgroupfactory.h"
 
 void
-Line::initialize(QXmlStreamReader& xml)
+Line::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_start = QPointF(getDoubleAttribute(xml, "Line", "startX"),
-                    getDoubleAttribute(xml, "Line", "startY"));
-  m_end = QPointF(getDoubleAttribute(xml, "Line", "endX"),
-                  getDoubleAttribute(xml, "Line", "endY"));
+  m_start = QPointF(toMil(getDoubleAttribute(xml, "Line", "startX"), units),
+                    toMil(getDoubleAttribute(xml, "Line", "startY"), units));
+  m_end = QPointF(toMil(getDoubleAttribute(xml, "Line", "endX"), units),
+                  toMil(getDoubleAttribute(xml, "Line", "endY"), units));
   // LineDescGroup
   m_lineDescGroup = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
-      if (xml.name() == "LineDesc") {
-        m_lineDescGroup = new LineDesc();
-        m_lineDescGroup->initialize(xml);
-      }
-      else if (xml.name() == "LineDescRef") {
-        m_lineDescGroup = new LineDescRef();
-        m_lineDescGroup->initialize(xml);
+      if (isSubstitutionGroupLineDescGroup(xml.name())) {
+        m_lineDescGroup = LineDescGroupFactory().create(xml.name());
+        m_lineDescGroup->initialize(xml, units);
       }
     }
     else if (isEndElementWithName(xml, "Line")) { // </Line>

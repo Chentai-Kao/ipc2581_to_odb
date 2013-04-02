@@ -13,11 +13,12 @@
 #include "standardprimitive.h"
 #include "userprimitive.h"
 #include "odbfeaturefile.h"
+#include "utils.h"
 
 class Set
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
   enum PolarityType { POSITIVE, NEGATIVE };
   enum PadUsageType { TERMINATION, VIA, PLANE, TOOLING_HOLE, MASK, NONE };
   void odbOutputLayerFeature(OdbFeatureFile& file);

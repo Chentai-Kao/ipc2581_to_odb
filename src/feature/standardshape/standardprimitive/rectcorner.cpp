@@ -1,12 +1,16 @@
 #include "rectcorner.h"
 
 void
-RectCorner::initialize(QXmlStreamReader& xml)
+RectCorner::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_lowerLeftX = getDoubleAttribute(xml, "RectCorner", "lowerLeftX");
-  m_lowerLeftY = getDoubleAttribute(xml, "RectCorner", "lowerLeftY");
-  m_upperRightX = getDoubleAttribute(xml, "RectCorner", "upperRightX");
-  m_upperRightY = getDoubleAttribute(xml, "RectCorner", "upperRightY");
+  m_lowerLeftX = toMil(
+      getDoubleAttribute(xml, "RectCorner", "lowerLeftX"), units);
+  m_lowerLeftY = toMil(
+      getDoubleAttribute(xml, "RectCorner", "lowerLeftY"), units);
+  m_upperRightX = toMil(
+      getDoubleAttribute(xml, "RectCorner", "upperRightX"), units);
+  m_upperRightY = toMil(
+      getDoubleAttribute(xml, "RectCorner", "upperRightY"), units);
 }
 
 void

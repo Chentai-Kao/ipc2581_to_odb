@@ -17,7 +17,7 @@ DictionaryLineDescHandler::run(QXmlStreamReader& xml)
       // create element and insert to hash table
       xml.readNextStartElement(); // <LineDesc>
       LineDesc l;
-      l.initialize(xml);
+      l.initialize(xml, m_units);
       g_entryLineDescs.insert(id, l);
     }
     else if (isEndElementWithName(xml, "DictionaryLineDesc")) {

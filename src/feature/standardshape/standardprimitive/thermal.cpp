@@ -2,7 +2,7 @@
 #include "error.h"
 
 void
-Thermal::initialize(QXmlStreamReader& xml)
+Thermal::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   // shape
   QString shape = getStringAttribute(xml, "Thermal", "shape");
@@ -19,8 +19,10 @@ Thermal::initialize(QXmlStreamReader& xml)
     m_shape = Thermal::OCTAGON;
   }
   // others...
-  m_outerDiameter = getDoubleAttribute(xml, "Thermal", "outerDiameter");
-  m_innerDiameter = getDoubleAttribute(xml, "Thermal", "innerDiameter");
+  m_outerDiameter = toMil(
+      getDoubleAttribute(xml, "Thermal", "outerDiameter"), units);
+  m_innerDiameter = toMil(
+      getDoubleAttribute(xml, "Thermal", "innerDiameter"), units);
   if (hasAttribute(xml, "spokeCount")) {
     m_spokeCount = getIntAttribute(xml, "Thermal", "spokeCount");
     if (!isValidSpokeCount()) {
@@ -31,12 +33,14 @@ Thermal::initialize(QXmlStreamReader& xml)
     m_spokeCount = (m_shape == Thermal::HEXAGON)? 3 : 4;
   }
   if (hasAttribute(xml, "gap")) {
-    m_gap = getNonNegativeDoubleAttribute(xml, "Thermal", "gap");
+    m_gap = toMil(
+        getNonNegativeDoubleAttribute(xml, "Thermal", "gap"), units);
   }
   else {
     m_gap = m_outerDiameter - m_innerDiameter;
   }
-  m_spokeStartAngle = getDoubleAttribute(xml, "Thermal", "spokeStartAngle");
+  m_spokeStartAngle = toMil(
+      getDoubleAttribute(xml, "Thermal", "spokeStartAngle"), units);
 }
 
 bool

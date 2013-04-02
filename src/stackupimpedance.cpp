@@ -2,7 +2,7 @@
 #include "error.h"
 
 void
-StackupImpedance::initialize(QXmlStreamReader& xml)
+StackupImpedance::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_value = getNonNegativeDoubleAttribute(xml, "StackupImpedance", "value");
   m_type = decideStackImpedanceType(
@@ -26,12 +26,12 @@ StackupImpedance::initialize(QXmlStreamReader& xml)
       }
       else if (xml.name() == "Polyline") {
         Polyline polyline;
-        polyline.initialize(xml);
+        polyline.initialize(xml, units);
         m_polylines.append(polyline);
       }
       else if (xml.name() == "Contour") {
         Contour contour;
-        contour.initialize(xml);
+        contour.initialize(xml, units);
         m_contours.append(contour);
       }
       else if (xml.name() == "LayerRef") {

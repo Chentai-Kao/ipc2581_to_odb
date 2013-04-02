@@ -1,9 +1,10 @@
 #include "circle.h"
 
 void
-Circle::initialize(QXmlStreamReader& xml)
+Circle::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_diameter = getNonNegativeDoubleAttribute(xml, "Circle", "diameter");
+  m_diameter = toMil(
+      getNonNegativeDoubleAttribute(xml, "Circle", "diameter"), units);
 }
 
 void

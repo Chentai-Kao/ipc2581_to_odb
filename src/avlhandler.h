@@ -1,9 +1,9 @@
 #ifndef __AVLHANDLER_H__
 #define __AVLHANDLER_H__
 
-#include "handler.h"
+#include <QtCore>
 
-class AvlHandler : public Handler
+class AvlHandler
 {
 public:
   virtual void run(QXmlStreamReader& xml);

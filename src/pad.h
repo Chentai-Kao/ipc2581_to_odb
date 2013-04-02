@@ -12,7 +12,7 @@
 class Pad
 {
 public:
-  void initialize(QXmlStreamReader& xml);
+  void initialize(QXmlStreamReader& xml, UnitsType units);
   void odbOutputLayerFeature(OdbFeatureFile& file, QString polarity);
 
 private:

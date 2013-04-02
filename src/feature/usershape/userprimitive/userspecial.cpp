@@ -2,13 +2,13 @@
 #include "featurefactory.h"
 
 void
-UserSpecial::initialize(QXmlStreamReader& xml)
+UserSpecial::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
       Feature* f = FeatureFactory().create(xml.name());
-      f->initialize(xml);
+      f->initialize(xml, units);
       // append to the feature list
       m_features.append(f);
     }

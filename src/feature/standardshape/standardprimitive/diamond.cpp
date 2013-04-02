@@ -1,10 +1,12 @@
 #include "diamond.h"
 
 void
-Diamond::initialize(QXmlStreamReader& xml)
+Diamond::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_width = getNonNegativeDoubleAttribute(xml, "Diamond", "width");
-  m_height = getNonNegativeDoubleAttribute(xml, "Diamond", "height");
+  m_width = toMil(
+      getNonNegativeDoubleAttribute(xml, "Diamond", "width"), units);
+  m_height = toMil(
+      getNonNegativeDoubleAttribute(xml, "Diamond", "height"), units);
 }
 
 void

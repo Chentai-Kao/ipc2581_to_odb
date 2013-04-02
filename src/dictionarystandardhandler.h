@@ -2,11 +2,10 @@
 #define __DICTIONARYSTANDARDHANDLER_H__
 
 #include <QtCore>
-#include "handler.h"
 #include "standardprimitive.h"
 #include "utils.h"
 
-class DictionaryStandardHandler : public Handler
+class DictionaryStandardHandler
 {
 public:
   virtual void run(QXmlStreamReader& xml);

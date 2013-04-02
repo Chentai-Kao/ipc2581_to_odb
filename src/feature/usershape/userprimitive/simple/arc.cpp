@@ -1,28 +1,25 @@
 #include "arc.h"
+#include "linedescgroupfactory.h"
 #include "utils.h"
 
 void
-Arc::initialize(QXmlStreamReader& xml)
+Arc::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_start = QPointF(getDoubleAttribute(xml, "Arc", "startX"),
-                    getDoubleAttribute(xml, "Arc", "startY"));
-  m_end = QPointF(getDoubleAttribute(xml, "Arc", "endX"),
-                  getDoubleAttribute(xml, "Arc", "endY"));
-  m_center = QPointF(getDoubleAttribute(xml, "Arc", "centerX"),
-                     getDoubleAttribute(xml, "Arc", "centerY"));
+  m_start = QPointF(toMil(getDoubleAttribute(xml, "Arc", "startX"), units),
+                    toMil(getDoubleAttribute(xml, "Arc", "startY"), units));
+  m_end = QPointF(toMil(getDoubleAttribute(xml, "Arc", "endX"), units),
+                  toMil(getDoubleAttribute(xml, "Arc", "endY"), units));
+  m_center = QPointF(toMil(getDoubleAttribute(xml, "Arc", "centerX"), units),
+                     toMil(getDoubleAttribute(xml, "Arc", "centerY"), units));
   m_clockwise = getBoolAttribute(xml, "clockwise");
   // LineDescGroup
   m_lineDescGroup = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
-      if (xml.name() == "LineDesc") {
-        m_lineDescGroup = new LineDesc();
-        m_lineDescGroup->initialize(xml);
-      }
-      else if (xml.name() == "LineDescRef") {
-        m_lineDescGroup = new LineDescRef();
-        m_lineDescGroup->initialize(xml);
+      if (isSubstitutionGroupLineDescGroup(xml.name())) {
+        m_lineDescGroup = LineDescGroupFactory().create(xml.name());
+        m_lineDescGroup->initialize(xml, units);
       }
     }
     else if (isEndElementWithName(xml, "Arc")) { // </Arc>

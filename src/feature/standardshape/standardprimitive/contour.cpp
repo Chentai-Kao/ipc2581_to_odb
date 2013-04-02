@@ -1,17 +1,17 @@
 #include "contour.h"
 
 void
-Contour::initialize(QXmlStreamReader& xml)
+Contour::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
       if (xml.name() == "Polygon") {
-        m_polygon.initialize(xml);
+        m_polygon.initialize(xml, units);
       }
       else if (xml.name() == "Cutout") {
         Polygon polygon;
-        polygon.initialize(xml);
+        polygon.initialize(xml, units);
         m_cutouts.append(polygon);
       }
     }

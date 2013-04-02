@@ -10,7 +10,7 @@
 class UserPrimitive : public UserShape
 {
 public:
-  virtual void initialize(QXmlStreamReader& xml) = 0;
+  virtual void initialize(QXmlStreamReader& xml, UnitsType units) = 0;
   virtual QString refId() { return ""; }
   virtual void odbOutputLayerFeature(
       OdbFeatureFile& file,

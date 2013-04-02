@@ -2,10 +2,9 @@
 #define __DICTIONARYCOLORHANDLER_H__
 
 #include <QtCore>
-#include "handler.h"
 #include "color.h"
 
-class DictionaryColorHandler : public Handler
+class DictionaryColorHandler
 {
 public:
   virtual void run(QXmlStreamReader& xml);

@@ -1,10 +1,11 @@
 #include "polystepsegment.h"
 
 void
-PolyStepSegment::initialize(QXmlStreamReader& xml)
+PolyStepSegment::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_point = QPointF(getDoubleAttribute(xml, "PolyStepSegment", "x"),
-                    getDoubleAttribute(xml, "PolyStepSegment", "y"));
+  m_point = QPointF(
+      toMil(getDoubleAttribute(xml, "PolyStepSegment", "x"), units),
+      toMil(getDoubleAttribute(xml, "PolyStepSegment", "y"), units));
 }
 
 qreal

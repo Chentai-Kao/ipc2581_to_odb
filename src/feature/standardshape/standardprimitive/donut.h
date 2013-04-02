@@ -7,7 +7,7 @@
 class Donut : public StandardPrimitive
 {
 public:
-  virtual void initialize(QXmlStreamReader& xml);
+  virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   enum DonutShape { ROUND, SQUARE, HEXAGON, OCTAGON };
   virtual void odbOutputLayerFeature(
       OdbFeatureFile& file,
