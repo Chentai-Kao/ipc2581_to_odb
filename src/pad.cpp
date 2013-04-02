@@ -8,6 +8,7 @@ Pad::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_xform = NULL;
   m_pinRef = NULL;
+  m_standardShape = NULL;
   while (!xml.atEnd() && !xml.hasError()) {
     xml.readNext();
     if (xml.isStartElement()) {
@@ -38,19 +39,21 @@ Pad::initialize(QXmlStreamReader& xml, UnitsType units)
 void
 Pad::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
 {
-  // if the shape is a reference, find it in the list
-  QString refId = m_standardShape->refId();
-  StandardShape *s;
-  if (refId == "") {
-    s = m_standardShape;
-  }
-  else if (g_entryStandards.contains(refId)) {
-    s = g_entryStandards[refId];
-  }
-  else {
-    throw new InvalidIdError(refId);
-  }
+  if (m_standardShape != NULL) {
+    // if the shape is a reference, find it in the list
+    QString refId = m_standardShape->refId();
+    StandardShape *s;
+    if (refId == "") {
+      s = m_standardShape;
+    }
+    else if (g_entryStandards.contains(refId)) {
+      s = g_entryStandards[refId];
+    }
+    else {
+      throw new InvalidIdError(refId);
+    }
 
-  // call the shape to output
-  s->odbOutputLayerFeature(file, polarity, m_location, m_xform);
+    // call the shape to output
+    s->odbOutputLayerFeature(file, polarity, m_location, m_xform);
+  }
 }

@@ -4,8 +4,8 @@ void
 PolyStepSegment::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_point = QPointF(
-      toMil(getDoubleAttribute(xml, "PolyStepSegment", "x"), units),
-      toMil(getDoubleAttribute(xml, "PolyStepSegment", "y"), units));
+      toInch(getDoubleAttribute(xml, "PolyStepSegment", "x"), units),
+      toInch(getDoubleAttribute(xml, "PolyStepSegment", "y"), units));
 }
 
 qreal

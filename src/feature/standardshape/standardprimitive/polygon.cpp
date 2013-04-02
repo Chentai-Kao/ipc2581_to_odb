@@ -9,9 +9,9 @@ Polygon::initialize(QXmlStreamReader& xml, UnitsType units)
     xml.readNext();
     if (xml.isStartElement()) {
       if (xml.name() == "PolyBegin") {
-        m_polyBegin.rx() = toMil(
+        m_polyBegin.rx() = toInch(
             getDoubleAttribute(xml, "PolyBegin", "x"), units);
-        m_polyBegin.ry() = toMil(
+        m_polyBegin.ry() = toInch(
             getDoubleAttribute(xml, "PolyBegin", "y"), units);
       }
       else if (isSubstitutionGroupPolyStep(xml.name())) {
