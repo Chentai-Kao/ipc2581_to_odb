@@ -54,17 +54,7 @@ void
 TopLevelHandler::odbOutputLayerFeature(
     QTextStream &out, QString stepName, QString layerName)
 {
-  m_ecadHandler.odbOutputLayerFeature(
-      out, stepName, layerName,
-      m_dictionary);
-}
-
-void
-TopLevelHandler::createDictionary()
-{
-  m_dictionary.setEntryStandards(m_contentHandler.entryStandards());
-  m_dictionary.setEntryUsers(m_contentHandler.entryUsers());
-  m_dictionary.setEntryLineDescs(m_contentHandler.entryLineDescs());
+  m_ecadHandler.odbOutputLayerFeature(out, stepName, layerName);
 }
 
 bool

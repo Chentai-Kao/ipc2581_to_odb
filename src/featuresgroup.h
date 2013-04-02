@@ -8,16 +8,12 @@
 #include "standardprimitive.h"
 #include "userprimitive.h"
 #include "odbfeaturefile.h"
-#include "dictionary.h"
 
 class Features
 {
 public:
   void initialize(QXmlStreamReader& xml);
-  void odbOutputLayerFeature(
-      OdbFeatureFile& file,
-      QString polarity,
-      const Dictionary& dictionary);
+  void odbOutputLayerFeature(OdbFeatureFile& file, QString polarity);
 
 private:
   Xform *m_xform;

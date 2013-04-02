@@ -22,8 +22,7 @@ LayerFeature::initialize(QXmlStreamReader& xml)
 }
 
 void
-LayerFeature::odbOutputLayerFeature(QTextStream& out,
-    const Dictionary& dictionary)
+LayerFeature::odbOutputLayerFeature(QTextStream& out)
 {
   /* The feature file has 4 sections:
    * Symbols table, Attribute table, Attribute texts, and Features list.
@@ -33,7 +32,7 @@ LayerFeature::odbOutputLayerFeature(QTextStream& out,
 
   // collect information
   for (int i = 0; i < m_sets.size(); ++i) {
-    m_sets[i].odbOutputLayerFeature(file, dictionary);
+    m_sets[i].odbOutputLayerFeature(file);
   }
 
   // output to file

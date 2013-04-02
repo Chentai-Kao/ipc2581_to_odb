@@ -1,6 +1,7 @@
 #include "pad.h"
 #include "standardshapefactory.h"
 #include "error.h"
+#include "globals.h"
 
 void
 Pad::initialize(QXmlStreamReader& xml)
@@ -34,10 +35,7 @@ Pad::initialize(QXmlStreamReader& xml)
 }
 
 void
-Pad::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
-    const Dictionary& dictionary)
+Pad::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
 {
   // if the shape is a reference, find it in the list
   QString refId = m_standardShape->refId();
@@ -45,8 +43,8 @@ Pad::odbOutputLayerFeature(
   if (refId == "") {
     s = m_standardShape;
   }
-  else if (dictionary.entryStandards().contains(refId)) {
-    s = dictionary.entryStandards()[refId];
+  else if (g_entryStandards.contains(refId)) {
+    s = g_entryStandards[refId];
   }
   else {
     throw new InvalidIdError(refId);

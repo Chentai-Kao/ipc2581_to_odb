@@ -20,7 +20,6 @@ HEADERS += \
   cadheaderhandler.h \
   component.h \
   contenthandler.h \
-  dictionary.h \
   dictionarycolorhandler.h \
   dictionarylinedeschandler.h \
   dictionarystandardhandler.h \
@@ -29,6 +28,7 @@ HEADERS += \
   ecadhandler.h \
   error.h \
   featuresgroup.h \
+  globals.h \
   handler.h \
   historyrecordhandler.h \
   hole.h \
@@ -73,6 +73,7 @@ SOURCES += \
   drilltool.cpp \
   ecadhandler.cpp \
   featuresgroup.cpp \
+  globals.cpp \
   historyrecordhandler.cpp \
   hole.cpp \
   landpattern.cpp \

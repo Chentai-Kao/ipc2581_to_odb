@@ -9,7 +9,6 @@
 #include "bomhandler.h"
 #include "ecadhandler.h"
 #include "avlhandler.h"
-#include "dictionary.h"
 
 class TopLevelHandler : public Handler
 {
@@ -18,7 +17,6 @@ public:
   void odbOutputMatrix(QTextStream& out);
   void odbOutputLayerFeature(
       QTextStream &out, QString stepName, QString layerName);
-  void createDictionary(); // collect all dictionary to m_dictionary
 
   // getter
   QList<QString>& allSteps() { return m_contentHandler.allSteps(); }
@@ -35,7 +33,6 @@ private:
   BomHandler            m_bomHandler;
   EcadHandler           m_ecadHandler;
   AvlHandler            m_avlHandler;
-  Dictionary            m_dictionary;
 };
 
 #endif

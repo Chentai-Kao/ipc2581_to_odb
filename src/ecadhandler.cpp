@@ -29,9 +29,7 @@ EcadHandler::odbOutputMatrixAllLayers(QTextStream& out)
 
 void
 EcadHandler::odbOutputLayerFeature(
-    QTextStream &out, QString stepName, QString layerName,
-      const Dictionary& dictionary)
+    QTextStream &out, QString stepName, QString layerName)
 {
-  m_cadDataHandler.odbOutputLayerFeature(
-      out, stepName, layerName, dictionary);
+  m_cadDataHandler.odbOutputLayerFeature(out, stepName, layerName);
 }

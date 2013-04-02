@@ -1,5 +1,6 @@
 #include "dictionarylinedeschandler.h"
 #include "error.h"
+#include "globals.h"
 
 void
 DictionaryLineDescHandler::run(QXmlStreamReader& xml)
@@ -10,14 +11,14 @@ DictionaryLineDescHandler::run(QXmlStreamReader& xml)
     if (isStartElementWithName(xml, "EntryLineDesc")) {
       QString id = getStringAttribute(xml, "EntryLineDesc", "id");
       // id must be unique
-      if (m_entryLineDescs.contains(id)) {
-        throw new DuplicateIdError(id, "DictionaryLineDesc");
+      if (g_entryLineDescs.contains(id)) {
+        throw new DuplicateIdError("DictionaryLineDesc", id);
       }
       // create element and insert to hash table
       xml.readNextStartElement(); // <LineDesc>
-      LineDesc lineDesc;
-      lineDesc.initialize(xml);
-      m_entryLineDescs.insert(id, lineDesc);
+      LineDesc l;
+      l.initialize(xml);
+      g_entryLineDescs.insert(id, l);
     }
     else if (isEndElementWithName(xml, "DictionaryLineDesc")) {
       break;

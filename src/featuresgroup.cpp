@@ -1,6 +1,7 @@
 #include "featuresgroup.h"
 #include "featurefactory.h"
 #include "error.h"
+#include "globals.h"
 
 void
 Features::initialize(QXmlStreamReader& xml)
@@ -33,21 +34,18 @@ Features::initialize(QXmlStreamReader& xml)
 }
 
 void
-Features::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
-    const Dictionary& dictionary)
+Features::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
 {
   QString refId = m_feature->refId();
   Feature *f;
   if (refId == "") { // not a reference to others
     f = m_feature;
   }
-  else if (dictionary.entryStandards().contains(refId)) {
-    f = dictionary.entryStandards()[refId]; // a reference to standard shape
+  else if (g_entryStandards.contains(refId)) { // a reference to standard shape
+    f = g_entryStandards[refId];
   }
-  else if (dictionary.entryUsers().contains(refId)) {
-    f = dictionary.entryUsers()[refId]; // a reference to user shape
+  else if (g_entryUsers.contains(refId)) { // a reference to user shape
+    f = g_entryUsers[refId];
   }
   else { // cannot find id in dictionary
     throw new InvalidIdError(refId);

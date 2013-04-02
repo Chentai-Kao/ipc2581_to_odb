@@ -5,7 +5,6 @@
 Odb::Odb(TopLevelHandler& h)
 {
   m_handler = h;
-  m_handler.createDictionary();
   m_odbRootPath = "bin/odb/";
   m_allSteps = m_handler.allSteps();
   m_allLayers = m_handler.allLayers();
@@ -105,9 +104,8 @@ Odb::createLayerFeature()
     for (int j = 0; j < m_allLayers.size(); ++j) {
       // open file
       QString path = QString("steps/%1/layers/%2/features")
-                           .arg(m_allSteps[i])
-                           .arg(m_allLayers[j])
-                           .toLower();
+                           .arg(m_allSteps[i].toLower())
+                           .arg(m_allLayers[j].toLower());
       QFile file(m_odbRootPath + path);
       file.open(QIODevice::WriteOnly | QIODevice::Text);
       QTextStream out(&file);

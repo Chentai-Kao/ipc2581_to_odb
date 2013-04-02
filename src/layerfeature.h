@@ -3,14 +3,12 @@
 
 #include <QtCore>
 #include "set.h"
-#include "dictionary.h"
 
 class LayerFeature
 {
 public:
   void initialize(QXmlStreamReader& xml);
-  void odbOutputLayerFeature(QTextStream& out,
-      const Dictionary& dictionary);
+  void odbOutputLayerFeature(QTextStream& out);
 
   // getter
   QString layerRef() { return m_layerRef; }
