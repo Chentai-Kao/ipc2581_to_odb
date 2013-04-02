@@ -10,7 +10,7 @@ int main()
   try {
     qDebug("----- Program starts -----");
     /* Open file */
-    QString fileName = "test_case1.xml";
+    QString fileName = "test.xml";
     QFile *file = new QFile(fileName);
     if (!file->open(QIODevice::ReadOnly | QIODevice::Text)) {
       throw new InvalidFileError(fileName);
