@@ -10,7 +10,8 @@
 enum UnitsType {
   MILLIMETER,
   MICRON,
-  INCH
+  INCH,
+  MIL // for ODB++, a thousandth of inch
 };
 
 enum PolygonType {

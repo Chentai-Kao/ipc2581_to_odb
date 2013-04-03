@@ -13,6 +13,7 @@ public:
   // getter
   virtual qreal lineWidth() { return m_lineWidth; }
   virtual QString endType() { return (m_lineEnd == SQUARE)? "s" : "r"; }
+  virtual QString refId() { return ""; }
 
 private:
   LineEnd m_lineEnd;

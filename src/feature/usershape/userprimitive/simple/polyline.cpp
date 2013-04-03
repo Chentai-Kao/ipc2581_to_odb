@@ -1,6 +1,7 @@
 #include "polyline.h"
 #include "linedescgroupfactory.h"
 #include "polystepfactory.h"
+#include "globals.h"
 
 void
 Polyline::initialize(QXmlStreamReader& xml, UnitsType units)

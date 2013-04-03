@@ -1,16 +1,17 @@
 #include "arc.h"
 #include "linedescgroupfactory.h"
 #include "utils.h"
+#include "globals.h"
 
 void
 Arc::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_start = QPointF(toMil(getDoubleAttribute(xml, "Arc", "startX"), units),
-                    toMil(getDoubleAttribute(xml, "Arc", "startY"), units));
-  m_end = QPointF(toMil(getDoubleAttribute(xml, "Arc", "endX"), units),
-                  toMil(getDoubleAttribute(xml, "Arc", "endY"), units));
-  m_center = QPointF(toMil(getDoubleAttribute(xml, "Arc", "centerX"), units),
-                     toMil(getDoubleAttribute(xml, "Arc", "centerY"), units));
+  m_start = QPointF(toInch(getDoubleAttribute(xml, "Arc", "startX"), units),
+                    toInch(getDoubleAttribute(xml, "Arc", "startY"), units));
+  m_end = QPointF(toInch(getDoubleAttribute(xml, "Arc", "endX"), units),
+                  toInch(getDoubleAttribute(xml, "Arc", "endY"), units));
+  m_center = QPointF(toInch(getDoubleAttribute(xml, "Arc", "centerX"), units),
+                     toInch(getDoubleAttribute(xml, "Arc", "centerY"), units));
   m_clockwise = getBoolAttribute(xml, "clockwise");
   // LineDescGroup
   m_lineDescGroup = NULL;
@@ -37,8 +38,20 @@ Arc::odbOutputLayerFeature(
     QString polarity,
     QPointF location, Xform *xform)
 {
-  QString symbol = QString("r%1").arg(m_lineDescGroup->lineWidth() * 0.5);
+  QString refId = m_lineDescGroup->refId();
+  LineDescGroup *l;
+  if (refId == "") { // not a reference to others
+    l = m_lineDescGroup;
+  }
+  else if (g_entryLineDescs.contains(refId)) { // a reference to LineDescGroup 
+    l = &g_entryLineDescs[refId];
+  }
+  else { // cannot find it in dictionary
+    throw new InvalidIdError(refId);
+  }
+  QString symbol = QString("r%1").arg(l->lineWidth() * 0.5);
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
+
   QPointF newLocation = calcTransformedLocation(location, xform);
   QPointF newStart  = newLocation + calcTransformedLocation(m_start, xform);
   QPointF newEnd    = newLocation + calcTransformedLocation(m_end, xform);

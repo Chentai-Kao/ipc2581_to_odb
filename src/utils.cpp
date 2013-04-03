@@ -87,6 +87,7 @@ bool getBoolAttribute(QXmlStreamReader& xml, const QString attributeName)
 UnitsType getUnitAttribute(QXmlStreamReader& xml,
     const QString elementName, const QString attributeName)
 {
+  // there are only 3 kinds of unit in ipc-2581
   QString units = getAttribute(xml, attributeName);
   if (units == "MILLIMETER") {
     return MILLIMETER;
@@ -117,6 +118,8 @@ qreal toInch(qreal num, UnitsType currentUnits)
       return num / 1000 / 25.4f;
     case INCH :
       return num;
+    case MIL :
+      return num / 1000;
     default :
       break;
   }
@@ -132,6 +135,8 @@ qreal toMil(qreal num, UnitsType currentUnits)
       return num / 25.4f;
     case INCH :
       return num * 1000;
+    case MIL :
+      return num;
     default :
       break;
   }

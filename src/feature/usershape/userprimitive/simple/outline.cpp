@@ -1,5 +1,6 @@
 #include "outline.h"
 #include "linedescgroupfactory.h"
+#include "globals.h"
 
 void
 Outline::initialize(QXmlStreamReader& xml, UnitsType units)

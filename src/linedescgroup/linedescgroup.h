@@ -12,6 +12,7 @@ public:
   virtual void initialize(QXmlStreamReader& xml, UnitsType units) = 0;
   virtual qreal lineWidth() = 0;
   virtual QString endType() = 0;
+  virtual QString refId() = 0;
 };
 
 #endif
