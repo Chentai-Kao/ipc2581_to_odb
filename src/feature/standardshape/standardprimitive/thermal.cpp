@@ -39,8 +39,7 @@ Thermal::initialize(QXmlStreamReader& xml, UnitsType units)
   else {
     m_gap = m_outerDiameter - m_innerDiameter;
   }
-  m_spokeStartAngle = toMil(
-      getDoubleAttribute(xml, "Thermal", "spokeStartAngle"), units);
+  m_spokeStartAngle = getDoubleAttribute(xml, "Thermal", "spokeStartAngle");
 }
 
 bool
@@ -88,10 +87,12 @@ Thermal::odbOutputLayerFeature(
   else if (m_shape == HEXAGON) {
 // TODO skipped
     //throw new NonImplementedError("Thermal::HEXAGON");
+    return;
   }
   else if (m_shape == OCTAGON) {
 // TODO skipped
     //throw new NonImplementedError("Thermal::OCTAGON");
+    return;
   }
 
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());

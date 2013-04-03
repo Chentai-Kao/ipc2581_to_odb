@@ -43,10 +43,12 @@ Donut::odbOutputLayerFeature(
   else if (m_shape == HEXAGON) {
 // TODO skipped
     //throw new NonImplementedError("Donut::HEXAGON");
+    return;
   }
   else if (m_shape == OCTAGON) {
 // TODO skipped
     //throw new NonImplementedError("Donut::OCTAGON");
+    return;
   }
 
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());

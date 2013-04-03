@@ -11,15 +11,15 @@ Moire::initialize(QXmlStreamReader& xml, UnitsType units)
       getNonNegativeDoubleAttribute(xml, "Moire", "ringWidth"), units);
   m_ringGap = toMil(
       getNonNegativeDoubleAttribute(xml, "Moire", "ringGap"), units);
-  m_ringGap = toMil(
-      getNonNegativeDoubleAttribute(xml, "Moire", "ringGap"), units);
   m_ringNumber = getNonNegativeIntAttribute(xml, "Moire", "ringNumber");
   // optional attributes
   if (hasAttribute(xml, "lineWidth")) {
-    m_lineWidth = getNonNegativeDoubleAttribute(xml, "Moire", "lineWidth");
+    m_lineWidth = toMil(
+        getNonNegativeDoubleAttribute(xml, "Moire", "lineWidth"), units);
   }
   if (hasAttribute(xml, "lineLength")) {
-    m_lineLength = getNonNegativeDoubleAttribute(xml, "Moire", "lineLength");
+    m_lineLength = toMil(
+      getNonNegativeDoubleAttribute(xml, "Moire", "lineLength"), units);
   }
   if (hasAttribute(xml, "lineAngle")) {
     m_lineAngle = getNonNegativeDoubleAttribute(xml, "Moire", "lineAngle");
@@ -37,7 +37,7 @@ Moire::odbOutputLayerFeature(
 {
   QString symbol = QString("moire%1x%2x%3x%4x%5x%6")
                            .arg(m_ringWidth)
-                           .arg(m_ringGap - m_ringWidth * 0.5) // different
+                           .arg(m_ringGap - m_ringWidth * 0.5f) // different
                            .arg(m_ringNumber)
                            .arg(m_lineWidth)
                            .arg(m_lineLength)

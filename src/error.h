@@ -14,7 +14,7 @@ class InvalidAttributeError : public Error
 public:
   InvalidAttributeError(QString e, QString a) : m_element(e), m_attribute(a) {}
   virtual void info() {
-    qDebug() << QString("ERROR** invalid attribute \"%1\" in <%2>")
+    qDebug() << QString("ERROR** <%1> contains invalid attribute \"%2\"")
                    .arg(m_element).arg(m_attribute);
   }
 private:
