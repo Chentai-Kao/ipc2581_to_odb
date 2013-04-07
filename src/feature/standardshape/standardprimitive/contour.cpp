@@ -28,15 +28,12 @@ Contour::odbOutputLayerFeature(
     QString polarity,
     QPointF location, Xform *xform)
 {
-  m_polygon.odbOutputLayerFeature(
-      file,
-      polarity, location, xform, POLYGON);
+  m_polygon.odbOutputLayerFeature(file, polarity, location, xform, POLYGON);
 
   // cutout has inverse polarity
   QString invPolarity = (polarity == "P")? "N" : "P";
   for (int i = 0; i < m_cutouts.size(); ++i) {
     m_cutouts[i].odbOutputLayerFeature(
-        file,
-        invPolarity, location, xform, CUTOUT);
+        file, invPolarity, location, xform, CUTOUT);
   }
 }

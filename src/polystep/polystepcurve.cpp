@@ -41,9 +41,10 @@ PolyStepCurve::calcLineIntegral(QPointF prevPoint)
 }
 
 void
-PolyStepCurve::setEdge(PolygonEdge& edge)
+PolyStepCurve::setEdge(PolygonEdge& edge, QPointF start, QPointF end)
 {
-  edge.m_endPoint = m_point;
+  edge.m_startPoint = start;
+  edge.m_endPoint = end;
   edge.m_centerPoint = m_centerPoint;
   edge.m_clockwise = m_clockwise;
   edge.m_odbType = "OC";

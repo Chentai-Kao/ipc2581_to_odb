@@ -103,5 +103,7 @@ SOURCES += \
 
 INCLUDEPATH += . .build attribute colorgroup feature fiducial linedescgroup polystep
 
+CONFIG += debug
+
 DESTDIR = ../bin
 TARGET = ipc2581

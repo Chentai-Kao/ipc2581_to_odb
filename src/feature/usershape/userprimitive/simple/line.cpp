@@ -46,8 +46,8 @@ Line::odbOutputLayerFeature(
     throw new InvalidIdError(refId);
   }
   QString symbol = QString("%1%2") // square (e.g. s5) or round (e.g. r2)
-                           .arg(l->endType())
-                           .arg(l->lineWidth() * 0.5);
+                          .arg(l->endType())
+                          .arg(l->lineWidth());
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
 
   QPointF newLocation = calcTransformedLocation(location, xform);

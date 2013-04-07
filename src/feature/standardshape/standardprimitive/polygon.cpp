@@ -39,18 +39,17 @@ Polygon::isClosedShape()
 
 void
 Polygon::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform, PolygonType type)
 {
   // island == POLYGON (must clockwise), hole == CUTOUT (must counter clockwise)
   file.featuresList().append(QString("S %1 0\n").arg(polarity));
-  if ((type == POLYGON && isClockwise()) || 
-      (type == CUTOUT && !isClockwise())) {
-    odbOutputFeature(file, type);
+  if ((type == POLYGON &&  isClockwise()) || 
+      (type == CUTOUT  && !isClockwise())) {
+    odbOutputFeature(file, location, xform, type, FORWARD);
   }
   else {
-    odbOutputFeatureInv(file, type);
+    odbOutputFeature(file, location, xform, type, REVERSE);
   }
   file.featuresList().append(QString("SE\n"));
 }
@@ -81,71 +80,75 @@ Polygon::isClockwise()
 }
 
 QList<PolygonEdge>
-Polygon::calcPolygonEdges()
+Polygon::calcPolygonEdges(OutputOrder outputOrder)
 {
   QList<PolygonEdge> polygonEdges;
-  for (int i = 0; i < m_polySteps.size(); ++i) {
-    PolygonEdge edge;
-    if (i == 0) {
-      edge.m_startPoint = m_polyBegin;
+  if (outputOrder == FORWARD) { // output as the edge's order
+    for (int i = 0; i < m_polySteps.size(); ++i) {
+      PolygonEdge edge;
+      QPointF start = (i == 0)? m_polyBegin : m_polySteps[i - 1]->point();
+      QPointF end = m_polySteps[i]->point();
+      m_polySteps[i]->setEdge(edge, start, end);
+      polygonEdges.append(edge);
     }
-    else {
-      edge.m_startPoint = m_polySteps[i - 1]->point();
+  }
+  else { // output as reverse edge's order
+    for (int i = m_polySteps.size() - 1; i >= 0; --i) {
+      PolygonEdge edge;
+      QPointF start = m_polySteps[i]->point();
+      QPointF end = (i == 0)? m_polyBegin : m_polySteps[i - 1]->point();
+      m_polySteps[i]->setEdge(edge, start, end);
+      if (edge.m_odbType == "OC") {
+        edge.m_clockwise = edge.m_clockwise? false : true; // reverse clockwise
+      }
+      polygonEdges.append(edge);
     }
-    m_polySteps[i]->setEdge(edge);
-    polygonEdges.append(edge);
   }
   return polygonEdges;
 }
 
 void
-Polygon::odbOutputFeature(OdbFeatureFile& file, PolygonType type)
+Polygon::odbOutputFeature(OdbFeatureFile& file, QPointF location,
+    Xform *xform, PolygonType type, OutputOrder outputOrder)
 {
+  QPointF newLocation = calcTransformedLocation(location, xform);
   file.featuresList().append(QString("OB %1 %2 %3\n")
-                              .arg(m_polyBegin.x())
-                              .arg(m_polyBegin.y())
-                              .arg(type == POLYGON? "I" : "H"));
-  QList<PolygonEdge> polygonEdges = calcPolygonEdges();
+                             .arg(newLocation.x() + m_polyBegin.x())
+                             .arg(newLocation.y() + m_polyBegin.y())
+                             .arg(type == POLYGON? "I" : "H"));
+
+  // PolygonEdge is used to handle clockwise/counter-clockwise print
+  QList<PolygonEdge> polygonEdges = calcPolygonEdges(outputOrder);
+
+  // output each edge
   for (int i = 0; i < polygonEdges.size(); ++i) {
     if (polygonEdges[i].m_odbType == "OS") {
       file.featuresList().append(QString("OS %1 %2\n")
-                          .arg(polygonEdges[i].m_endPoint.x())
-                          .arg(polygonEdges[i].m_endPoint.y()));
+                      .arg(newLocation.x() + polygonEdges[i].m_endPoint.x())
+                      .arg(newLocation.y() + polygonEdges[i].m_endPoint.y()));
     }
     else {
+      // output
       file.featuresList().append(QString("OC %1 %2 %3 %4 %5\n")
-                          .arg(polygonEdges[i].m_endPoint.x())
-                          .arg(polygonEdges[i].m_endPoint.y())
-                          .arg(polygonEdges[i].m_centerPoint.x())
-                          .arg(polygonEdges[i].m_centerPoint.y())
-                          .arg(polygonEdges[i].m_clockwise? "Y" : "N"));
+                      .arg(newLocation.x() + polygonEdges[i].m_endPoint.x())
+                      .arg(newLocation.y() + polygonEdges[i].m_endPoint.y())
+                      .arg(newLocation.x() + polygonEdges[i].m_centerPoint.x())
+                      .arg(newLocation.y() + polygonEdges[i].m_centerPoint.y())
+                      .arg(polygonEdges[i].m_clockwise? "Y" : "N"));
     }
   }
   file.featuresList().append(QString("OE\n"));
 }
 
 void
-Polygon::odbOutputFeatureInv(OdbFeatureFile& file, PolygonType type)
+Polygon::toArcLine(QList<Simple*>& arcLineList, LineDescGroup *lineDescGroup)
 {
-  file.featuresList().append(QString("OB %1 %2 %3\n")
-                              .arg(m_polyBegin.x())
-                              .arg(m_polyBegin.y())
-                              .arg(type == POLYGON? "I" : "H"));
-  QList<PolygonEdge> polygonEdges = calcPolygonEdges();
-  for (int i = polygonEdges.size() - 1; i >= 0; --i) {
-    if (polygonEdges[i].m_odbType == "OS") {
-      file.featuresList().append(QString("OS %1 %2\n")
-                          .arg(polygonEdges[i].m_startPoint.x())
-                          .arg(polygonEdges[i].m_startPoint.y()));
-    }
-    else {
-      file.featuresList().append(QString("OC %1 %2 %3 %4 %5\n")
-                          .arg(polygonEdges[i].m_startPoint.x())
-                          .arg(polygonEdges[i].m_startPoint.y())
-                          .arg(polygonEdges[i].m_centerPoint.x())
-                          .arg(polygonEdges[i].m_centerPoint.y())
-                          .arg(polygonEdges[i].m_clockwise? "N" : "Y"));
-    }
+  // save result in 'arcLineList'
+  arcLineList.clear();
+  QPointF prev = m_polyBegin;
+  for (int i = 0; i < m_polySteps.size(); ++i) {
+    Simple *s = m_polySteps[i]->toArcLine(prev, lineDescGroup);
+    arcLineList.append(s);
+    prev = m_polySteps[i]->point();
   }
-  file.featuresList().append(QString("OE\n"));
 }

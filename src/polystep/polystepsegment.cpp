@@ -30,8 +30,9 @@ PolyStepSegment::calcLineIntegral(QPointF prevPoint)
 }
 
 void
-PolyStepSegment::setEdge(PolygonEdge& edge)
+PolyStepSegment::setEdge(PolygonEdge& edge, QPointF start, QPointF end)
 {
-  edge.m_endPoint = m_point;
+  edge.m_startPoint = start;
+  edge.m_endPoint = end;
   edge.m_odbType = "OS";
 }

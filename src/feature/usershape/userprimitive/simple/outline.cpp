@@ -28,10 +28,15 @@ Outline::initialize(QXmlStreamReader& xml, UnitsType units)
 
 void
 Outline::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
-  // TODO skipped
-  // throw new NonImplementedError("Outline::odbOutputLayerFeature");
+  // converts all PolyStep to Arc and Line
+  QList<Simple*> arcLineList;
+  m_polygon.toArcLine(arcLineList, m_lineDescGroup);
+
+  // print all Arc and Line
+  for (int i = 0; i < arcLineList.size(); ++i) {
+    arcLineList[i]->odbOutputLayerFeature(file, polarity, location, xform);
+  }
 }

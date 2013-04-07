@@ -12,8 +12,7 @@ class Simple : public UserPrimitive
 public:
   virtual void initialize(QXmlStreamReader& xml, UnitsType units) = 0;
   virtual void odbOutputLayerFeature(
-      OdbFeatureFile& file,
-      QString polarity,
+      OdbFeatureFile& file, QString polarity,
       QPointF location, Xform *xform) = 0;
 };
 

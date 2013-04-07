@@ -63,8 +63,7 @@ Thermal::isValidSpokeCount()
 
 void
 Thermal::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
   QString symbol;

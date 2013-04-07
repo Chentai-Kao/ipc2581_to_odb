@@ -49,7 +49,7 @@ Arc::odbOutputLayerFeature(
   else { // cannot find it in dictionary
     throw new InvalidIdError(refId);
   }
-  QString symbol = QString("r%1").arg(l->lineWidth() * 0.5);
+  QString symbol = QString("r%1").arg(l->lineWidth());
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
 
   QPointF newLocation = calcTransformedLocation(location, xform);

@@ -15,3 +15,8 @@ TODO:
 5. (rewrite) "non 90 degree increment" should be defined as user symbol
 6. user symbol (under symbols/feature) (TODO: outline and polyline)
 7. need to handle <LineDescRef> in Simple group (arc, line, outline, polyline)
+8. need to handle rotation in Xform. Also the "units" of Xform
+9. maybe can write getReference() as template function in utils
+
+PROGRESS:
+1. Outline completed, but not verified.

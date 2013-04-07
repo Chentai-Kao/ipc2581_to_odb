@@ -6,6 +6,10 @@
 #include "xform.h"
 #include "utils.h"
 #include "odbfeaturefile.h"
+#include "simple.h"
+#include "arc.h"
+#include "line.h"
+#include "linedescgroup.h"
 
 class Polygon
 {
@@ -15,14 +19,18 @@ public:
       OdbFeatureFile& file, QString polarity,
       QPointF location, Xform *xform, PolygonType type);
 
+  // convert to "Arc + Line" list, so <Outline> can print them all
+  void toArcLine(QList<Simple*>& arcLineList, LineDescGroup *lineDescGroup);
+  enum OutputOrder { FORWARD, REVERSE };
+
 private:
   // member function
   bool isClosedShape();
   bool isClockwise();
-  QList<PolygonEdge> calcPolygonEdges();
+  QList<PolygonEdge> calcPolygonEdges(OutputOrder outputOrder);
   // output feature in inverse order or not
-  void odbOutputFeature(OdbFeatureFile& file, PolygonType type);
-  void odbOutputFeatureInv(OdbFeatureFile& file, PolygonType type);
+  void odbOutputFeature(OdbFeatureFile& file, QPointF location,
+      Xform *xform, PolygonType type, OutputOrder outputOrder);
 
   // data member
   QPointF m_polyBegin;
