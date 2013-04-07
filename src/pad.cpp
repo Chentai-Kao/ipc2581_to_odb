@@ -56,4 +56,5 @@ Pad::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
     // call the shape to output
     s->odbOutputLayerFeature(file, polarity, m_location, m_xform);
   }
+  file.featuresList().append("\n");
 }

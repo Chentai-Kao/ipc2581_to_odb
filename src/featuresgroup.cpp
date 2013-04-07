@@ -54,4 +54,5 @@ Features::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
 
   // call the feature to output
   f->odbOutputLayerFeature(file, polarity, m_location, m_xform);
+  file.featuresList().append("\n");
 }

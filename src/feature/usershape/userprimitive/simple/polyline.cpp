@@ -2,6 +2,7 @@
 #include "linedescgroupfactory.h"
 #include "polystepfactory.h"
 #include "globals.h"
+#include "polygon.h"
 
 void
 Polyline::initialize(QXmlStreamReader& xml, UnitsType units)
@@ -11,9 +12,9 @@ Polyline::initialize(QXmlStreamReader& xml, UnitsType units)
     xml.readNext();
     if (xml.isStartElement()) {
       if (xml.name() == "PolyBegin") {
-        m_polyBegin.rx() = toMil(
+        m_polyBegin.rx() = toInch(
             getDoubleAttribute(xml, "PolyBegin", "x"), units);
-        m_polyBegin.ry() = toMil(
+        m_polyBegin.ry() = toInch(
             getDoubleAttribute(xml, "PolyBegin", "y"), units);
       }
       else if (isSubstitutionGroupPolyStep(xml.name())) {
@@ -37,10 +38,20 @@ Polyline::initialize(QXmlStreamReader& xml, UnitsType units)
 
 void
 Polyline::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
-  // TODO skipped 
-  // throw new NonImplementedError("Polyline::odbOutputLayerFeature");
+  // construct a customized polygon (shape not closed)
+  Polygon polygon;
+  polygon.setPolyBegin(m_polyBegin);
+  polygon.setPolySteps(m_polySteps);
+
+  // converts all PolyStep to Arc and Line
+  QList<Simple*> arcLineList;
+  polygon.toArcLine(arcLineList, m_lineDescGroup);
+
+  // print all Arc and Line
+  for (int i = 0; i < arcLineList.size(); ++i) {
+    arcLineList[i]->odbOutputLayerFeature(file, polarity, location, xform);
+  }
 }
