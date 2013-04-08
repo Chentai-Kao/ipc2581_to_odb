@@ -331,3 +331,11 @@ QString odbRotationSuffix(Xform *xform)
   }
   return QString("_%1").arg(degree);
 }
+
+QPointF rotatePoint(QPointF point, qreal degree)
+{
+  qreal radian = degree / 180 * M_PI;
+  qreal x = qCos(radian) * point.x() - qSin(radian) * point.y();
+  qreal y = qSin(radian) * point.x() + qCos(radian) * point.y();
+  return QPointF(x, y);
+}

@@ -14,6 +14,9 @@ public:
   virtual qreal calcLineIntegral(QPointF prevPoint) = 0;
   virtual void setEdge(PolygonEdge& edge, QPointF start, QPointF end) = 0;
 
+  // setter
+  void setPoint(QPointF p) { m_point = p; }
+
   // convert PolyStepCurve to Arc, and PolyStepSegment to Line
   virtual Simple* toArcLine(const QPointF prev, LineDescGroup *lineDescGroup)=0;
 

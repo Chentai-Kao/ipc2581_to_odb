@@ -15,6 +15,7 @@ TODO:
 - user symbol (under symbols/feature) (TODO: outline and polyline)
 - need to handle rotation in Xform. Also the "units" of Xform
 - maybe can write getReference() as template function in utils
+- the orientation of Octagon is incorrect
 
 PROGRESS:
 Xform

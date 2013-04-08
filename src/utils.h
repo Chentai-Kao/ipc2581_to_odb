@@ -70,5 +70,6 @@ int odbDecideOrient(Xform *xform); // 0 (0 degrees, no mirror), 1 (90 degrees...
 int odbInsertSymbol(const QString symbol, QList<QString>& symbolsTable);
 qreal calcCorrectAngle(QPointF p0, QPointF p1); // (0~2pi) direction: p0->p1
 QString odbRotationSuffix(Xform *xform);
+QPointF rotatePoint(QPointF point, qreal degree);// angle>0 => counter-clockwise
 
 #endif

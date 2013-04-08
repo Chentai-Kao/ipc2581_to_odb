@@ -46,13 +46,13 @@ Line::odbOutputLayerFeature(
     throw new InvalidIdError(refId);
   }
   QString symbol = QString("%1%2") // square (e.g. s5) or round (e.g. r2)
-                          .arg(l->endType())
-                          .arg(l->lineWidth());
+                   .arg(l->endType())
+                   .arg(l->lineWidth());
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
 
   QPointF newLocation = calcTransformedLocation(location, xform);
-  QPointF newStart  = newLocation + calcTransformedLocation(m_start, xform);
-  QPointF newEnd    = newLocation + calcTransformedLocation(m_end, xform);
+  QPointF newStart    = newLocation + calcTransformedLocation(m_start, xform);
+  QPointF newEnd      = newLocation + calcTransformedLocation(m_end, xform);
   file.featuresList().append(QString("L %1 %2 %3 %4 %5 %6 0\n")
                              .arg(newStart.x())
                              .arg(newStart.y())

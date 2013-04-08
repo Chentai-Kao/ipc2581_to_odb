@@ -7,8 +7,10 @@
 class LineDesc : public LineDescGroup
 {
 public:
-  virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   enum LineEnd { ROUND, SQUARE, NONE };
+  LineDesc() {}
+  LineDesc(enum LineEnd e, qreal w) : m_lineEnd(e), m_lineWidth(w) {}
+  virtual void initialize(QXmlStreamReader& xml, UnitsType units);
 
   // getter
   virtual qreal lineWidth() { return m_lineWidth; }

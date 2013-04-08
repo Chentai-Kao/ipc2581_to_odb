@@ -1,6 +1,8 @@
 #include "polygon.h"
+#include "polystepsegment.h"
 #include "polystepfactory.h"
 #include "error.h"
+#include <cassert>
 
 void
 Polygon::initialize(QXmlStreamReader& xml, UnitsType units)
@@ -22,11 +24,11 @@ Polygon::initialize(QXmlStreamReader& xml, UnitsType units)
     }
     else if (isEndElementWithName(xml, "Polygon") || // </Polygon> the end
              isEndElementWithName(xml, "Cutout")) { // another possible name
-      break;
+      if (!isClosedShape()) {
+        throw new InvalidElementError("Polygon");
+      }
+      return;
     }
-  }
-  if (!isClosedShape()) {
-    throw new InvalidElementError("Polygon");
   }
 }
 
@@ -50,6 +52,22 @@ Polygon::odbOutputLayerFeature(
   else {
     odbOutputFeature(file, location, xform, type, REVERSE);
   }
+}
+
+void
+Polygon::setPolygon(QList<QPointF>& points)
+{
+  assert(points.size() >= 3);
+  // append each edge
+  m_polyBegin = points[0];
+  for (int i = 1; i < points.size(); ++i) {
+    PolyStep *p = new PolyStepSegment();
+    p->setPoint(points[i]);
+    m_polySteps.append(p);
+  }
+  PolyStep *p = new PolyStepSegment();
+  p->setPoint(m_polyBegin);
+  m_polySteps.append(p);
 }
 
 bool

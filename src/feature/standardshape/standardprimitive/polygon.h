@@ -21,6 +21,7 @@ public:
   // setter (for customized polygon, e.g. PolyLine)
   void setPolyBegin(QPointF p) { m_polyBegin = p; }
   void setPolySteps(QList<PolyStep*>& s) { m_polySteps = s; }
+  void setPolygon(QList<QPointF>& points); // create polygon from points
 
   // convert to "Arc + Line" list, so <Outline> can print them all
   void toArcLine(QList<Simple*>& arcLineList, LineDescGroup *lineDescGroup);

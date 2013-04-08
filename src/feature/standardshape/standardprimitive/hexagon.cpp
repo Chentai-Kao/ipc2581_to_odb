@@ -9,8 +9,7 @@ Hexagon::initialize(QXmlStreamReader& xml, UnitsType units)
 
 void
 Hexagon::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
   QString symbol = QString("hex_s%1x%2x%3")
