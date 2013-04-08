@@ -39,19 +39,17 @@ Polygon::isClosedShape()
 
 void
 Polygon::odbOutputLayerFeature(
-    OdbFeatureFile& file, QString polarity,
-    QPointF location, Xform *xform, PolygonType type)
+    OdbFeatureFile& file, QPointF location, Xform *xform, PolygonType type)
 {
   // island == POLYGON (must clockwise), hole == CUTOUT (must counter clockwise)
-  file.featuresList().append(QString("S %1 0\n").arg(polarity));
-  if ((type == POLYGON &&  isClockwise()) || 
-      (type == CUTOUT  && !isClockwise())) {
+  bool clockwise = isClockwise();
+  if ((type == POLYGON &&  clockwise) || 
+      (type == CUTOUT  && !clockwise)) {
     odbOutputFeature(file, location, xform, type, FORWARD);
   }
   else {
     odbOutputFeature(file, location, xform, type, REVERSE);
   }
-  file.featuresList().append(QString("SE\n"));
 }
 
 bool

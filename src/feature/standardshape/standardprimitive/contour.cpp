@@ -24,16 +24,17 @@ Contour::initialize(QXmlStreamReader& xml, UnitsType units)
 
 void
 Contour::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
-  m_polygon.odbOutputLayerFeature(file, polarity, location, xform, POLYGON);
+  // start the Surface description
+  file.featuresList().append(QString("S %1 0\n").arg(polarity));
 
-  // cutout has inverse polarity
-  QString invPolarity = (polarity == "P")? "N" : "P";
+  // output island and hole
+  m_polygon.odbOutputLayerFeature(file, location, xform, POLYGON);
   for (int i = 0; i < m_cutouts.size(); ++i) {
     m_cutouts[i].odbOutputLayerFeature(
-        file, invPolarity, location, xform, CUTOUT);
+        file, location, xform, CUTOUT);
   }
+  file.featuresList().append(QString("SE\n"));
 }
