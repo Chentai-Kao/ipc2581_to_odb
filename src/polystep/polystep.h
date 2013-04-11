@@ -9,6 +9,8 @@
 class PolyStep
 {
 public:
+  PolyStep() {}
+  PolyStep(QPointF p) : m_point(p) {}
   virtual void initialize(QXmlStreamReader& xml, UnitsType units) = 0;
   QPointF& point() { return m_point; }
   virtual qreal calcLineIntegral(QPointF prevPoint) = 0;

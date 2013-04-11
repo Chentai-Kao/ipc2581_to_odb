@@ -10,6 +10,9 @@
 class PolyStepCurve : public PolyStep
 {
 public:
+  PolyStepCurve() {}
+  PolyStepCurve(QPointF p, QPointF c, bool cw) :
+      PolyStep(p), m_centerPoint(c), m_clockwise(cw) {}
   virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   virtual qreal calcLineIntegral(QPointF prevPoint);
   virtual void setEdge(PolygonEdge& edge, QPointF start, QPointF end);

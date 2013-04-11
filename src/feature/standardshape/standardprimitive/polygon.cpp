@@ -61,9 +61,7 @@ Polygon::setPolygon(QList<QPointF>& points)
   // append each edge
   m_polyBegin = points[0];
   for (int i = 1; i < points.size(); ++i) {
-    PolyStep *p = new PolyStepSegment();
-    p->setPoint(points[i]);
-    m_polySteps.append(p);
+    addSegment(points[i]);
   }
   if (!isClosedShape()) {
     throw new InvalidElementError("Polygon");

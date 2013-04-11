@@ -3,6 +3,8 @@
 
 #include <QtCore>
 #include "polystep.h"
+#include "polystepsegment.h"
+#include "polystepcurve.h"
 #include "xform.h"
 #include "utils.h"
 #include "odbfeaturefile.h"
@@ -21,7 +23,11 @@ public:
   // setter (for customized polygon, e.g. PolyLine)
   void setPolyBegin(QPointF p) { m_polyBegin = p; }
   void setPolySteps(QList<PolyStep*>& s) { m_polySteps = s; }
-  void setPolygon(QList<QPointF>& points); // create polygon from points
+  void setPolygon(QList<QPointF>& points); // create polygon by points (no arc)
+  void addSegment(QPointF p) { m_polySteps.append(new PolyStepSegment(p)); }
+  void addCurve(QPointF p, QPointF c, bool cw) {
+    m_polySteps.append(new PolyStepCurve(p, c, cw));
+  }
 
   // convert to "Arc + Line" list, so <Outline> can print them all
   void toArcLine(QList<Simple*>& arcLineList, LineDescGroup *lineDescGroup);
