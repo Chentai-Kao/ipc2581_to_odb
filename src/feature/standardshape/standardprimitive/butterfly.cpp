@@ -7,20 +7,20 @@ Butterfly::initialize(QXmlStreamReader& xml, UnitsType units)
   // shape
   QString shape = getStringAttribute(xml, "Butterfly", "shape");
   if (shape == "ROUND") {
-    m_shape = Butterfly::ROUND;
+    m_shape = ROUND;
   }
   else if (shape == "SQUARE") {
-    m_shape = Butterfly::SQUARE;
+    m_shape = SQUARE;
   }
   else {
     throw new InvalidAttributeError("Butterfly", "shape");
   }
   // diameter and side
-  if (m_shape == Butterfly::ROUND) {
+  if (m_shape == ROUND) {
     m_diameter = toMil(
         getNonNegativeDoubleAttribute(xml, "Butterfly", "diameter"), units);
   }
-  else if (m_shape == Butterfly::SQUARE) {
+  else if (m_shape == SQUARE) {
     m_side = toMil(
         getNonNegativeDoubleAttribute(xml, "Butterfly", "side"), units);
   }

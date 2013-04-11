@@ -10,16 +10,16 @@ Donut::initialize(QXmlStreamReader& xml, UnitsType units)
   // shape
   QString shape = getStringAttribute(xml, "Donut", "shape");
   if (shape == "ROUND") {
-    m_shape = Donut::ROUND;
+    m_shape = ROUND;
   }
   else if (shape == "SQUARE") {
-    m_shape = Donut::SQUARE;
+    m_shape = SQUARE;
   }
   else if (shape == "HEXAGON") {
-    m_shape = Donut::HEXAGON;
+    m_shape = HEXAGON;
   }
   else if (shape == "OCTAGON") {
-    m_shape = Donut::OCTAGON;
+    m_shape = OCTAGON;
   }
   // outerDiameter/innerDiameter
   m_outerDiameter = toMil(
@@ -52,6 +52,7 @@ Donut::odbOutputLayerFeature(
     points.append(p1);
     points.append(rotatePoint(p1, 60));
     points.append(rotatePoint(p0, 60));
+    points.append(p0);
 
     // start the Surface description
     file.featuresList().append(QString("S %1 0\n").arg(polarity));
@@ -79,6 +80,7 @@ Donut::odbOutputLayerFeature(
     points.append(p1);
     points.append(rotatePoint(p1, 45));
     points.append(rotatePoint(p0, 45));
+    points.append(p0);
 
     // start the Surface description
     file.featuresList().append(QString("S %1 0\n").arg(polarity));

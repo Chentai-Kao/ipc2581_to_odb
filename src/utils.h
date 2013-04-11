@@ -19,6 +19,14 @@ enum PolygonType {
   CUTOUT
 };
 
+enum Shape
+{
+  ROUND,
+  SQUARE,
+  HEXAGON,
+  OCTAGON
+};
+
 struct PolygonEdge
 {
   QPointF m_startPoint;
@@ -68,8 +76,12 @@ bool isSubstitutionGroupUserShape(QStringRef elementName);
 QPointF calcTransformedLocation(QPointF location, Xform *xform);
 int odbDecideOrient(Xform *xform); // 0 (0 degrees, no mirror), 1 (90 degrees...
 int odbInsertSymbol(const QString symbol, QList<QString>& symbolsTable);
-qreal calcCorrectAngle(QPointF p0, QPointF p1); // (0~2pi) direction: p0->p1
 QString odbRotationSuffix(Xform *xform);
+
+/* Some math functions */
+qreal calcCorrectAngle(QPointF p0, QPointF p1); // (0~2pi) direction: p0->p1
 QPointF rotatePoint(QPointF point, qreal degree);// angle>0 => counter-clockwise
+qreal equalAngle(qreal angle); // return the equal angle in [0, 360)
+void milToInch(QList<QPointF>& points); // convert all point from Mil to Inch
 
 #endif

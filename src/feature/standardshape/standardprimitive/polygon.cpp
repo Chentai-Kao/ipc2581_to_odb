@@ -65,9 +65,9 @@ Polygon::setPolygon(QList<QPointF>& points)
     p->setPoint(points[i]);
     m_polySteps.append(p);
   }
-  PolyStep *p = new PolyStepSegment();
-  p->setPoint(m_polyBegin);
-  m_polySteps.append(p);
+  if (!isClosedShape()) {
+    throw new InvalidElementError("Polygon");
+  }
 }
 
 bool

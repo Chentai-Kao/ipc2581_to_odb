@@ -304,19 +304,6 @@ int odbInsertSymbol(const QString symbol, QList<QString>& symbolsTable)
   return symNum;
 }
 
-qreal calcCorrectAngle(QPointF p0, QPointF p1)
-{
-  QPointF v = p1 - p0;
-  qreal arcTan = qAtan(v.y() / v.x());
-  if (v.x() < 0) {
-    return arcTan + M_PI;
-  }
-  else if (v.y() < 0) {
-    return arcTan + 2 * M_PI;
-  }
-  return arcTan;
-}
-
 QString odbRotationSuffix(Xform *xform)
 {
   if (xform == NULL) {
@@ -332,10 +319,42 @@ QString odbRotationSuffix(Xform *xform)
   return QString("_%1").arg(degree);
 }
 
+qreal calcCorrectAngle(QPointF p0, QPointF p1)
+{
+  QPointF v = p1 - p0;
+  qreal arcTan = qAtan(v.y() / v.x());
+  if (v.x() < 0) {
+    return arcTan + M_PI;
+  }
+  else if (v.y() < 0) {
+    return arcTan + 2 * M_PI;
+  }
+  return arcTan;
+}
+
 QPointF rotatePoint(QPointF point, qreal degree)
 {
   qreal radian = degree / 180 * M_PI;
   qreal x = qCos(radian) * point.x() - qSin(radian) * point.y();
   qreal y = qSin(radian) * point.x() + qCos(radian) * point.y();
   return QPointF(x, y);
+}
+
+qreal equalAngle(qreal angle)
+{
+  while (angle < 0) {
+    angle += 360;
+  }
+  while (angle >= 360) {
+    angle -= 360;
+  }
+  return angle;
+}
+
+void milToInch(QList<QPointF>& points)
+{
+  for (int i = 0; i < points.size(); ++i) {
+    points[i].setX(toInch(points[i].x(), MIL));
+    points[i].setY(toInch(points[i].y(), MIL));
+  }
 }
