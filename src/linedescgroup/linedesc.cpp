@@ -20,6 +20,6 @@ LineDesc::initialize(QXmlStreamReader& xml, UnitsType units)
     throw new InvalidAttributeError("LineDesc", "lineEnd");
   }
   // lineWidth
-  m_lineWidth = toMil(
+  m_lineWidth = Length(
       getNonNegativeDoubleAttribute(xml, "LineDesc", "lineWidth"), units);
 }

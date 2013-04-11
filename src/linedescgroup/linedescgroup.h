@@ -3,6 +3,7 @@
 
 #include <QtCore>
 #include "utils.h"
+#include "length.h"
 
 // Base class of "LineDescGroup" substitution group:
 // LineDesc
@@ -10,7 +11,7 @@ class LineDescGroup
 {
 public:
   virtual void initialize(QXmlStreamReader& xml, UnitsType units) = 0;
-  virtual qreal lineWidth() = 0;
+  virtual Length lineWidth() = 0;
   virtual QString endType() = 0;
   virtual QString refId() = 0;
 };

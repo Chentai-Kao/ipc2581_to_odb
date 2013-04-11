@@ -3,23 +3,24 @@
 
 #include "linedescgroup.h"
 #include "utils.h"
+#include "length.h"
 
 class LineDesc : public LineDescGroup
 {
 public:
   enum LineEnd { ROUND, SQUARE, NONE };
   LineDesc() {}
-  LineDesc(enum LineEnd e, qreal w) : m_lineEnd(e), m_lineWidth(w) {}
+  LineDesc(enum LineEnd e, Length w) : m_lineEnd(e), m_lineWidth(w) {}
   virtual void initialize(QXmlStreamReader& xml, UnitsType units);
 
   // getter
-  virtual qreal lineWidth() { return m_lineWidth; }
+  virtual Length lineWidth() { return m_lineWidth; }
   virtual QString endType() { return (m_lineEnd == SQUARE)? "s" : "r"; }
   virtual QString refId() { return ""; }
 
 private:
   LineEnd m_lineEnd;
-  qreal m_lineWidth;
+  Length m_lineWidth;
 };
 
 #endif

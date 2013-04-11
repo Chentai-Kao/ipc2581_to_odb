@@ -4,12 +4,13 @@
 #include "linedescgroup.h"
 #include "utils.h"
 #include "error.h"
+#include "length.h"
 
 class LineDescRef : public LineDescGroup
 {
 public:
   virtual void initialize(QXmlStreamReader& xml, UnitsType units);
-  virtual qreal lineWidth() {
+  virtual Length lineWidth() {
     throw new ProgramLogicError("LineDescRef::lineWidth()");
   }
   
