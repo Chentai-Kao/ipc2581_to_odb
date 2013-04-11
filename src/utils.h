@@ -82,6 +82,5 @@ QString odbRotationSuffix(Xform *xform);
 qreal calcCorrectAngle(QPointF p0, QPointF p1); // (0~2pi) direction: p0->p1
 QPointF rotatePoint(QPointF point, qreal degree);// angle>0 => counter-clockwise
 qreal equalAngle(qreal angle); // return the equal angle in [0, 360)
-void milToInch(QList<QPointF>& points); // convert all point from Mil to Inch
 
 #endif

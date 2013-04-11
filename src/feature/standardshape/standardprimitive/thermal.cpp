@@ -138,21 +138,18 @@ Thermal::drawSegmentWithSpoke(
     int endIdx = (i + 1) % outerRightEnds.size();
     points.clear();
     points.append(outerRightEnds[startIdx].m_point); // beginning point
-    walkThrough(vertex, false, m_outerDiameter.lengthMil(), // walk cnt-clckws
+    walkThrough(vertex, false, m_outerDiameter.lengthInch(), // walk cnt-clckws
         outerRightEnds[startIdx].m_angle,
         outerLeftEnds[endIdx].m_angle);
     points.append(vertex); // append the walked through vertex
     points.append(outerLeftEnds[endIdx].m_point); // corr' "outer LEFT_END"
     points.append(innerLeftEnds[endIdx].m_point); // corr' "inner LEFT_END"
-    walkThrough(vertex, true , m_innerDiameter.lengthMil(),// walk clockwisely
+    walkThrough(vertex, true , m_innerDiameter.lengthInch(),// walk clockwisely
         innerLeftEnds[endIdx].m_angle,
         innerRightEnds[startIdx].m_angle);
     points.append(vertex); // append the walked through vertex
     points.append(innerRightEnds[startIdx].m_point); // corr' "inner RIGHT_END"
     points.append(outerRightEnds[startIdx].m_point); // close shape
-
-    // convert the unit to inch
-    milToInch(points);
 
     // output as polygon
     Polygon polygon;
@@ -168,10 +165,10 @@ Thermal::calcSpokeIntersection(
     QList<Intersection>& innerLeftEnds,
     QList<Intersection>& innerRightEnds)
 {
-  calcIntersectionSet(outerLeftEnds, m_outerDiameter.lengthMil(), LEFT_END);
-  calcIntersectionSet(outerRightEnds, m_outerDiameter.lengthMil(), RIGHT_END);
-  calcIntersectionSet(innerLeftEnds, m_innerDiameter.lengthMil(), LEFT_END);
-  calcIntersectionSet(innerRightEnds, m_innerDiameter.lengthMil(), RIGHT_END);
+  calcIntersectionSet(outerLeftEnds, m_outerDiameter.lengthInch(), LEFT_END);
+  calcIntersectionSet(outerRightEnds, m_outerDiameter.lengthInch(), RIGHT_END);
+  calcIntersectionSet(innerLeftEnds, m_innerDiameter.lengthInch(), LEFT_END);
+  calcIntersectionSet(innerRightEnds, m_innerDiameter.lengthInch(), RIGHT_END);
 }
 
 Thermal::Intersection
@@ -200,7 +197,7 @@ Thermal::calcIntersection(
   }
   // step 3
   qreal x0 = (endType == LEFT_END)?
-      (0.5 * m_gap.lengthMil()) : (-0.5 * m_gap.lengthMil());
+      (0.5 * m_gap.lengthInch()) : (-0.5 * m_gap.lengthInch());
   // step 4
   QPointF p1, p2;
   for (int i = 0; i < nVertex; ++i) {

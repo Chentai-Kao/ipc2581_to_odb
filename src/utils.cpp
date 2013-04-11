@@ -350,11 +350,3 @@ qreal equalAngle(qreal angle)
   }
   return angle;
 }
-
-void milToInch(QList<QPointF>& points)
-{
-  for (int i = 0; i < points.size(); ++i) {
-    points[i].setX(toInch(points[i].x(), MIL));
-    points[i].setY(toInch(points[i].y(), MIL));
-  }
-}
