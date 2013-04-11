@@ -28,8 +28,6 @@ private:
       QList<Intersection>& outerRightEnds,
       QList<Intersection>& innerLeftEnds,
       QList<Intersection>& innerRightEnds);
-  Intersection calcFirstIntersection(
-      qreal diameter, SpokeSegmentEndType endType);
   Intersection calcIntersection(
       qreal angle, qreal diameter, SpokeSegmentEndType endType);
   void calcIntersectionSet(

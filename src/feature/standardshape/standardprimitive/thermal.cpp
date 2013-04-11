@@ -175,54 +175,6 @@ Thermal::calcSpokeIntersection(
 }
 
 Thermal::Intersection
-Thermal::calcFirstIntersection(
-    qreal diameter, SpokeSegmentEndType endType)
-{
-  /* Method:
-   * Because the spoke has width, there are two side of intersection.
-   * (Figure)     (right end) ====||    (gap)    ||==== (left end)
-   * The "deviation of angle" caused by gap's width is handled by 'deltaAngle'.
-   * By considering 'deltaAngle', 'targetAngle' can be calculated.
-   * 'targetAngle' is the actual angle used to calculate intersection.
-   * First, move 'targetAngle' to range [-30, 30], calculate its intersection,
-   * then rotate the intersection back to its original angle, done.
-   *
-   * Notation:
-   *   radius      -- length from center to vertex
-   *   deltaAngle  -- amount to shift for one side of the spoke to touch vertex
-   *   targetAngle -- start angle compensated by 'deltaAngle'
-   *   offsetAngle -- amount of offset to move angle to [-30, 30]
-   */
-  assert(0 <= m_spokeStartAngle && m_spokeStartAngle < 360);
-  qreal radius = 0.5 * diameter;
-  qreal deltaAngle = 180 / M_PI * qAsin(0.5 * m_gap / radius);
-  qreal targetAngle = (endType == LEFT_END)?
-    (m_spokeStartAngle - deltaAngle) : (m_spokeStartAngle + deltaAngle);
-
-  // move angle to [-30, 30]
-  qreal offsetAngle = 0;
-  while (targetAngle - offsetAngle > 30) {
-    offsetAngle += 60;
-  }
-  while (targetAngle - offsetAngle < -30) {
-    offsetAngle -= 60;
-  }
-  
-  // calculate intersection in [-30, 30]
-  qreal x = 0.5 * qSqrt(3) * radius;
-  QPointF p(x, x * qTan(M_PI / 180 * (targetAngle - offsetAngle)));
-
-  // rotate the intersection back to its original angle
-  p = rotatePoint(p, offsetAngle);
-
-  // wrap the Intersection struct, and return it
-  Intersection inter;
-  inter.m_point = p;
-  inter.m_angle = equalAngle(targetAngle);
-  return inter;
-}
-
-Thermal::Intersection
 Thermal::calcIntersection(
     qreal angle, qreal diameter, SpokeSegmentEndType endType)
 {
@@ -287,17 +239,6 @@ Thermal::calcIntersectionSet(
     Intersection s = calcIntersection(angle, diameter, endType);
     intersectionSet.append(s);
   }
-
-#if 0
-  // rotate the first intersection to get others
-  Intersection first = calcFirstIntersection(diameter, endType);
-  for (int i = 0; i < m_spokeCount; ++i) {
-    Intersection inter;
-    inter.m_point = rotatePoint(first.m_point, i * diffAngle);
-    inter.m_angle = equalAngle(first.m_angle + i * diffAngle);
-    intersectionSet.append(inter);
-  }
-#endif
 }
 
 void
