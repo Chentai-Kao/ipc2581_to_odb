@@ -3,19 +3,20 @@
 void
 Ellipse::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_width = toMil(
+  m_width = Length(
       getNonNegativeDoubleAttribute(xml, "Ellipse", "width"), units);
-  m_height = toMil(
+  m_height = Length(
       getNonNegativeDoubleAttribute(xml, "Ellipse", "height"), units);
 }
 
 void
 Ellipse::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
-  QString symbol = QString("el%1x%2").arg(m_width).arg(m_height);
+  QString symbol = QString("el%1x%2")
+                          .arg(m_width.lengthMil())
+                          .arg(m_height.lengthMil());
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
   QPointF newLocation = calcTransformedLocation(location, xform);
   int orient = odbDecideOrient(xform);

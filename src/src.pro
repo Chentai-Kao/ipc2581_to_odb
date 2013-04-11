@@ -35,6 +35,7 @@ HEADERS += \
   landpattern.h \
   layerfeature.h \
   layer.h \
+  length.h \
   logicalnet.h \
   logisticheaderhandler.h \
   odb.h \

@@ -2,20 +2,19 @@
 #define __OVAL_H__
 
 #include "standardprimitive.h"
-
+#include "length.h"
 
 class Oval : public StandardPrimitive
 {
 public:
   virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   virtual void odbOutputLayerFeature(
-      OdbFeatureFile& file,
-      QString polarity,
+      OdbFeatureFile& file, QString polarity,
       QPointF location, Xform *xform);
 
 private:
-  qreal m_width;
-  qreal m_height;
+  Length m_width;
+  Length m_height;
 };
 
 #endif

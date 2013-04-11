@@ -4,13 +4,14 @@
 void
 RectCham::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_width = toMil(
+  m_width = Length(
       getNonNegativeDoubleAttribute(xml, "RectCham", "width"), units);
-  m_height = toMil(
+  m_height = Length(
       getNonNegativeDoubleAttribute(xml, "RectCham", "height"), units);
-  m_chamfer = toMil(
+  m_chamfer = Length(
       getNonNegativeDoubleAttribute(xml, "RectCham", "chamfer"), units);
-  if (2 * m_chamfer > m_width || 2 * m_chamfer > m_height) {
+  if (2 * m_chamfer.lengthMil() > m_width.lengthMil() ||
+      2 * m_chamfer.lengthMil() > m_height.lengthMil()) {
     throw new InvalidAttributeError("RectCham", "chamfer");
   }
   m_upperRight = getBoolAttribute(xml, "upperRight");
@@ -21,8 +22,7 @@ RectCham::initialize(QXmlStreamReader& xml, UnitsType units)
 
 void
 RectCham::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
   QString corners = QString((m_upperRight)? "1" : "") +
@@ -30,9 +30,9 @@ RectCham::odbOutputLayerFeature(
                     QString((m_lowerLeft)?  "3" : "") +
                     QString((m_lowerRight)? "4" : "");
   QString symbol = QString("rect%1x%2xc%3x%4")
-                           .arg(m_width)
-                           .arg(m_height)
-                           .arg(m_chamfer)
+                           .arg(m_width.lengthMil())
+                           .arg(m_height.lengthMil())
+                           .arg(m_chamfer.lengthMil())
                            .arg(corners);
 
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());

@@ -4,6 +4,7 @@
 #include <QtCore>
 #include "utils.h"
 #include "standardshape.h"
+#include "length.h"
 
 // Base class of "standard primitive":
 // Butterfly, Circle, Contour, Diamond, Donut,

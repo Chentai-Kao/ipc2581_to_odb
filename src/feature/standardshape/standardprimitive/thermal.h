@@ -3,6 +3,7 @@
 
 #include "standardprimitive.h"
 #include "utils.h"
+#include "length.h"
 
 class Thermal : public StandardPrimitive
 {
@@ -15,8 +16,7 @@ public:
     qreal   m_angle; // angle of the intersection (0~360)
   };
   virtual void odbOutputLayerFeature(
-      OdbFeatureFile& file,
-      QString polarity,
+      OdbFeatureFile& file, QString polarity,
       QPointF location, Xform *xform);
 
 private:
@@ -41,10 +41,10 @@ private:
 
   // data member
   Shape m_shape;
-  qreal m_outerDiameter;
-  qreal m_innerDiameter;
+  Length m_outerDiameter;
+  Length m_innerDiameter;
   int   m_spokeCount;
-  qreal m_gap;
+  Length m_gap;
   qreal m_spokeStartAngle;
 };
 

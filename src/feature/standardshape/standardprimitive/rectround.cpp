@@ -4,13 +4,14 @@
 void
 RectRound::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_width = toMil(
+  m_width = Length(
       getNonNegativeDoubleAttribute(xml, "RectRound", "width"), units);
-  m_height = toMil(
+  m_height = Length(
       getNonNegativeDoubleAttribute(xml, "RectRound", "height"), units);
-  m_radius = toMil(
+  m_radius = Length(
       getNonNegativeDoubleAttribute(xml, "RectRound", "radius"), units);
-  if (2 * m_radius > m_width || 2 * m_radius > m_height) {
+  if (2 * m_radius.lengthMil() > m_width.lengthMil() ||
+      2 * m_radius.lengthMil() > m_height.lengthMil()) {
     throw new InvalidAttributeError("RectRound", "radius");
   }
   m_upperRight = getBoolAttribute(xml, "upperRight");
@@ -21,8 +22,7 @@ RectRound::initialize(QXmlStreamReader& xml, UnitsType units)
 
 void
 RectRound::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
   QString corners = QString((m_upperRight)? "1" : "") +
@@ -30,9 +30,9 @@ RectRound::odbOutputLayerFeature(
                     QString((m_lowerLeft)?  "3" : "") +
                     QString((m_lowerRight)? "4" : "");
   QString symbol = QString("rect%1x%2xr%3x%4")
-                           .arg(m_width)
-                           .arg(m_height)
-                           .arg(m_radius)
+                           .arg(m_width.lengthMil())
+                           .arg(m_height.lengthMil())
+                           .arg(m_radius.lengthMil())
                            .arg(corners);
 
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());

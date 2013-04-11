@@ -3,7 +3,7 @@
 void
 Octagon::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_length = toMil(
+  m_length = Length(
       getNonNegativeDoubleAttribute(xml, "Octagon", "length"), units);
 }
 
@@ -13,7 +13,7 @@ Octagon::odbOutputLayerFeature(
     QString polarity,
     QPointF location, Xform *xform)
 {
-  qreal r = m_length / qSqrt(8 + 4 * qSqrt(2));
+  qreal r = m_length.lengthMil() / qSqrt(8 + 4 * qSqrt(2));
   qreal w = r * (2 + qSqrt(2));
   qreal h = w;
   QString symbol = QString("oct%1x%2x%3").arg(w).arg(h).arg(r);

@@ -3,19 +3,20 @@
 void
 Triangle::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_base = toMil(
+  m_base = Length(
       getNonNegativeDoubleAttribute(xml, "Triangle", "base"), units);
-  m_height = toMil(
+  m_height = Length(
       getNonNegativeDoubleAttribute(xml, "Triangle", "height"), units);
 }
 
 void
 Triangle::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
-  QString symbol = QString("tri%1x%2").arg(m_base).arg(m_height);
+  QString symbol = QString("tri%1x%2")
+                          .arg(m_base.lengthMil())
+                          .arg(m_height.lengthMil());
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
   QPointF newLocation = calcTransformedLocation(location, xform);
   int orient = odbDecideOrient(xform);

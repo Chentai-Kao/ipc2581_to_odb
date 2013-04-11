@@ -3,7 +3,7 @@
 
 #include "standardprimitive.h"
 #include "polygon.h"
-
+#include "length.h"
 
 class Contour : public StandardPrimitive
 {

@@ -22,9 +22,9 @@ Donut::initialize(QXmlStreamReader& xml, UnitsType units)
     m_shape = OCTAGON;
   }
   // outerDiameter/innerDiameter
-  m_outerDiameter = toMil(
+  m_outerDiameter = Length(
       getNonNegativeDoubleAttribute(xml, "Donut", "outerDiameter"), units);
-  m_innerDiameter = toMil(
+  m_innerDiameter = Length(
       getNonNegativeDoubleAttribute(xml, "Donut", "innerDiameter"), units);
 }
 
@@ -35,18 +35,19 @@ Donut::odbOutputLayerFeature(
 {
   QString symbol;
   if (m_shape == ROUND) {
-    symbol = QString("donut_r%1x%2").arg(m_outerDiameter).arg(m_innerDiameter);
+    symbol = QString("donut_r%1x%2")
+                    .arg(m_outerDiameter.lengthMil())
+                    .arg(m_innerDiameter.lengthMil());
   }
   else if (m_shape == SQUARE) {
-    symbol = QString("donut_s%1x%2").arg(m_outerDiameter).arg(m_innerDiameter);
+    symbol = QString("donut_s%1x%2")
+                    .arg(m_outerDiameter.lengthMil())
+                    .arg(m_innerDiameter.lengthMil());
   }
   else if (m_shape == HEXAGON) { // 6 segments, use polygon to draw each segment
-    qreal odInch = toInch(m_outerDiameter, MIL);
-    qreal idInch = toInch(m_innerDiameter, MIL);
-
     // the 4 point of a segment (first one is the top-left segment)
-    QPointF p0(0, 0.5 * odInch);
-    QPointF p1(0, 0.5 * idInch);
+    QPointF p0(0, 0.5 * m_outerDiameter.lengthInch());
+    QPointF p1(0, 0.5 * m_innerDiameter.lengthInch());
     QList<QPointF> points;
     points.append(p0);
     points.append(p1);
@@ -69,12 +70,9 @@ Donut::odbOutputLayerFeature(
     return;
   }
   else if (m_shape == OCTAGON) { // 8 segments, use polygon to draw each segment
-    qreal odInch = toInch(m_outerDiameter, MIL);
-    qreal idInch = toInch(m_innerDiameter, MIL);
-
     // the 4 point of a segment (first one is the top-left segment)
-    QPointF p0(0, 0.5 * odInch);
-    QPointF p1(0, 0.5 * idInch);
+    QPointF p0(0, 0.5 * m_outerDiameter.lengthInch());
+    QPointF p1(0, 0.5 * m_innerDiameter.lengthInch());
     QList<QPointF> points;
     points.append(p0);
     points.append(p1);

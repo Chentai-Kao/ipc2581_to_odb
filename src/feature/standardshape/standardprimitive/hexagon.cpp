@@ -3,7 +3,7 @@
 void
 Hexagon::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_length = toMil(
+  m_length = Length(
       getNonNegativeDoubleAttribute(xml, "Hexagon", "length"), units);
 }
 
@@ -13,9 +13,9 @@ Hexagon::odbOutputLayerFeature(
     QPointF location, Xform *xform)
 {
   QString symbol = QString("hex_s%1x%2x%3")
-                           .arg(m_length * 0.5 * qSqrt(3))
-                           .arg(m_length)
-                           .arg(m_length * 0.25);
+                           .arg(m_length.lengthMil() * 0.5 * qSqrt(3))
+                           .arg(m_length.lengthMil())
+                           .arg(m_length.lengthMil() * 0.25);
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
   QPointF newLocation = calcTransformedLocation(location, xform);
   int orient = odbDecideOrient(xform);

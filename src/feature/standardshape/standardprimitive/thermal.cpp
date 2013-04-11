@@ -22,9 +22,9 @@ Thermal::initialize(QXmlStreamReader& xml, UnitsType units)
     m_shape = OCTAGON;
   }
   // others...
-  m_outerDiameter = toMil(
+  m_outerDiameter = Length(
       getDoubleAttribute(xml, "Thermal", "outerDiameter"), units);
-  m_innerDiameter = toMil(
+  m_innerDiameter = Length(
       getDoubleAttribute(xml, "Thermal", "innerDiameter"), units);
   if (hasAttribute(xml, "spokeCount")) {
     m_spokeCount = getIntAttribute(xml, "Thermal", "spokeCount");
@@ -36,7 +36,7 @@ Thermal::initialize(QXmlStreamReader& xml, UnitsType units)
     m_spokeCount = (m_shape == HEXAGON)? 3 : 4;
   }
   if (hasAttribute(xml, "gap")) {
-    m_gap = toMil(
+    m_gap = Length(
         getNonNegativeDoubleAttribute(xml, "Thermal", "gap"), units);
   }
   else {
@@ -74,22 +74,22 @@ Thermal::odbOutputLayerFeature(
   QString symbol;
   if (m_shape == ROUND) {
     symbol = QString("ths%1x%2x%3x%4x%5")
-                     .arg(m_outerDiameter)
-                     .arg(m_innerDiameter)
+                     .arg(m_outerDiameter.lengthMil())
+                     .arg(m_innerDiameter.lengthMil())
                      .arg(m_spokeStartAngle)
                      .arg(m_spokeCount)
-                     .arg(m_gap);
+                     .arg(m_gap.lengthMil());
   }
   else if (m_shape == SQUARE) {
     symbol = QString("s_ths%1x%2x%3x%4x%5")
-                     .arg(m_outerDiameter)
-                     .arg(m_innerDiameter)
+                     .arg(m_outerDiameter.lengthMil())
+                     .arg(m_innerDiameter.lengthMil())
                      .arg(m_spokeStartAngle)
                      .arg(m_spokeCount)
-                     .arg(m_gap);
+                     .arg(m_gap.lengthMil());
   }
   else if (m_shape == HEXAGON || m_shape == OCTAGON) {
-    if (m_spokeCount == 0 || m_gap == 0) { // no spoke at all, same as donut
+    if (m_spokeCount == 0 || m_gap.lengthMil() == 0) { // no spoke => donut
       Donut donut(m_shape, m_outerDiameter, m_innerDiameter);
       donut.odbOutputLayerFeature(file, polarity, location, xform);
     }
@@ -138,13 +138,13 @@ Thermal::drawSegmentWithSpoke(
     int endIdx = (i + 1) % outerRightEnds.size();
     points.clear();
     points.append(outerRightEnds[startIdx].m_point); // beginning point
-    walkThrough(vertex, false, m_outerDiameter, // walk counter-clockwisely
+    walkThrough(vertex, false, m_outerDiameter.lengthMil(), // walk cnt-clckws
         outerRightEnds[startIdx].m_angle,
         outerLeftEnds[endIdx].m_angle);
     points.append(vertex); // append the walked through vertex
     points.append(outerLeftEnds[endIdx].m_point); // corr' "outer LEFT_END"
     points.append(innerLeftEnds[endIdx].m_point); // corr' "inner LEFT_END"
-    walkThrough(vertex, true , m_innerDiameter, // walk clockwisely
+    walkThrough(vertex, true , m_innerDiameter.lengthMil(),// walk clockwisely
         innerLeftEnds[endIdx].m_angle,
         innerRightEnds[startIdx].m_angle);
     points.append(vertex); // append the walked through vertex
@@ -168,10 +168,10 @@ Thermal::calcSpokeIntersection(
     QList<Intersection>& innerLeftEnds,
     QList<Intersection>& innerRightEnds)
 {
-  calcIntersectionSet(outerLeftEnds, m_outerDiameter, LEFT_END);
-  calcIntersectionSet(outerRightEnds, m_outerDiameter, RIGHT_END);
-  calcIntersectionSet(innerLeftEnds, m_innerDiameter, LEFT_END);
-  calcIntersectionSet(innerRightEnds, m_innerDiameter, RIGHT_END);
+  calcIntersectionSet(outerLeftEnds, m_outerDiameter.lengthMil(), LEFT_END);
+  calcIntersectionSet(outerRightEnds, m_outerDiameter.lengthMil(), RIGHT_END);
+  calcIntersectionSet(innerLeftEnds, m_innerDiameter.lengthMil(), LEFT_END);
+  calcIntersectionSet(innerRightEnds, m_innerDiameter.lengthMil(), RIGHT_END);
 }
 
 Thermal::Intersection
@@ -199,7 +199,8 @@ Thermal::calcIntersection(
     vertex.append(v);
   }
   // step 3
-  qreal x0 = (endType == LEFT_END)? (0.5 * m_gap) : (-0.5 * m_gap);
+  qreal x0 = (endType == LEFT_END)?
+      (0.5 * m_gap.lengthMil()) : (-0.5 * m_gap.lengthMil());
   // step 4
   QPointF p1, p2;
   for (int i = 0; i < nVertex; ++i) {

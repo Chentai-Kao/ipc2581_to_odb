@@ -17,27 +17,26 @@ Butterfly::initialize(QXmlStreamReader& xml, UnitsType units)
   }
   // diameter and side
   if (m_shape == ROUND) {
-    m_diameter = toMil(
+    m_diameter = Length(
         getNonNegativeDoubleAttribute(xml, "Butterfly", "diameter"), units);
   }
   else if (m_shape == SQUARE) {
-    m_side = toMil(
+    m_side = Length(
         getNonNegativeDoubleAttribute(xml, "Butterfly", "side"), units);
   }
 }
 
 void
 Butterfly::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
   QString symbol;
   if (m_shape == ROUND) { // bfr<d>
-    symbol = QString("bfr%1").arg(m_diameter);
+    symbol = QString("bfr%1").arg(m_diameter.lengthMil());
   }
   else { // bfs<s>
-    symbol = QString("bfs%1").arg(m_side);
+    symbol = QString("bfs%1").arg(m_side.lengthMil());
   }
 
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());

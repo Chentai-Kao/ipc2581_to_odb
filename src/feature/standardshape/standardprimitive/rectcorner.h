@@ -2,22 +2,21 @@
 #define __RECTCORNER_H__
 
 #include "standardprimitive.h"
-
+#include "length.h"
 
 class RectCorner : public StandardPrimitive
 {
 public:
   virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   virtual void odbOutputLayerFeature(
-      OdbFeatureFile& file,
-      QString polarity,
+      OdbFeatureFile& file, QString polarity,
       QPointF location, Xform *xform);
 
 private:
-  qreal m_lowerLeftX;
-  qreal m_lowerLeftY;
-  qreal m_upperRightX;
-  qreal m_upperRightY;
+  Length m_lowerLeftX;
+  Length m_lowerLeftY;
+  Length m_upperRightX;
+  Length m_upperRightY;
 };
 
 #endif

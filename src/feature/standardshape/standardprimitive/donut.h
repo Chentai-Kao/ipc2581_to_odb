@@ -3,12 +3,13 @@
 
 #include "standardprimitive.h"
 #include "utils.h"
+#include "length.h"
 
 class Donut : public StandardPrimitive
 {
 public:
   Donut() {}
-  Donut(Shape s, qreal od, qreal id) :
+  Donut(Shape s, Length od, Length id) :
       m_shape(s), m_outerDiameter(od), m_innerDiameter(id) {}
   virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   virtual void odbOutputLayerFeature(
@@ -17,8 +18,8 @@ public:
 
 private:
   Shape m_shape;
-  qreal m_outerDiameter;
-  qreal m_innerDiameter;
+  Length m_outerDiameter;
+  Length m_innerDiameter;
 };
 
 #endif

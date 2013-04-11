@@ -3,7 +3,7 @@
 void
 Circle::initialize(QXmlStreamReader& xml, UnitsType units)
 {
-  m_diameter = toMil(
+  m_diameter = Length(
       getNonNegativeDoubleAttribute(xml, "Circle", "diameter"), units);
 }
 
@@ -13,7 +13,7 @@ Circle::odbOutputLayerFeature(
     QString polarity,
     QPointF location, Xform *xform)
 {
-  QString symbol = QString("r%1").arg(m_diameter);
+  QString symbol = QString("r%1").arg(m_diameter.lengthMil());
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
   QPointF newLocation = calcTransformedLocation(location, xform);
   int orient = odbDecideOrient(xform);
