@@ -1,5 +1,7 @@
 #!/bin/sh
 
+qmake && make -j4 && bin/ipc2581
+
 # update the output "features"
 src="/home/cobra/ipc2581/bin/odb"
 des="/home/cobra/icons/VirtualBox VMs/shared folder"

@@ -1,5 +1,6 @@
 #include "rectcham.h"
 #include "error.h"
+#include "contour.h"
 
 void
 RectCham::initialize(QXmlStreamReader& xml, UnitsType units)
@@ -10,8 +11,8 @@ RectCham::initialize(QXmlStreamReader& xml, UnitsType units)
       getNonNegativeDoubleAttribute(xml, "RectCham", "height"), units);
   m_chamfer = Length(
       getNonNegativeDoubleAttribute(xml, "RectCham", "chamfer"), units);
-  if (2 * m_chamfer.lengthMil() > m_width.lengthMil() ||
-      2 * m_chamfer.lengthMil() > m_height.lengthMil()) {
+  if (2 * m_chamfer.mil() > m_width.mil() ||
+      2 * m_chamfer.mil() > m_height.mil()) {
     throw new InvalidAttributeError("RectCham", "chamfer");
   }
   m_upperRight = getBoolAttribute(xml, "upperRight");
@@ -25,23 +26,41 @@ RectCham::odbOutputLayerFeature(
     OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
-  QString corners = QString((m_upperRight)? "1" : "") +
-                    QString((m_upperLeft)?  "2" : "") +
-                    QString((m_lowerLeft)?  "3" : "") +
-                    QString((m_lowerRight)? "4" : "");
-  QString symbol = QString("rect%1x%2xc%3x%4")
-                           .arg(m_width.lengthMil())
-                           .arg(m_height.lengthMil())
-                           .arg(m_chamfer.lengthMil())
-                           .arg(corners);
+  qreal w = m_width.inch(),
+        h = m_height.inch(),
+        c = m_chamfer.inch();
 
-  int symNum = odbInsertSymbol(symbol, file.symbolsTable());
-  QPointF newLocation = calcTransformedLocation(location, xform);
-  int orient = odbDecideOrient(xform);
-  file.featuresList().append(QString("P %1 %2 %3 %4 0 %5\n")
-                              .arg(newLocation.x())
-                              .arg(newLocation.y())
-                              .arg(symNum)
-                              .arg(polarity)
-                              .arg(orient));
+  Contour surface;
+  surface.polygon().setPolyBegin(QPointF(0, 0.5 * h));
+  if (m_upperLeft) {
+    surface.polygon().addSegment(QPointF(-0.5 * w + c, 0.5 * h));
+    surface.polygon().addSegment(QPointF(-0.5 * w, 0.5 * h - c));
+  }
+  else {
+    surface.polygon().addSegment(QPointF(-0.5 * w, 0.5 * h));
+  }
+  if (m_lowerLeft) {
+    surface.polygon().addSegment(QPointF(-0.5 * w, -0.5 * h + c));
+    surface.polygon().addSegment(QPointF(-0.5 * w + c, -0.5 * h));
+  }
+  else {
+    surface.polygon().addSegment(QPointF(-0.5 * w, -0.5 * h));
+  }
+  if (m_lowerRight) {
+    surface.polygon().addSegment(QPointF(0.5 * w - c, -0.5 * h));
+    surface.polygon().addSegment(QPointF(0.5 * w, -0.5 * h + c));
+  }
+  else {
+    surface.polygon().addSegment(QPointF(0.5 * w, -0.5 * h));
+  }
+  if (m_upperRight) {
+    surface.polygon().addSegment(QPointF(0.5 * w, 0.5 * h - c));
+    surface.polygon().addSegment(QPointF(0.5 * w - c, 0.5 * h));
+  }
+  else {
+    surface.polygon().addSegment(QPointF(0.5 * w, 0.5 * h));
+  }
+  surface.polygon().addSegment(QPointF(0, 0.5 * h));
+
+  surface.odbOutputLayerFeature(file, polarity, location, xform);
 }

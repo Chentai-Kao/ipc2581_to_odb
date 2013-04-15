@@ -1,4 +1,5 @@
 #include "circle.h"
+#include "contour.h"
 
 void
 Circle::initialize(QXmlStreamReader& xml, UnitsType units)
@@ -9,18 +10,13 @@ Circle::initialize(QXmlStreamReader& xml, UnitsType units)
 
 void
 Circle::odbOutputLayerFeature(
-    OdbFeatureFile& file,
-    QString polarity,
+    OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
-  QString symbol = QString("r%1").arg(m_diameter.lengthMil());
-  int symNum = odbInsertSymbol(symbol, file.symbolsTable());
-  QPointF newLocation = calcTransformedLocation(location, xform);
-  int orient = odbDecideOrient(xform);
-  file.featuresList().append(QString("P %1 %2 %3 %4 0 %5\n")
-                              .arg(newLocation.x())
-                              .arg(newLocation.y())
-                              .arg(symNum)
-                              .arg(polarity)
-                              .arg(orient));
+  qreal r = m_diameter.inch();
+
+  Contour surface;
+  surface.polygon().setPolyBegin(QPointF(0, 0.5 * r));
+  surface.polygon().addCurve(QPointF(0, 0.5 * r), QPointF(0, 0), false);
+  surface.odbOutputLayerFeature(file, polarity, location, xform);
 }

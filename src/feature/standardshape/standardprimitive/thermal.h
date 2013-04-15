@@ -22,7 +22,8 @@ public:
 private:
   // member function
   void drawSegmentWithSpoke(
-      OdbFeatureFile& file, QPointF location, Xform *xform);
+      OdbFeatureFile& file, QString polarity,
+      QPointF location, Xform *xform);
   void calcSpokeIntersection(
       QList<Intersection>& outerLeftEnds,
       QList<Intersection>& outerRightEnds,

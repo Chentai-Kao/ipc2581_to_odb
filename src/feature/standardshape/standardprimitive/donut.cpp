@@ -3,6 +3,7 @@
 #include "line.h"
 #include "linedesc.h"
 #include "polygon.h"
+#include "contour.h"
 
 void
 Donut::initialize(QXmlStreamReader& xml, UnitsType units)
@@ -33,75 +34,62 @@ Donut::odbOutputLayerFeature(
     OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
-  QString symbol;
+  qreal od = m_outerDiameter.inch();
+  qreal id = m_innerDiameter.inch();
+  Contour surface;
   if (m_shape == ROUND) {
-    symbol = QString("donut_r%1x%2")
-                    .arg(m_outerDiameter.lengthMil())
-                    .arg(m_innerDiameter.lengthMil());
+    surface.polygon().setPolyBegin(QPointF(0, 0.5 * od));
+    surface.polygon().addCurve(QPointF(0, 0.5 * od), QPointF(0, 0), false);
+
+    surface.addCutout();
+    surface.cutout().setPolyBegin(QPointF(0, 0.5 * id));
+    surface.cutout().addCurve(QPointF(0, 0.5 * id), QPointF(0, 0), false);
   }
   else if (m_shape == SQUARE) {
-    symbol = QString("donut_s%1x%2")
-                    .arg(m_outerDiameter.lengthMil())
-                    .arg(m_innerDiameter.lengthMil());
-  }
-  else if (m_shape == HEXAGON) { // 6 segments, use polygon to draw each segment
-    // the 4 point of a segment (first one is the top-left segment)
-    QPointF p0(0, 0.5 * m_outerDiameter.lengthInch());
-    QPointF p1(0, 0.5 * m_innerDiameter.lengthInch());
-    QList<QPointF> points;
-    points.append(p0);
-    points.append(p1);
-    points.append(rotatePoint(p1, 60));
-    points.append(rotatePoint(p0, 60));
-    points.append(p0);
+    surface.polygon().setPolyBegin(QPointF(0.5 * od,  0.5 * od));
+    surface.polygon().addSegment(QPointF( -0.5 * od,  0.5 * od));
+    surface.polygon().addSegment(QPointF( -0.5 * od, -0.5 * od));
+    surface.polygon().addSegment(QPointF(  0.5 * od, -0.5 * od));
+    surface.polygon().addSegment(QPointF(  0.5 * od,  0.5 * od));
 
-    // start the Surface description
-    file.featuresList().append(QString("S %1 0\n").arg(polarity));
+    surface.addCutout();
+    surface.cutout().setPolyBegin(QPointF(0.5 * id,  0.5 * id));
+    surface.cutout().addSegment(QPointF( -0.5 * id,  0.5 * id));
+    surface.cutout().addSegment(QPointF( -0.5 * id, -0.5 * id));
+    surface.cutout().addSegment(QPointF(  0.5 * id, -0.5 * id));
+    surface.cutout().addSegment(QPointF(  0.5 * id,  0.5 * id));
+  }
+  else if (m_shape == HEXAGON) {
+    QPointF p(0, 0.5 * od);
+    surface.polygon().setPolyBegin(p);
     for (int i = 0; i < 6; ++i) {
-      Polygon polygon;
-      polygon.setPolygon(points);
-      polygon.odbOutputLayerFeature(file, location, xform, POLYGON);
-      // rotate points to the next segment (60-deg counter-clockwise)
-      for (int j = 0; j < points.size(); ++j) {
-        points[j] = rotatePoint(points[j], 60);
-      }
+      p = rotatePoint(p, 60);
+      surface.polygon().addSegment(p);
     }
-    file.featuresList().append(QString("SE\n"));
-    return;
-  }
-  else if (m_shape == OCTAGON) { // 8 segments, use polygon to draw each segment
-    // the 4 point of a segment (first one is the top-left segment)
-    QPointF p0(0, 0.5 * m_outerDiameter.lengthInch());
-    QPointF p1(0, 0.5 * m_innerDiameter.lengthInch());
-    QList<QPointF> points;
-    points.append(p0);
-    points.append(p1);
-    points.append(rotatePoint(p1, 45));
-    points.append(rotatePoint(p0, 45));
-    points.append(p0);
 
-    // start the Surface description
-    file.featuresList().append(QString("S %1 0\n").arg(polarity));
+    surface.addCutout();
+    p = QPointF(0, 0.5 * id);
+    surface.cutout().setPolyBegin(p);
+    for (int i = 0; i < 6; ++i) {
+      p = rotatePoint(p, 60);
+      surface.cutout().addSegment(p);
+    }
+  }
+  else if (m_shape == OCTAGON) {
+    QPointF p(0, 0.5 * od);
+    surface.polygon().setPolyBegin(p);
     for (int i = 0; i < 8; ++i) {
-      Polygon polygon;
-      polygon.setPolygon(points);
-      polygon.odbOutputLayerFeature(file, location, xform, POLYGON);
-      // rotate points to the next segment (60-deg counter-clockwise)
-      for (int j = 0; j < points.size(); ++j) {
-        points[j] = rotatePoint(points[j], 45);
-      }
+      p = rotatePoint(p, 45);
+      surface.polygon().addSegment(p);
     }
-    file.featuresList().append(QString("SE\n"));
-    return;
-  }
 
-  int symNum = odbInsertSymbol(symbol, file.symbolsTable());
-  QPointF newLocation = calcTransformedLocation(location, xform);
-  int orient = odbDecideOrient(xform);
-  file.featuresList().append(QString("P %1 %2 %3 %4 0 %5\n")
-                              .arg(newLocation.x())
-                              .arg(newLocation.y())
-                              .arg(symNum)
-                              .arg(polarity)
-                              .arg(orient));
+    surface.addCutout();
+    p = QPointF(0, 0.5 * id);
+    surface.cutout().setPolyBegin(p);
+    for (int i = 0; i < 8; ++i) {
+      p = rotatePoint(p, 45);
+      surface.cutout().addSegment(p);
+    }
+  }
+  surface.odbOutputLayerFeature(file, polarity, location, xform);
 }

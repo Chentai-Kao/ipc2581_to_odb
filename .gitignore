@@ -7,4 +7,4 @@ bin/*
 *.xml
 samples/*
 testcase1
-spec/odb (copy).pdf
+spec/drawing ellipses.pdf

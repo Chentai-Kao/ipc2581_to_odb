@@ -32,6 +32,7 @@ public:
   // convert to "Arc + Line" list, so <Outline> can print them all
   void toArcLine(QList<Simple*>& arcLineList, LineDescGroup *lineDescGroup);
   enum OutputOrder { FORWARD, REVERSE };
+  void clear() { m_polySteps.clear(); }
 
 private:
   // member function

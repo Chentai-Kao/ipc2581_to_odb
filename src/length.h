@@ -14,8 +14,8 @@ public:
 
   // getter
   qreal length() const { return m_length; }
-  qreal lengthInch() const { return toInch(m_length, m_unit); } // in Inch
-  qreal lengthMil() const { return toMil(m_length, m_unit); } // in Mil
+  qreal inch() const { return toInch(m_length, m_unit); } // in Inch
+  qreal mil() const { return toMil(m_length, m_unit); } // in Mil
   UnitsType unit() const { return m_unit; }
 
   // operator
@@ -24,7 +24,7 @@ public:
       return Length(length() - l.length(), unit());
     }
     else {
-      return Length(lengthMil() - l.lengthMil(), MIL);
+      return Length(mil() - l.mil(), MIL);
     }
   }
 

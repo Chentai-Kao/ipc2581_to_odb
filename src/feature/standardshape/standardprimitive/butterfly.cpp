@@ -1,5 +1,6 @@
 #include "butterfly.h"
 #include "error.h"
+#include "contour.h"
 
 void
 Butterfly::initialize(QXmlStreamReader& xml, UnitsType units)
@@ -31,21 +32,32 @@ Butterfly::odbOutputLayerFeature(
     OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
-  QString symbol;
-  if (m_shape == ROUND) { // bfr<d>
-    symbol = QString("bfr%1").arg(m_diameter.lengthMil());
-  }
-  else { // bfs<s>
-    symbol = QString("bfs%1").arg(m_side.lengthMil());
-  }
+  qreal r = (m_shape == ROUND)? m_diameter.inch() : m_side.inch();
+  Contour left, right; // left wing and right wing
+  if (m_shape == ROUND) {
+    left.polygon().setPolyBegin(QPointF(0, 0));
+    left.polygon().addSegment(QPointF(0, 0.5 * r));
+    left.polygon().addCurve(QPointF(-0.5 * r, 0), QPointF(0, 0), false);
+    left.polygon().addSegment(QPointF(0, 0));
 
-  int symNum = odbInsertSymbol(symbol, file.symbolsTable());
-  QPointF newLocation = calcTransformedLocation(location, xform);
-  int orient = odbDecideOrient(xform);
-  file.featuresList().append(QString("P %1 %2 %3 %4 0 %5\n")
-                              .arg(newLocation.x())
-                              .arg(newLocation.y())
-                              .arg(symNum)
-                              .arg(polarity)
-                              .arg(orient));
+    right.polygon().setPolyBegin(QPointF(0, 0));
+    right.polygon().addSegment(QPointF(0.5 * r, 0));
+    right.polygon().addCurve(QPointF(0, -0.5 * r), QPointF(0, 0), true);
+    right.polygon().addSegment(QPointF(0, 0));
+  }
+  else {
+    left.polygon().setPolyBegin(QPointF(0, 0));
+    left.polygon().addSegment(QPointF(0, 0.5 * r));
+    left.polygon().addSegment(QPointF(-0.5 * r, 0.5 * r));
+    left.polygon().addSegment(QPointF(-0.5 * r, 0));
+    left.polygon().addSegment(QPointF(0, 0));
+
+    right.polygon().setPolyBegin(QPointF(0, 0));
+    right.polygon().addSegment(QPointF(0.5 * r, 0));
+    right.polygon().addSegment(QPointF(0.5 * r, -0.5 * r));
+    right.polygon().addSegment(QPointF(0, -0.5 * r));
+    right.polygon().addSegment(QPointF(0, 0));
+  }
+  left.odbOutputLayerFeature(file, polarity, location, xform);
+  right.odbOutputLayerFeature(file, polarity, location, xform);
 }

@@ -12,6 +12,18 @@ public:
   virtual void odbOutputLayerFeature(
       OdbFeatureFile& file, QString polarity,
       QPointF location, Xform *xform);
+  void addCutout() {
+    Polygon c;
+    m_cutouts.append(c);
+  }
+  void clear() {
+    m_polygon.clear();
+    m_cutouts.clear();
+  }
+
+  // getter
+  Polygon& polygon() { return m_polygon; }
+  Polygon& cutout() { return m_cutouts.last(); }
 
 private:
   Polygon m_polygon;

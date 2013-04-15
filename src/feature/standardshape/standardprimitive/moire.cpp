@@ -1,5 +1,6 @@
 #include "moire.h"
 #include "error.h"
+#include "contour.h"
 
 void
 Moire::initialize(QXmlStreamReader& xml, UnitsType units)
@@ -37,21 +38,42 @@ Moire::odbOutputLayerFeature(
     OdbFeatureFile& file, QString polarity,
     QPointF location, Xform *xform)
 {
-  QString symbol = QString("moire%1x%2x%3x%4x%5x%6")
-               .arg(m_ringWidth.lengthMil())
-               .arg(m_ringGap.lengthMil() - m_ringWidth.lengthMil() * 0.5f)
-               .arg(m_ringNumber)
-               .arg(m_lineWidth.lengthMil())
-               .arg(m_lineLength.lengthMil())
-               .arg(m_lineAngle);
+  Contour surface;
+  // draw the rings one by one (from outer to inner)
+  for (int i = 0; i < m_ringNumber; ++i) {
+    surface.clear();
+    qreal r = 0.5 * m_diameter.inch() - i * m_ringGap.inch() +
+        0.5 * m_ringWidth.inch();
+    surface.polygon().setPolyBegin(QPointF(0, r));
+    surface.polygon().addCurve(QPointF(0, r), QPointF(0, 0), false);
 
-  int symNum = odbInsertSymbol(symbol, file.symbolsTable());
-  QPointF newLocation = calcTransformedLocation(location, xform);
-  int orient = odbDecideOrient(xform);
-  file.featuresList().append(QString("P %1 %2 %3 %4 0 %5\n")
-                              .arg(newLocation.x())
-                              .arg(newLocation.y())
-                              .arg(symNum)
-                              .arg(polarity)
-                              .arg(orient));
+    r -= m_ringWidth.inch();
+    surface.addCutout();
+    surface.cutout().setPolyBegin(QPointF(0, r));
+    surface.cutout().addCurve(QPointF(0, r), QPointF(0, 0), false);
+
+    surface.odbOutputLayerFeature(file, polarity, location, xform);
+  }
+  // draw the cross lines
+  qreal w = m_lineWidth.inch(),
+        h = m_lineLength.inch();
+  QPointF p1 = rotatePoint(QPointF( 0.5 * w,  0.5 * h), m_lineAngle),
+          p2 = rotatePoint(QPointF(-0.5 * w,  0.5 * h), m_lineAngle),
+          p3 = rotatePoint(QPointF(-0.5 * w, -0.5 * h), m_lineAngle),
+          p4 = rotatePoint(QPointF( 0.5 * w, -0.5 * h), m_lineAngle);
+  for (int i = 0; i < 2; ++i) { // for two lines
+    qreal angle = 90 * i;
+    p1 = rotatePoint(p1, angle);
+    p2 = rotatePoint(p2, angle);
+    p3 = rotatePoint(p3, angle);
+    p4 = rotatePoint(p4, angle);
+
+    surface.clear();
+    surface.polygon().setPolyBegin(p1);
+    surface.polygon().addSegment(p2);
+    surface.polygon().addSegment(p3);
+    surface.polygon().addSegment(p4);
+    surface.polygon().addSegment(p1);
+    surface.odbOutputLayerFeature(file, polarity, location, xform);
+  }
 }
