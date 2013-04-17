@@ -146,6 +146,9 @@ Thermal::drawSegmentWithSpoke(
     points.append(vertex); // append the walked through vertex
     points.append(outerLeftEnds[endIdx].m_point); // corr' "outer LEFT_END"
     points.append(innerLeftEnds[endIdx].m_point); // corr' "inner LEFT_END"
+    walkThrough(vertex, true, m_innerDiameter.inch(), // walk clckws
+        innerLeftEnds[endIdx].m_angle,
+        innerRightEnds[startIdx].m_angle);
     points.append(vertex); // append the walked through vertex
     points.append(innerRightEnds[startIdx].m_point); // corr' "inner RIGHT_END"
     points.append(outerRightEnds[startIdx].m_point); // close shape

@@ -319,6 +319,37 @@ QString odbRotationSuffix(Xform *xform)
   return QString("_%1").arg(degree);
 }
 
+QPointF applyXform(Xform *xform, QPointF src)
+{
+  if (xform == NULL) {
+    return src;
+  }
+
+  // modify the origin
+  QPointF dst = src + xform->offset();
+
+  // apply rotation
+  qreal rotationRad = xform->rotation() / 180 * M_PI;
+  qreal ct = qCos(rotationRad);
+  qreal st = qSin(rotationRad);
+  qreal x = ct * dst.x() - st * dst.y();
+  qreal y = st * dst.x() + ct * dst.y();
+  dst.setX((ABS(x) < EPSILON)? 0 : x); // avoid double precision error
+  dst.setY((ABS(y) < EPSILON)? 0 : y); // avoid double precision error
+
+  // mirror image
+  if (xform->mirror()) {
+    dst.setX(-dst.x());
+  }
+
+  // scale
+  dst.setX(dst.x() * xform->scale());
+  dst.setY(dst.y() * xform->scale());
+
+  // return the result
+  return dst;
+}
+
 qreal calcCorrectAngle(QPointF p0, QPointF p1)
 {
   QPointF v = p1 - p0;

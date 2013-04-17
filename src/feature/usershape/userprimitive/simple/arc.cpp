@@ -38,6 +38,7 @@ Arc::odbOutputLayerFeature(
     QString polarity,
     QPointF location, Xform *xform)
 {
+  // get the line description
   QString refId = m_lineDescGroup->refId();
   LineDescGroup *l;
   if (refId == "") { // not a reference to others
@@ -49,21 +50,32 @@ Arc::odbOutputLayerFeature(
   else { // cannot find it in dictionary
     throw new InvalidIdError(refId);
   }
-  QString symbol = QString("r%1").arg(l->lineWidth().lengthMil());
+
+  // determine the line width and its symbol
+  qreal lw = l->lineWidth().mil();
+  if (xform) { // apply scale if needed
+    lw *= xform->scale();
+  }
+  QString symbol = QString("r%1").arg(lw);
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
 
-  QPointF newLocation = calcTransformedLocation(location, xform);
-  QPointF newStart  = newLocation + calcTransformedLocation(m_start, xform);
-  QPointF newEnd    = newLocation + calcTransformedLocation(m_end, xform);
-  QPointF newCenter = newLocation + calcTransformedLocation(m_center, xform);
+  // determine the path
+  QPointF newStart  = applyXform(xform, m_start);
+  QPointF newEnd    = applyXform(xform, m_end);
+  QPointF newCenter = applyXform(xform, m_center);
+  // if Xform contains "mirror", then the clockwise will reverse
+  bool cw = m_clockwise;
+  if (xform && xform->mirror()) {
+    cw = !cw;
+  }
   file.featuresList().append(QString("A %1 %2 %3 %4 %5 %6 %7 %8 0 %9\n")
-                             .arg(newStart.x())
-                             .arg(newStart.y())
-                             .arg(newEnd.x())
-                             .arg(newEnd.y())
-                             .arg(newCenter.x())
-                             .arg(newCenter.y())
+                             .arg(location.x() + newStart.x())
+                             .arg(location.y() + newStart.y())
+                             .arg(location.x() + newEnd.x())
+                             .arg(location.y() + newEnd.y())
+                             .arg(location.x() + newCenter.x())
+                             .arg(location.y() + newCenter.y())
                              .arg(symNum)
                              .arg(polarity)
-                             .arg(m_clockwise? "Y" : "N"));
+                             .arg(cw? "Y" : "N"));
 }

@@ -34,6 +34,7 @@ Line::odbOutputLayerFeature(
     QString polarity,
     QPointF location, Xform *xform)
 {
+  // get the line description
   QString refId = m_lineDescGroup->refId();
   LineDescGroup *l;
   if (refId == "") { // not a reference to others
@@ -45,19 +46,25 @@ Line::odbOutputLayerFeature(
   else { // cannot find it in dictionary
     throw new InvalidIdError(refId);
   }
+
+  // determine the line width and its symbol
+  qreal lw = l->lineWidth().mil();
+  if (xform) { // apply scale if needed
+    lw *= xform->scale();
+  }
   QString symbol = QString("%1%2") // square (e.g. s5) or round (e.g. r2)
-                   .arg(l->endType())
-                   .arg(l->lineWidth().lengthMil());
+                           .arg(l->endType())
+                           .arg(lw);
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
 
-  QPointF newLocation = calcTransformedLocation(location, xform);
-  QPointF newStart    = newLocation + calcTransformedLocation(m_start, xform);
-  QPointF newEnd      = newLocation + calcTransformedLocation(m_end, xform);
+  // determine the path
+  QPointF newStart = applyXform(xform, m_start);
+  QPointF newEnd   = applyXform(xform, m_end);
   file.featuresList().append(QString("L %1 %2 %3 %4 %5 %6 0\n")
-                             .arg(newStart.x())
-                             .arg(newStart.y())
-                             .arg(newEnd.x())
-                             .arg(newEnd.y())
+                             .arg(location.x() + newStart.x())
+                             .arg(location.y() + newStart.y())
+                             .arg(location.x() + newEnd.x())
+                             .arg(location.y() + newEnd.y())
                              .arg(symNum)
                              .arg(polarity));
 }

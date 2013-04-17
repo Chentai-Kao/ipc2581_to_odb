@@ -15,39 +15,39 @@ Set::initialize(QXmlStreamReader& xml, UnitsType units)
   if (hasAttribute(xml, "net")) {
     m_net = new QString(getStringAttribute(xml, "Set", "net"));
   }
-  m_polarity = Set::POSITIVE;
+  m_polarity = POSITIVE;
   if (hasAttribute(xml, "polarity")) {
     QString polarity = getStringAttribute(xml, "Set", "polarity");
     if (polarity == "POSITIVE") {
-      m_polarity = Set::POSITIVE;
+      m_polarity = POSITIVE;
     }
     else if (polarity == "NEGATIVE") {
-      m_polarity = Set::NEGATIVE;
+      m_polarity = NEGATIVE;
     }
     else {
       throw new InvalidAttributeError("Set", "polarity");
     }
   }
-  m_padUsage = Set::NONE;
+  m_padUsage = NONE;
   if (hasAttribute(xml, "padUsage")) {
     QString padUsage = getStringAttribute(xml, "Set", "padUsage");
     if (padUsage == "TERMINATION") {
-      m_padUsage = Set::TERMINATION;
+      m_padUsage = TERMINATION;
     }
     else if (padUsage == "VIA") {
-      m_padUsage = Set::VIA;
+      m_padUsage = VIA;
     }
     else if (padUsage == "PLANE") {
-      m_padUsage = Set::PLANE;
+      m_padUsage = PLANE;
     }
     else if (padUsage == "TOOLING_HOLE") {
-      m_padUsage = Set::TOOLING_HOLE;
+      m_padUsage = TOOLING_HOLE;
     }
     else if (padUsage == "MASK") {
-      m_padUsage = Set::MASK;
+      m_padUsage = MASK;
     }
     else if (padUsage == "NONE") {
-      m_padUsage = Set::NONE;
+      m_padUsage = NONE;
     }
     else {
       throw new InvalidAttributeError("Set", "padUsage");
