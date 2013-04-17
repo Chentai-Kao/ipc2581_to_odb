@@ -13,7 +13,3 @@ TODO:
 - (rewrite) "non 90 degree increment" should be defined as user symbol
 - need to handle rotation in Xform. Also the "units" of Xform
 - maybe can write getReference() as template function in utils
-- the orientation of Octagon is incorrect
-
-PROGRESS:
-Xform

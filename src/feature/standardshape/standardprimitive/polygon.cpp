@@ -125,10 +125,10 @@ void
 Polygon::odbOutputFeature(OdbFeatureFile& file, QPointF location,
     Xform *xform, PolygonType type, OutputOrder outputOrder)
 {
-  QPointF newLocation = calcTransformedLocation(location, xform);
+  QPointF newPolyBegin = applyXform(xform, m_polyBegin);
   file.featuresList().append(QString("OB %1 %2 %3\n")
-                             .arg(newLocation.x() + m_polyBegin.x())
-                             .arg(newLocation.y() + m_polyBegin.y())
+                             .arg(location.x() + newPolyBegin.x())
+                             .arg(location.y() + newPolyBegin.y())
                              .arg(type == POLYGON? "I" : "H"));
 
   // PolygonEdge is used to handle clockwise/counter-clockwise print
@@ -136,19 +136,25 @@ Polygon::odbOutputFeature(OdbFeatureFile& file, QPointF location,
 
   // output each edge
   for (int i = 0; i < polygonEdges.size(); ++i) {
+    QPointF newEndPoint = applyXform(xform, polygonEdges[i].m_endPoint);
     if (polygonEdges[i].m_odbType == "OS") {
       file.featuresList().append(QString("OS %1 %2\n")
-                      .arg(newLocation.x() + polygonEdges[i].m_endPoint.x())
-                      .arg(newLocation.y() + polygonEdges[i].m_endPoint.y()));
+                      .arg(location.x() + newEndPoint.x())
+                      .arg(location.y() + newEndPoint.y()));
     }
     else {
-      // output
+      QPointF newCenterPoint = applyXform(xform, polygonEdges[i].m_centerPoint);
+      // if Xform contains "mirror", then the clockwise will reverse
+      bool cw = polygonEdges[i].m_clockwise;
+      if (xform && xform->mirror()) {
+        cw = !cw;
+      }
       file.featuresList().append(QString("OC %1 %2 %3 %4 %5\n")
-                      .arg(newLocation.x() + polygonEdges[i].m_endPoint.x())
-                      .arg(newLocation.y() + polygonEdges[i].m_endPoint.y())
-                      .arg(newLocation.x() + polygonEdges[i].m_centerPoint.x())
-                      .arg(newLocation.y() + polygonEdges[i].m_centerPoint.y())
-                      .arg(polygonEdges[i].m_clockwise? "Y" : "N"));
+                      .arg(location.x() + newEndPoint.x())
+                      .arg(location.y() + newEndPoint.y())
+                      .arg(location.x() + newCenterPoint.x())
+                      .arg(location.y() + newCenterPoint.y())
+                      .arg(cw? "Y" : "N"));
     }
   }
   file.featuresList().append(QString("OE\n"));
