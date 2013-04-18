@@ -2,10 +2,24 @@
 #include "utils.h"
 #include "error.h"
 
-Odb::Odb(TopLevelHandler& h)
+Odb::Odb(TopLevelHandler& h, QString& dst)
 {
   m_handler = h;
-  m_odbRootPath = "bin/odb/";
+
+  // handle the output path
+  if (QFile(dst).exists()) {
+    printf("Output path exists. Do you want to overwrite? [Y/n] ");
+    char c = getc(stdin);
+    if (c == 'N' || c == 'n') {
+      printf("Canceled by user.\n");
+      exit(0);
+    }
+  }
+  if (!dst.endsWith("/")) { // make sure the path ends with '/'
+    dst.append("/");
+  }
+  m_odbRootPath = dst;
+
   m_allSteps = m_handler.allSteps();
   m_allLayers = m_handler.allLayers();
   m_allLayers.append("COMP_+_TOP"); // because these two layers are not

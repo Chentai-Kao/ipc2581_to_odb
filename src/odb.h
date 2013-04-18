@@ -7,7 +7,7 @@
 class Odb
 {
 public:
-  Odb(TopLevelHandler& h);
+  Odb(TopLevelHandler& h, QString& dst);
   void run();
 
 private:

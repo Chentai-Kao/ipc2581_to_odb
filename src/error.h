@@ -104,4 +104,16 @@ private:
   QString m_function; // function name
 };
 
+class MissingCmdLineArgError : public Error
+{
+public:
+  MissingCmdLineArgError(int o) : m_opt(o) {}
+  virtual void info() {
+    qDebug() << QString("ERROR** Missing or unknown argument \"%1\"")
+                        .arg(m_opt);
+  }
+private:
+  QString m_opt; // argument name
+};
+
 #endif
