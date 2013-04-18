@@ -3,6 +3,7 @@
 
 #include <QtCore>
 #include "toplevelhandler.h"
+#include "odbfeaturefile.h"
 
 class Odb
 {

@@ -8,6 +8,7 @@
 #include "bomhandler.h"
 #include "ecadhandler.h"
 #include "avlhandler.h"
+#include "odbfeaturefile.h"
 
 class TopLevelHandler
 {
@@ -15,7 +16,7 @@ public:
   virtual void run(QXmlStreamReader& xml);
   void odbOutputMatrix(QTextStream& out);
   void odbOutputLayerFeature(
-      QTextStream &out, QString stepName, QString layerName);
+      OdbFeatureFile& file, QString stepName, QString layerName);
 
   // getter
   QList<QString>& allSteps() { return m_contentHandler.allSteps(); }

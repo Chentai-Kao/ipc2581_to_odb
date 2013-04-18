@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "attributefactory.h"
 #include "error.h"
+#include "globals.h"
 
 void
 Step::initialize(QXmlStreamReader& xml, UnitsType units)
@@ -43,7 +44,7 @@ Step::initialize(QXmlStreamReader& xml, UnitsType units)
       else if (xml.name() == "Component") {
         Component component;
         component.initialize(xml);
-        m_components.append(component);
+        g_components.append(component);
       }
       else if (xml.name() == "VplPackage") {
 // TODO skipped
@@ -80,12 +81,12 @@ Step::initialize(QXmlStreamReader& xml, UnitsType units)
 }
 
 void
-Step::odbOutputLayerFeature(QTextStream& out, const QString layerName)
+Step::odbOutputLayerFeature(OdbFeatureFile& file, const QString layerName)
 {
   // find the specific layer, and let it output
   for (int i = 0; i < m_layerFeatures.size(); ++i) {
     if (m_layerFeatures[i].layerRef() == layerName) {
-      m_layerFeatures[i].odbOutputLayerFeature(out);
+      m_layerFeatures[i].odbOutputLayerFeature(file);
       break;
     }
   }

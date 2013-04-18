@@ -4,12 +4,13 @@
 #include <QtCore>
 #include "set.h"
 #include "utils.h"
+#include "odbfeaturefile.h"
 
 class LayerFeature
 {
 public:
   void initialize(QXmlStreamReader& xml, UnitsType units);
-  void odbOutputLayerFeature(QTextStream& out);
+  void odbOutputLayerFeature(OdbFeatureFile& file);
 
   // getter
   QString layerRef() { return m_layerRef; }

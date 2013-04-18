@@ -31,6 +31,9 @@ Pad::initialize(QXmlStreamReader& xml, UnitsType units)
       }
     }
     else if (isEndElementWithName(xml, "Pad")) { // </Pad>
+      if (m_standardShape == NULL) {
+        throw new InvalidElementError("Pad::StandardShape");
+      }
       return;
     }
   }
@@ -39,22 +42,37 @@ Pad::initialize(QXmlStreamReader& xml, UnitsType units)
 void
 Pad::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
 {
-  if (m_standardShape != NULL) {
-    // if the shape is a reference, find it in the list
-    QString refId = m_standardShape->refId();
-    StandardShape *s;
-    if (refId == "") {
-      s = m_standardShape;
-    }
-    else if (g_entryStandards.contains(refId)) {
-      s = g_entryStandards[refId];
-    }
-    else {
-      throw new InvalidIdError(refId);
-    }
+  // if the shape is a reference, find it in the list
+  QString refId = m_standardShape->refId();
+  StandardShape *s;
+  if (refId == "") {
+    s = m_standardShape;
+  }
+  else if (g_entryStandards.contains(refId)) {
+    s = g_entryStandards[refId];
+  }
+  else {
+    throw new InvalidIdError(refId);
+  }
 
+  // if it's a component, collect it in global variable, draw them outside
+  if (m_pinRef != NULL) {
+    // find the component by name "refDes"
+    QString compName = m_pinRef->componentRef();
+    for (int i = 0; i < g_components.size(); ++i) {
+      if (g_components[i].refDes() == compName) {
+        QString layerName = g_components[i].layerRef();
+        // draw feature in TOP/BOTTOM layer: 'f' (not the passed-in 'file')
+        OdbFeatureFile& f = g_layerFeatureFiles[layerName];
+        s->odbOutputLayerFeature(f, polarity, m_location, m_xform);
+        f.featuresList().append("\n");
+        break;
+      }
+    }
+  }
+  else {
     // call the shape to output
     s->odbOutputLayerFeature(file, polarity, m_location, m_xform);
+    file.featuresList().append("\n");
   }
-  file.featuresList().append("\n");
 }

@@ -6,6 +6,7 @@
 #include "stackup.h"
 #include "step.h"
 #include "utils.h"
+#include "odbfeaturefile.h"
 
 class CadDataHandler
 {
@@ -13,7 +14,7 @@ public:
   virtual void run(QXmlStreamReader& xml, UnitsType units);
   void odbOutputMatrixAllLayers(QTextStream& out);
   void odbOutputLayerFeature(
-      QTextStream &out, QString stepName, QString layerName);
+       OdbFeatureFile& file, QString stepName, QString layerName);
 
   // getter
   QList<Layer>& layers() { return m_layers; }

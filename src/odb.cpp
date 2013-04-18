@@ -1,13 +1,15 @@
 #include "odb.h"
 #include "utils.h"
 #include "error.h"
+#include "globals.h"
+#include "standardshape.h"
 
 Odb::Odb(TopLevelHandler& h, QString& dst)
 {
   m_handler = h;
 
   // handle the output path
-  if (QFile(dst).exists()) {
+  if (QFile(dst).exists() && !g_alwaysOverwrite) {
     printf("Output path exists. Do you want to overwrite? [Y/n] ");
     char c = getc(stdin);
     if (c == 'N' || c == 'n') {
@@ -115,16 +117,64 @@ void
 Odb::createLayerFeature()
 {
   for (int i = 0; i < m_allSteps.size(); ++i) {
+    /* Collect all features to be output in g_layerFeatureFiles
+     * Each feature file has 4 sections:
+     * Symbols table, Attribute table, Attribute texts, and Features list.
+     * Collect the full information of them, then output to file.
+     */
+    g_layerFeatureFiles.clear();
+    for (int j = 0; j < m_allLayers.size(); ++j) {
+      g_layerFeatureFiles.insert(m_allLayers[j], OdbFeatureFile());
+    }
+
+    /* Collect features, save in corresponding feature file */
+    for (int j = 0; j < m_allLayers.size(); ++j) {
+      m_handler.odbOutputLayerFeature(
+          g_layerFeatureFiles[m_allLayers[j]],
+          m_allSteps[i],
+          m_allLayers[j]);
+    }
+
+    /* Actually output features to file */
     for (int j = 0; j < m_allLayers.size(); ++j) {
       // open file
       QString path = QString("steps/%1/layers/%2/features")
                            .arg(m_allSteps[i].toLower())
                            .arg(m_allLayers[j].toLower());
-      QFile file(m_odbRootPath + path);
-      file.open(QIODevice::WriteOnly | QIODevice::Text);
-      QTextStream out(&file);
-      // call sub-element to draw feature
-      m_handler.odbOutputLayerFeature(out, m_allSteps[i], m_allLayers[j]);
+      QFile f(m_odbRootPath + path);
+      f.open(QIODevice::WriteOnly | QIODevice::Text);
+      QTextStream out(&f);
+
+      // find the feature file that stores this layer's feature
+      OdbFeatureFile& file = g_layerFeatureFiles[m_allLayers[j]];
+
+      // output to file
+      out << "#\n";
+      out << "#Feature symbol names\n";
+      out << "#\n";
+      for (int i = 0; i < file.symbolsTable().size(); ++i) {
+        out << QString("$%1 %2\n")
+                       .arg(i)
+                       .arg(file.symbolsTable()[i]);
+      }
+      out << "#\n";
+      out << "#Feature attribute names\n";
+      out << "#\n";
+      for (int i = 0; i < file.attributeTable().size(); ++i) {
+        out << file.attributeTable()[i];
+      }
+      out << "#\n";
+      out << "#Feature attribute text strings\n";
+      out << "#\n";
+      for (int i = 0; i < file.attributeTexts().size(); ++i) {
+        out << file.attributeTexts()[i];
+      }
+      out << "#\n";
+      out << "#Layer features\n";
+      out << "#\n";
+      for (int i = 0; i < file.featuresList().size(); ++i) {
+        out << file.featuresList()[i];
+      }
     }
   }
 }

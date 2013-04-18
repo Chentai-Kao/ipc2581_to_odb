@@ -51,9 +51,9 @@ TopLevelHandler::odbOutputMatrix(QTextStream& out)
 
 void
 TopLevelHandler::odbOutputLayerFeature(
-    QTextStream &out, QString stepName, QString layerName)
+    OdbFeatureFile& file, QString stepName, QString layerName)
 {
-  m_ecadHandler.odbOutputLayerFeature(out, stepName, layerName);
+  m_ecadHandler.odbOutputLayerFeature(file, stepName, layerName);
 }
 
 bool

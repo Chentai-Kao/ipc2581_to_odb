@@ -10,6 +10,10 @@ public:
   void initialize(QXmlStreamReader& xml);
   enum MountType { SMT, THMT, OTHER };
 
+  // getter
+  QString refDes() { return m_refDes; }
+  QString layerRef() { return m_layerRef; }
+
 private:
   QString m_refDes;
   QString m_packageRef;

@@ -4,6 +4,7 @@
 #include <QtCore>
 #include "cadheaderhandler.h"
 #include "caddatahandler.h"
+#include "odbfeaturefile.h"
 
 class EcadHandler
 {
@@ -11,7 +12,7 @@ public:
   virtual void run(QXmlStreamReader& xml);
   void odbOutputMatrixAllLayers(QTextStream& out);
   void odbOutputLayerFeature(
-      QTextStream &out, QString stepName, QString layerName);
+      OdbFeatureFile& file, QString stepName, QString layerName);
 
 private:
   QString m_name; // attribute "name" of <Ecad>
