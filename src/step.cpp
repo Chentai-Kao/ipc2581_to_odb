@@ -86,7 +86,7 @@ Step::odbOutputLayerFeature(OdbFeatureFile& file, const QString layerName)
   // find the specific layer, and let it output
   for (int i = 0; i < m_layerFeatures.size(); ++i) {
     if (m_layerFeatures[i].layerRef() == layerName) {
-      m_layerFeatures[i].odbOutputLayerFeature(file);
+      m_layerFeatures[i].odbOutputLayerFeature(file, layerName);
       break;
     }
   }

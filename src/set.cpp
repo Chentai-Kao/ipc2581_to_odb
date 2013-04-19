@@ -123,14 +123,14 @@ Set::initialize(QXmlStreamReader& xml, UnitsType units)
 }
 
 void
-Set::odbOutputLayerFeature(OdbFeatureFile& file)
+Set::odbOutputLayerFeature(OdbFeatureFile& file, QString layerName)
 {
   // TODO: m_attributes;
 
   // TODO: m_pads;
   for (int i = 0; i < m_pads.size(); ++i) {
     QString polarity = (m_polarity == POSITIVE)? "P" : "N";
-    m_pads[i].odbOutputLayerFeature(file, polarity);
+    m_pads[i].odbOutputLayerFeature(file, layerName, polarity);
   }
 
   // TODO: m_fiducials;

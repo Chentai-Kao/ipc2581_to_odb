@@ -7,6 +7,7 @@
 #include "linedesc.h"
 #include "component.h"
 #include "odbfeaturefile.h"
+#include "layer.h"
 
 // actual definition is in "globals.cpp"
 
@@ -20,6 +21,9 @@ extern QList<Component> g_components;
 
 /* All feature files for output. <layerName, odbFeatureFile> */
 extern QMap<QString, OdbFeatureFile> g_layerFeatureFiles;
+
+/* All layers */
+extern QList<Layer> g_layers;
 
 /* Always overwrite the output path */
 extern bool g_alwaysOverwrite;

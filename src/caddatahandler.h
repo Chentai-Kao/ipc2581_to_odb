@@ -7,6 +7,7 @@
 #include "step.h"
 #include "utils.h"
 #include "odbfeaturefile.h"
+#include "globals.h"
 
 class CadDataHandler
 {
@@ -17,14 +18,14 @@ public:
        OdbFeatureFile& file, QString stepName, QString layerName);
 
   // getter
-  QList<Layer>& layers() { return m_layers; }
+  QList<Layer>& layers() { return g_layers; }
 
 private:
   void odbOutputLayer(QTextStream& out, int rowNum, QString context,
       QString type, QString name, QString polarity);
   void odbOutputSingleLayer(QTextStream& out, int rowNum, Layer& layer);
 
-  QList<Layer> m_layers;
+  //QList<Layer> m_layers; // store in global variable 'g_layers' instead
   Stackup *m_stackup;
   QList<Step> m_steps;
 };

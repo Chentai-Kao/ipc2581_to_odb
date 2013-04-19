@@ -139,8 +139,8 @@ Odb::createLayerFeature()
     for (int j = 0; j < m_allLayers.size(); ++j) {
       // open file
       QString path = QString("steps/%1/layers/%2/features")
-                           .arg(m_allSteps[i].toLower())
-                           .arg(m_allLayers[j].toLower());
+                             .arg(m_allSteps[i].toLower())
+                             .arg(m_allLayers[j].toLower());
       QFile f(m_odbRootPath + path);
       f.open(QIODevice::WriteOnly | QIODevice::Text);
       QTextStream out(&f);

@@ -11,5 +11,34 @@ TODO:
 - Need to check occurence of all elements, attributes.
 - don't know some layers in ODB++. Ex: COMP_+_TOP, ROUT, SQA_AREAS, HEIGHT_TOP
 - maybe can write getReference() as template function in utils
-- (bug) some extra symbols, some misplaced symbols
-- need to implement command line arguments (input file, output file)
+- (bug) some extra symbols
+- (bug) some misplaced symbols. See symbols related to components.
+        Components a little bit larger. Don't know why yet.
+
+Note:
+ODB             IPC-2581                     layerFunction
+------------------------------------------------------------
+top               TOP                          CONDUCTOR
+gnd2              GND2                         PLANE
+l10               L10                          CONDUCTOR
+l9                L9                           CONDUCTOR
+vcc               VCC                          PLANE
+l7                L7                           CONDUCTOR
+l6                L6                           CONDUCTOR
+vcc2              VCC2                         PLANE
+l4                L4                           CONDUCTOR
+l3                L3                           CONDUCTOR
+gnd               GND                          PLANE
+bottom            BOTTOM                       CONDUCTOR
+smt               soldermask_top.art           SOLDERMASK
+smb               soldermask_bottom.art        SOLDERMASK
+drill             DRILL_1-12                   DRILL
+spt               pastemask_top.art            PASTEMASK
+outline.art       outline.art                  DOCUMENT
+sst               silkscreen_top.art           SILKSCREEN
+ssb               silkscreen_bottom.art        SILKSCREEN
+comp_+_bot
+comp_+_top
+height_top
+rout
+sqa_areas

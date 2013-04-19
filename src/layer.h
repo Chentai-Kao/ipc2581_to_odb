@@ -56,6 +56,7 @@ public:
 
   // getter
   QString name() { return m_name; }
+  LayerFunctionType layerFunction() { return m_layerFunction; }
   QString context(); // "BOARD" or "MISC", from Odb++ job->matrix->matrix
   QString polarity() { return m_polarity == POSITIVE? "POSITIVE" : "NEGATIVE"; }
   QString type();

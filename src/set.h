@@ -21,7 +21,7 @@ public:
   void initialize(QXmlStreamReader& xml, UnitsType units);
   enum PolarityType { POSITIVE, NEGATIVE };
   enum PadUsageType { TERMINATION, VIA, PLANE, TOOLING_HOLE, MASK, NONE };
-  void odbOutputLayerFeature(OdbFeatureFile& file);
+  void odbOutputLayerFeature(OdbFeatureFile& file, QString layerName);
 
 private:
   // attributes

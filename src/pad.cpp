@@ -2,6 +2,7 @@
 #include "standardshapefactory.h"
 #include "error.h"
 #include "globals.h"
+#include "layer.h"
 
 void
 Pad::initialize(QXmlStreamReader& xml, UnitsType units)
@@ -40,7 +41,8 @@ Pad::initialize(QXmlStreamReader& xml, UnitsType units)
 }
 
 void
-Pad::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
+Pad::odbOutputLayerFeature(
+    OdbFeatureFile& file, QString layerName, QString polarity)
 {
   // if the shape is a reference, find it in the list
   QString refId = m_standardShape->refId();
@@ -55,8 +57,23 @@ Pad::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
     throw new InvalidIdError(refId);
   }
 
-  // if it's a component, collect it in global variable, draw them outside
-  if (m_pinRef != NULL) {
+  // find the layer by name
+  int layerIdx;
+  for (int i = 0; i < g_layers.size(); ++i) {
+    if (g_layers[i].name() == layerName) {
+      layerIdx = i;
+      break;
+    }
+  }
+  Layer& layer = g_layers[layerIdx];
+
+  // Because sometimes in IPC-2581 the symbol is defined
+  // in TOP but the Component's layer is BOTTOM, so need to find
+  // the Component's layer to output.
+  // 1. For component in TOP/BOTTOM, need to check where exactly to output
+  //    (for TOP/BOTTOM, layerFunction == CONDUCTOR)
+  // 2. For component in other layer (soldermask, etc), just output
+  if (m_pinRef != NULL && layer.layerFunction() == Layer::CONDUCTOR) {
     // find the component by name "refDes"
     QString compName = m_pinRef->componentRef();
     for (int i = 0; i < g_components.size(); ++i) {
