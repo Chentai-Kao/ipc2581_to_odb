@@ -6,7 +6,6 @@
 
 #define print(t, s) qDebug("%s:%s", (t), (s).toAscii().data())
 #define SQR(x) ((x)*(x)) // square of a number
-#define EPSILON 0.000000001
 #define ABS(x) ((x) < 0? -(x) : (x))
 
 enum UnitsType {
@@ -80,6 +79,7 @@ int odbDecideOrient(Xform *xform); // 0 (0 degrees, no mirror), 1 (90 degrees...
 int odbInsertSymbol(const QString symbol, QList<QString>& symbolsTable);
 QString odbRotationSuffix(Xform *xform);
 QPointF applyXform(Xform *xform, QPointF src);
+QString saveQreal(qreal num); // avoid scientific notation, e.g. 0.00002
 
 /* Some math functions */
 qreal calcCorrectAngle(QPointF p0, QPointF p1); // (0~2pi) direction: p0->p1

@@ -127,8 +127,8 @@ Polygon::odbOutputFeature(OdbFeatureFile& file, QPointF location,
 {
   QPointF newPolyBegin = applyXform(xform, m_polyBegin);
   file.featuresList().append(QString("OB %1 %2 %3\n")
-                             .arg(location.x() + newPolyBegin.x())
-                             .arg(location.y() + newPolyBegin.y())
+                             .arg(saveQreal(location.x() + newPolyBegin.x()))
+                             .arg(saveQreal(location.y() + newPolyBegin.y()))
                              .arg(type == POLYGON? "I" : "H"));
 
   // PolygonEdge is used to handle clockwise/counter-clockwise print
@@ -139,8 +139,8 @@ Polygon::odbOutputFeature(OdbFeatureFile& file, QPointF location,
     QPointF newEndPoint = applyXform(xform, polygonEdges[i].m_endPoint);
     if (polygonEdges[i].m_odbType == "OS") {
       file.featuresList().append(QString("OS %1 %2\n")
-                      .arg(location.x() + newEndPoint.x())
-                      .arg(location.y() + newEndPoint.y()));
+                         .arg(saveQreal(location.x() + newEndPoint.x()))
+                         .arg(saveQreal(location.y() + newEndPoint.y())));
     }
     else {
       QPointF newCenterPoint = applyXform(xform, polygonEdges[i].m_centerPoint);
@@ -150,11 +150,11 @@ Polygon::odbOutputFeature(OdbFeatureFile& file, QPointF location,
         cw = !cw;
       }
       file.featuresList().append(QString("OC %1 %2 %3 %4 %5\n")
-                      .arg(location.x() + newEndPoint.x())
-                      .arg(location.y() + newEndPoint.y())
-                      .arg(location.x() + newCenterPoint.x())
-                      .arg(location.y() + newCenterPoint.y())
-                      .arg(cw? "Y" : "N"));
+                         .arg(saveQreal(location.x() + newEndPoint.x()))
+                         .arg(saveQreal(location.y() + newEndPoint.y()))
+                         .arg(saveQreal(location.x() + newCenterPoint.x()))
+                         .arg(saveQreal(location.y() + newCenterPoint.y()))
+                         .arg(cw? "Y" : "N"));
     }
   }
   file.featuresList().append(QString("OE\n"));

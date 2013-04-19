@@ -334,8 +334,8 @@ QPointF applyXform(Xform *xform, QPointF src)
   qreal st = qSin(rotationRad);
   qreal x = ct * dst.x() - st * dst.y();
   qreal y = st * dst.x() + ct * dst.y();
-  dst.setX((ABS(x) < EPSILON)? 0 : x); // avoid double precision error
-  dst.setY((ABS(y) < EPSILON)? 0 : y); // avoid double precision error
+  dst.setX(x);
+  dst.setY(y);
 
   // mirror image
   if (xform->mirror()) {
@@ -348,6 +348,14 @@ QPointF applyXform(Xform *xform, QPointF src)
 
   // return the result
   return dst;
+}
+
+QString saveQreal(qreal num)
+{
+  QString str = QString::number(num, 'f');
+  str.remove(QRegExp("0+$")); // Remove any number of trailing 0's
+  str.remove(QRegExp("\\.$")); // If the last character is just a '.', remove it
+  return str;
 }
 
 qreal calcCorrectAngle(QPointF p0, QPointF p1)
