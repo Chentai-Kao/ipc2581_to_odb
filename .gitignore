@@ -8,4 +8,4 @@ bin/*
 samples/*
 testcase1
 spec/drawing ellipses.pdf
-rod_feature
+rod_feature*

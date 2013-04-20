@@ -24,8 +24,8 @@ Odb::Odb(TopLevelHandler& h, QString& dst)
 
   m_allSteps = m_handler.allSteps();
   m_allLayers = m_handler.allLayers();
-  m_allLayers.append("COMP_+_TOP"); // because these two layers are not
-  m_allLayers.append("COMP_+_BOT"); // in <LayerRef>
+  m_allLayers.append("comp_+_top"); // because these two layers are not
+  m_allLayers.append("comp_+_bot"); // in <LayerRef>
 }
 void
 Odb::run()
