@@ -24,16 +24,18 @@ Odb::Odb(TopLevelHandler& h, QString& dst)
 
   m_allSteps = m_handler.allSteps();
   m_allLayers = m_handler.allLayers();
-  m_allLayers.append("comp_+_top"); // because these two layers are not
-  m_allLayers.append("comp_+_bot"); // in <LayerRef>
+  m_allLayers.append(COMP_BOT_NAME); // comp_+_bot
+  m_allLayers.append(COMP_TOP_NAME); // comp_+_top
 }
+
 void
 Odb::run()
 {
   createFileSystem();
   createMatrix();
-  createStepLayerHierarchy();
+  createStepLayerDirs();
   createLayerFeature();
+  createAttrlists();
   // TODO
 }
 
@@ -95,7 +97,7 @@ Odb::createMatrix()
 }
 
 void
-Odb::createStepLayerHierarchy()
+Odb::createStepLayerDirs()
 {
   for (int i = 0; i < m_allSteps.size(); ++i) {
     if (m_allSteps[i].startsWith(".")) {
@@ -137,44 +139,93 @@ Odb::createLayerFeature()
 
     /* Actually output features to file */
     for (int j = 0; j < m_allLayers.size(); ++j) {
-      // open file
-      QString path = QString("steps/%1/layers/%2/features")
-                             .arg(m_allSteps[i].toLower())
-                             .arg(m_allLayers[j].toLower());
-      QFile f(m_odbRootPath + path);
-      f.open(QIODevice::WriteOnly | QIODevice::Text);
-      QTextStream out(&f);
+      // for "comp_+_bot" and "comp_+_top", there is no feature file
+      if (m_allLayers[j] != COMP_BOT_NAME &&
+          m_allLayers[j] != COMP_TOP_NAME) {
+        // open file
+        QString path = QString("steps/%1/layers/%2/features")
+                               .arg(m_allSteps[i].toLower())
+                               .arg(m_allLayers[j].toLower());
+        QFile f(m_odbRootPath + path);
+        f.open(QIODevice::WriteOnly | QIODevice::Text);
+        QTextStream out(&f);
 
-      // find the feature file that stores this layer's feature
-      OdbFeatureFile& file = g_layerFeatureFiles[m_allLayers[j]];
+        // find the feature file that stores this layer's feature
+        OdbFeatureFile& file = g_layerFeatureFiles[m_allLayers[j]];
 
-      // output to file
-      out << "#\n";
-      out << "#Feature symbol names\n";
-      out << "#\n";
-      for (int i = 0; i < file.symbolsTable().size(); ++i) {
-        out << QString("$%1 %2\n")
-                       .arg(i)
-                       .arg(file.symbolsTable()[i]);
-      }
-      out << "#\n";
-      out << "#Feature attribute names\n";
-      out << "#\n";
-      for (int i = 0; i < file.attributeTable().size(); ++i) {
-        out << file.attributeTable()[i];
-      }
-      out << "#\n";
-      out << "#Feature attribute text strings\n";
-      out << "#\n";
-      for (int i = 0; i < file.attributeTexts().size(); ++i) {
-        out << file.attributeTexts()[i];
-      }
-      out << "#\n";
-      out << "#Layer features\n";
-      out << "#\n";
-      for (int i = 0; i < file.featuresList().size(); ++i) {
-        out << file.featuresList()[i];
+        // output to file
+        out << "#\n";
+        out << "#Feature symbol names\n";
+        out << "#\n";
+        for (int i = 0; i < file.symbolsTable().size(); ++i) {
+          out << QString("$%1 %2\n")
+                         .arg(i)
+                         .arg(file.symbolsTable()[i]);
+        }
+        out << "#\n";
+        out << "#Feature attribute names\n";
+        out << "#\n";
+        for (int i = 0; i < file.attributeTable().size(); ++i) {
+          out << file.attributeTable()[i];
+        }
+        out << "#\n";
+        out << "#Feature attribute text strings\n";
+        out << "#\n";
+        for (int i = 0; i < file.attributeTexts().size(); ++i) {
+          out << file.attributeTexts()[i];
+        }
+        out << "#\n";
+        out << "#Layer features\n";
+        out << "#\n";
+        for (int i = 0; i < file.featuresList().size(); ++i) {
+          out << file.featuresList()[i];
+        }
       }
     }
   }
+}
+
+void
+Odb::createAttrlists()
+{
+  createJobAttribute();
+  for (int i = 0; i < m_allSteps.size(); ++i) {
+    createStepAttribute(m_allSteps[i]);
+    for (int j = 0; j < m_allLayers.size(); ++j) {
+      createLayerAttribute(m_allSteps[i], m_allLayers[j]);
+    }
+  }
+}
+
+void
+Odb::createJobAttribute()
+{
+  QFile file(m_odbRootPath + "misc/attrlist");
+  file.open(QIODevice::WriteOnly | QIODevice::Text);
+  QTextStream out(&file);
+
+  // TODO (empty attrlist)
+}
+
+void
+Odb::createStepAttribute(QString stepName)
+{
+  QFile file(m_odbRootPath + QString("steps/%1/attrlist")
+                                     .arg(stepName.toLower()));
+  file.open(QIODevice::WriteOnly | QIODevice::Text);
+  QTextStream out(&file);
+
+  // TODO (empty attrlist)
+}
+
+void
+Odb::createLayerAttribute(QString stepName, QString layerName)
+{
+  QFile file(m_odbRootPath + QString("steps/%1/layers/%2/attrlist")
+                                     .arg(stepName.toLower())
+                                     .arg(layerName.toLower()));
+  file.open(QIODevice::WriteOnly | QIODevice::Text);
+  QTextStream out(&file);
+
+  // TODO (empty attrlist)
 }

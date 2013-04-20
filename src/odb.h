@@ -17,8 +17,16 @@ private:
   void createOdbDir(const QString path); // path relative to odb root
   void createFileSystem(); // Job->xxx
   void createMatrix(); // Job->matrix->matrix
-  void createStepLayerHierarchy(); // Job->step->layers->xxx
-  void createLayerFeature(); // Job->step->layers->features
+  void createStepLayerDirs(); // (create dirs) Job->step->layers->xxx
+  void createLayerFeature(); // Job->steps->xxx->layers->yyy->features
+  // create all attrlists (job, step, layer)
+  //   job   -- Job->misc->attrlist
+  //   step  -- Job->steps->xxx->attrlist
+  //   layer -- Job->steps->xxx->layers->yyy->attrlist
+  void createAttrlists();
+  void createJobAttribute();
+  void createStepAttribute(QString stepName);
+  void createLayerAttribute(QString stepName, QString layerName);
 
   // data members
   TopLevelHandler m_handler;

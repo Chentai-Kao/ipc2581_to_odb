@@ -7,6 +7,8 @@
 #define print(t, s) qDebug("%s:%s", (t), (s).toAscii().data())
 #define SQR(x) ((x)*(x)) // square of a number
 #define ABS(x) ((x) < 0? -(x) : (x))
+#define COMP_TOP_NAME "comp_+_top"
+#define COMP_BOT_NAME "comp_+_bot"
 
 enum UnitsType {
   MILLIMETER,

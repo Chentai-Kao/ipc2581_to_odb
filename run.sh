@@ -9,7 +9,13 @@ des="/home/cobra/icons/VirtualBox VMs/shared folder/test"
 cp "$src/matrix/matrix" "$des/matrix/matrix"
 # feature file
 for i in `ls "$src/steps/pcb/layers/"`; do
-  cp "$src/steps/pcb/layers/$i/features" "$des/steps/pcb/layers/$i/features"
+  if [ "$i" == "comp_+_bot" ] || [ "$i" == "comp_+_top" ]; then
+    cp "$src/steps/pcb/layers/$i/components" \
+       "$des/steps/pcb/layers/$i/components"
+  else
+    cp "$src/steps/pcb/layers/$i/features" "$des/steps/pcb/layers/$i/features"
+  fi
+  cp "$src/steps/pcb/layers/$i/attrlist" "$des/steps/pcb/layers/$i/attrlist"
 done
 #cp "$src/steps/pcb/layers/top/features" "$des/test/steps/pcb/layers/top/features"
 

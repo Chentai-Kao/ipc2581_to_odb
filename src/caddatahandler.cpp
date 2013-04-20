@@ -34,7 +34,7 @@ CadDataHandler::odbOutputMatrixAllLayers(QTextStream& out)
   int rowNum = 1;
   // COMPONENT TOP
   odbOutputLayer(
-      out, rowNum++, "BOARD", "COMPONENT", "comp_+_top", "POSITIVE");
+      out, rowNum++, "BOARD", "COMPONENT", COMP_TOP_NAME, "POSITIVE");
   // SILK_SCREEN TOP
   for (int i = 0; i < g_layers.size(); ++i) {
     if (g_layers[i].type() == "SILK_SCREEN" && g_layers[i].isTop()) {
@@ -87,7 +87,8 @@ CadDataHandler::odbOutputMatrixAllLayers(QTextStream& out)
   }
   // ROUT (TODO)
   // COMPONENT BOTTOM
-  odbOutputLayer(out, rowNum++, "BOARD", "COMPONENT", "comp_+_bot", "POSITIVE");
+  odbOutputLayer(
+      out, rowNum++, "BOARD", "COMPONENT", COMP_BOT_NAME, "POSITIVE");
   // DRILL
   for (int i = 0; i < g_layers.size(); ++i) {
     if (g_layers[i].type() == "DRILL") {
