@@ -21,6 +21,9 @@ public:
   // getter
   QList<QString>& allSteps() { return m_contentHandler.allSteps(); }
   QList<QString>& allLayers() { return m_contentHandler.allLayers(); }
+  QList<Component>& components(QString stepName) {
+    return m_ecadHandler.components(stepName);
+  }
 
 private:
   // member functions

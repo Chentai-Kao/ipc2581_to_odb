@@ -14,6 +14,11 @@ public:
   void odbOutputLayerFeature(
       OdbFeatureFile& file, QString stepName, QString layerName);
 
+  // getter
+  QList<Component>& components(QString stepName) {
+    return m_cadDataHandler.components(stepName);
+  }
+
 private:
   QString m_name; // attribute "name" of <Ecad>
   CadHeaderHandler m_cadHeaderHandler;

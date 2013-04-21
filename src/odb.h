@@ -3,7 +3,8 @@
 
 #include <QtCore>
 #include "toplevelhandler.h"
-#include "odbfeaturefile.h"
+#include "component.h"
+#include "odbcomponentfile.h"
 
 class Odb
 {
@@ -27,6 +28,11 @@ private:
   void createJobAttribute();
   void createStepAttribute(QString stepName);
   void createLayerAttribute(QString stepName, QString layerName);
+
+  void createComponents(); // Job->steps->xxx->layers->comp_+_top->components
+  void outputComponentLayer(
+      QString stepName, QList<Component>& components, CompLayerSide side);
+  void outputComponent(OdbComponentFile& file, Component& components);
 
   // data members
   TopLevelHandler m_handler;

@@ -16,10 +16,11 @@ class Step
 {
 public:
   void initialize(QXmlStreamReader& xml, UnitsType units);
+  void odbOutputLayerFeature(OdbFeatureFile& file, const QString layerName);
 
   // getter
   QString name() { return m_name; }
-  void odbOutputLayerFeature(OdbFeatureFile& file, const QString layerName);
+  QList<Component>& components() { return m_components; }
 
 private:
   QString m_name;
@@ -27,7 +28,7 @@ private:
   QPointF m_datum; // (x,y)
   Contour m_profile;
   QList<Package> m_packages;
-  //QList<Component> m_components; // store in global variable 'g_components'
+  QList<Component> m_components;
   QList<LogicalNet> m_logicalNets;
   QList<PhyNetGroup> m_phyNetGroups;
   QList<LayerFeature> m_layerFeatures;

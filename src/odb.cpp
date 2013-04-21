@@ -3,6 +3,7 @@
 #include "error.h"
 #include "globals.h"
 #include "standardshape.h"
+#include "odbfeaturefile.h"
 
 Odb::Odb(TopLevelHandler& h, QString& dst)
 {
@@ -36,6 +37,7 @@ Odb::run()
   createStepLayerDirs();
   createLayerFeature();
   createAttrlists();
+  createComponents();
   // TODO
 }
 
@@ -228,4 +230,64 @@ Odb::createLayerAttribute(QString stepName, QString layerName)
   QTextStream out(&file);
 
   // TODO (empty attrlist)
+}
+
+void
+Odb::createComponents()
+{
+  // output components in each step
+  for (int i = 0; i < m_allSteps.size(); ++i) {
+    /* Collect all components of this layer, then output */
+    QList<Component>& components = m_handler.components(m_allSteps[i]);
+    outputComponentLayer(m_allSteps[i], components, COMP_TOP);
+    outputComponentLayer(m_allSteps[i], components, COMP_BOT);
+  }
+}
+
+void
+Odb::outputComponentLayer(
+    QString stepName, QList<Component>& components, CompLayerSide side)
+{
+  // open file
+  QString layerName = (side == COMP_TOP)? COMP_TOP_NAME : COMP_BOT_NAME;
+  QFile f(m_odbRootPath + QString("steps/%1/layers/%2/components")
+                                  .arg(stepName.toLower())
+                                  .arg(layerName.toLower()));
+  f.open(QIODevice::WriteOnly | QIODevice::Text);
+  QTextStream out(&f);
+
+  // output the component file that stores all information
+  OdbComponentFile file;
+  for (int i = 0; i < components.size(); ++i) {
+    // output only when the component belongs to this layer (top or bot)
+    QString layerRef = components[i].layerRef();
+    if ((side == COMP_TOP && layerRef.contains("top", Qt::CaseInsensitive)) ||
+        (side == COMP_BOT && layerRef.contains("bot", Qt::CaseInsensitive))) {
+      outputComponent(file, components[i]);
+    }
+  }
+
+  // output to file
+  out << "#\n";
+  out << "#Component attribute names\n";
+  out << "#\n";
+  for (int i = 0; i < file.attributeTable().size(); ++i) {
+    out << QString("@%1 %2\n")
+                   .arg(i)
+                   .arg(file.attributeTable()[i]);
+  }
+  out << "#\n";
+  out << "#Components\n";
+  out << "#\n";
+  for (int i = 0; i < file.componentList().size(); ++i) {
+    out << QString("# CMP %1\n").arg(i);
+    out << file.componentList()[i];
+  }
+  out << "\n";
+}
+
+void
+Odb::outputComponent(OdbComponentFile& file, Component& components)
+{
+  // TODO
 }

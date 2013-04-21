@@ -44,7 +44,7 @@ Step::initialize(QXmlStreamReader& xml, UnitsType units)
       else if (xml.name() == "Component") {
         Component component;
         component.initialize(xml);
-        g_components.append(component);
+        m_components.append(component);
       }
       else if (xml.name() == "VplPackage") {
 // TODO skipped

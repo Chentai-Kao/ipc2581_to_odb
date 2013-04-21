@@ -66,30 +66,6 @@ Pad::odbOutputLayerFeature(
     }
   }
 
-#if 0
-  // Because sometimes in IPC-2581 the symbol is defined
-  // in TOP but the Component's layer is BOTTOM, so need to find
-  // the Component's layer to output.
-  // 1. For component in TOP/BOTTOM, need to check where exactly to output
-  //    (for TOP/BOTTOM, layerFunction == CONDUCTOR)
-  // 2. For component in other layer (soldermask, etc), just output
-  Layer& layer = g_layers[layerIdx];
-  if (m_pinRef != NULL && layer.layerFunction() == Layer::CONDUCTOR) {
-    // find the component by name "refDes"
-    QString compName = m_pinRef->componentRef();
-    for (int i = 0; i < g_components.size(); ++i) {
-      if (g_components[i].refDes() == compName) {
-        QString layerName = g_components[i].layerRef();
-        // draw feature in TOP/BOTTOM layer: 'f' (not the passed-in 'file')
-        OdbFeatureFile& f = g_layerFeatureFiles[layerName];
-        s->odbOutputLayerFeature(f, polarity, m_location, m_xform);
-        f.featuresList().append("\n");
-        break;
-      }
-    }
-  }
-  else {
-#endif
   // call the shape to output
   s->odbOutputLayerFeature(file, polarity, m_location, m_xform);
   file.featuresList().append("\n");

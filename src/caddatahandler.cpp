@@ -108,6 +108,30 @@ CadDataHandler::odbOutputMatrixAllLayers(QTextStream& out)
 }
 
 void
+CadDataHandler::odbOutputLayerFeature(
+    OdbFeatureFile& file, QString stepName, QString layerName)
+{
+  // find the step, and let it draw
+  for (int i = 0; i < m_steps.size(); ++i) {
+    if (m_steps[i].name() == stepName) {
+      m_steps[i].odbOutputLayerFeature(file, layerName);
+      break;
+    }
+  }
+}
+
+QList<Component>&
+CadDataHandler::components(QString stepName)
+{
+  for (int i = 0; i < m_steps.size(); ++i) {
+    if (m_steps[i].name() == stepName) {
+      return m_steps[i].components();
+    }
+  }
+  throw new ProgramLogicError("CadDataHandler::components()");
+}
+
+void
 CadDataHandler::odbOutputLayer(QTextStream& out, int rowNum, QString context,
     QString type, QString name, QString polarity)
 {
@@ -129,17 +153,4 @@ CadDataHandler::odbOutputSingleLayer(QTextStream& out, int rowNum, Layer& layer)
 {
   odbOutputLayer(out, rowNum, layer.context(),
       layer.type(), layer.name(), layer.polarity());
-}
-
-void
-CadDataHandler::odbOutputLayerFeature(
-    OdbFeatureFile& file, QString stepName, QString layerName)
-{
-  // find the step, and let it draw
-  for (int i = 0; i < m_steps.size(); ++i) {
-    if (m_steps[i].name() == stepName) {
-      m_steps[i].odbOutputLayerFeature(file, layerName);
-      break;
-    }
-  }
 }

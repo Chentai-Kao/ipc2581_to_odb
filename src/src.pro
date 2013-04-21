@@ -40,6 +40,7 @@ HEADERS += \
   logisticheaderhandler.h \
   odb.h \
   odbfeaturefile.h \
+  odbcomponentfile.h \
   package.h \
   pad.h \
   phynetgroup.h \

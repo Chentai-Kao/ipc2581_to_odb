@@ -15,10 +15,11 @@ public:
   virtual void run(QXmlStreamReader& xml, UnitsType units);
   void odbOutputMatrixAllLayers(QTextStream& out);
   void odbOutputLayerFeature(
-       OdbFeatureFile& file, QString stepName, QString layerName);
+      OdbFeatureFile& file, QString stepName, QString layerName);
 
   // getter
   QList<Layer>& layers() { return g_layers; }
+  QList<Component>& components(QString stepName);
 
 private:
   void odbOutputLayer(QTextStream& out, int rowNum, QString context,
