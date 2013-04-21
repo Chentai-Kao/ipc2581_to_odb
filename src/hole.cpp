@@ -1,12 +1,13 @@
 #include "hole.h"
-#include "utils.h"
 #include "error.h"
+#include "circle.h"
 
 void
-Hole::initialize(QXmlStreamReader& xml)
+Hole::initialize(QXmlStreamReader& xml, UnitsType units)
 {
   m_name = getStringAttribute(xml, "Hole", "name");
-  m_diameter = getNonNegativeDoubleAttribute(xml, "Hole", "diameter");
+  m_diameter = Length(
+      getNonNegativeDoubleAttribute(xml, "Hole", "diameter"), units);
   QString platingStatus = getStringAttribute(xml, "Hole", "platingStatus");
   if (platingStatus == "PLATED") {
     m_platingStatus = Hole::PLATED;
@@ -29,31 +30,7 @@ Hole::initialize(QXmlStreamReader& xml)
 void
 Hole::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
 {
-#if 0
-  // if the shape is a reference, find it in the list
-  QString refId = m_standardShape->refId();
-  StandardShape *s;
-  if (refId == "") {
-    s = m_standardShape;
-  }
-  else if (g_entryStandards.contains(refId)) {
-    s = g_entryStandards[refId];
-  }
-  else {
-    throw new InvalidIdError(refId);
-  }
-
-  // find the layer by name
-  int layerIdx;
-  for (int i = 0; i < g_layers.size(); ++i) {
-    if (g_layers[i].name() == layerName) {
-      layerIdx = i;
-      break;
-    }
-  }
-
-  // call the shape to output
-  s->odbOutputLayerFeature(file, polarity, m_location, m_xform);
+  Circle c(m_diameter);
+  c.odbOutputLayerFeature(file, polarity, m_location, NULL);
   file.featuresList().append("\n");
-#endif
 }

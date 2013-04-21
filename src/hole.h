@@ -2,18 +2,20 @@
 #define __HOLE_H__
 
 #include <QtCore>
+#include "utils.h"
+#include "length.h"
 #include "odbfeaturefile.h"
 
 class Hole
 {
 public:
-  void initialize(QXmlStreamReader& xml);
   enum PlatingStatusType { PLATED, NONPLATED, VIA };
+  void initialize(QXmlStreamReader& xml, UnitsType units);
   void odbOutputLayerFeature(OdbFeatureFile& file, QString polarity);
 
 private:
   QString m_name;
-  qreal m_diameter;
+  Length m_diameter;
   PlatingStatusType m_platingStatus;
   qreal m_plusTol;
   qreal m_minusTol;

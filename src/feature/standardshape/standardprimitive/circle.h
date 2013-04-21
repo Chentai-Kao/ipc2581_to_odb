@@ -7,6 +7,8 @@
 class Circle : public StandardPrimitive
 {
 public:
+  Circle() {}
+  Circle(Length d) : m_diameter(d) {}
   virtual void initialize(QXmlStreamReader& xml, UnitsType units);
   virtual void odbOutputLayerFeature(
       OdbFeatureFile& file, QString polarity,

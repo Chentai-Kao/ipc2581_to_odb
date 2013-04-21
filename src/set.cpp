@@ -92,7 +92,7 @@ Set::initialize(QXmlStreamReader& xml, UnitsType units)
       }
       else if (xml.name() == "Hole") {
         Hole hole;
-        hole.initialize(xml);
+        hole.initialize(xml, units);
         m_holes.append(hole);
       }
       else if (xml.name() == "Slot") {
