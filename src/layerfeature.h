@@ -10,7 +10,7 @@ class LayerFeature
 {
 public:
   void initialize(QXmlStreamReader& xml, UnitsType units);
-  void odbOutputLayerFeature(OdbFeatureFile& file, QString layerName);
+  void odbOutputLayerFeature(OdbFeatureFile& file);
 
   // getter
   QString layerRef() { return m_layerRef; }

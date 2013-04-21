@@ -13,8 +13,7 @@ class Pad
 {
 public:
   void initialize(QXmlStreamReader& xml, UnitsType units);
-  void odbOutputLayerFeature(
-      OdbFeatureFile& file, QString layerName, QString polarity);
+  void odbOutputLayerFeature(OdbFeatureFile& file, QString polarity);
 
 private:
   Xform *m_xform;

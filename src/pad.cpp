@@ -41,8 +41,7 @@ Pad::initialize(QXmlStreamReader& xml, UnitsType units)
 }
 
 void
-Pad::odbOutputLayerFeature(
-    OdbFeatureFile& file, QString layerName, QString polarity)
+Pad::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
 {
   // if the shape is a reference, find it in the list
   QString refId = m_standardShape->refId();
@@ -55,15 +54,6 @@ Pad::odbOutputLayerFeature(
   }
   else {
     throw new InvalidIdError(refId);
-  }
-
-  // find the layer by name
-  int layerIdx;
-  for (int i = 0; i < g_layers.size(); ++i) {
-    if (g_layers[i].name() == layerName) {
-      layerIdx = i;
-      break;
-    }
   }
 
   // call the shape to output

@@ -25,3 +25,35 @@ Hole::initialize(QXmlStreamReader& xml)
   m_location = QPointF(getDoubleAttribute(xml, "Hole", "x"),
                        getDoubleAttribute(xml, "Hole", "y"));
 }
+
+void
+Hole::odbOutputLayerFeature(OdbFeatureFile& file, QString polarity)
+{
+#if 0
+  // if the shape is a reference, find it in the list
+  QString refId = m_standardShape->refId();
+  StandardShape *s;
+  if (refId == "") {
+    s = m_standardShape;
+  }
+  else if (g_entryStandards.contains(refId)) {
+    s = g_entryStandards[refId];
+  }
+  else {
+    throw new InvalidIdError(refId);
+  }
+
+  // find the layer by name
+  int layerIdx;
+  for (int i = 0; i < g_layers.size(); ++i) {
+    if (g_layers[i].name() == layerName) {
+      layerIdx = i;
+      break;
+    }
+  }
+
+  // call the shape to output
+  s->odbOutputLayerFeature(file, polarity, m_location, m_xform);
+  file.featuresList().append("\n");
+#endif
+}

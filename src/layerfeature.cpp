@@ -21,9 +21,9 @@ LayerFeature::initialize(QXmlStreamReader& xml, UnitsType units)
 }
 
 void
-LayerFeature::odbOutputLayerFeature(OdbFeatureFile& file, QString layerName)
+LayerFeature::odbOutputLayerFeature(OdbFeatureFile& file)
 {
   for (int i = 0; i < m_sets.size(); ++i) {
-    m_sets[i].odbOutputLayerFeature(file, layerName);
+    m_sets[i].odbOutputLayerFeature(file);
   }
 }
