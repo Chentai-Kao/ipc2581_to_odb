@@ -1,0 +1,45 @@
+In IPC-2581, this appears in TOP (not BOTTOM).
+But in ODB, this appears in BOTTOM (not TOP).
+(similar thing happened in soldermask)
+
+Guess:
+sample IPC-2581 file not properly generated
+
+Proof:
+free 2581 viewer draw symbol at its layer, no matter what Component says
+(e.g. TOP may contain Component that itself says belongs to BOTTOM)
+
+Conclusion:
+If my guess is right, just draw symbols where it is defined
+
+Examples:
+  layer: top
+    (extra symbol)
+          <Set testPoint="FALSE" padUsage="NONE">
+            <Pad>
+              <Xform rotation="90.000" mirror="TRUE"/>
+              <Location x="3.373900" y="1.171900"/>
+              <StandardPrimitiveRef id="CIRCLE_20"/>
+              </Pad>
+            </Set>
+
+    (misplaced rod feature)
+          <Set net="BA15" testPoint="FALSE" padUsage="NONE">
+            <Pad>
+              <PinRef pin="A8" componentRef="IC29"/>
+              <Xform rotation="225.000"/>
+              <Location x="5.689000" y="7.622145"/>
+              <StandardPrimitiveRef id="SHAPE_LS240X50_SHAPE_SP"/>
+              </Pad>
+            </Set>
+
+  layer: gnd2
+    (extra symbol)
+          <Set net="GND" testPoint="FALSE" plate="TRUE" padUsage="NONE">
+            <Pad>
+              <PinRef pin="39" componentRef="CN15"/>
+              <Xform rotation="270.000" mirror="TRUE"/>
+              <Location x="3.551500" y="4.100000"/>
+              <StandardPrimitiveRef id="CIRCLE_23"/>
+              </Pad>
+            </Set>
