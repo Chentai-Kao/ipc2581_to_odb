@@ -34,6 +34,7 @@ private:
   void outputComponentLayer(
       QString stepName, QList<Component>& components, CompLayerSide side);
   void outputComponent(OdbComponentFile& file, Component& components);
+  void createFont(); // Job->fonts->standard
 
   // data members
   TopLevelHandler m_handler;

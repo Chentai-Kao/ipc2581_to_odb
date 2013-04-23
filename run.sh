@@ -21,9 +21,10 @@ for i in `ls "$src/steps/pcb/layers/"`; do
 done
 
 ##### copy the source code (for Windows build)
-codesrc="/home/cobra/ipc2581/src"
+codesrc="/home/cobra/ipc2581"
 codedes="/home/cobra/icons/VirtualBox VMs/shared folder/ipc2581"
-cp -r "$codesrc" "$codedes"
+cp "$codesrc/ipc2581.pro" "$codedes"
+cp -r "$codesrc/src" "$codedes"
 
 ##### compress ODB++ to .tgz
 cd "$des/.."

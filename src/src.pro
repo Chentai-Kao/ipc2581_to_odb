@@ -54,6 +54,7 @@ HEADERS += \
   stackup.h \
   stackupimpedance.h \
   stackuplayer.h \
+  standardfont.h \
   step.h \
   target.h \
   toplevelhandler.h \

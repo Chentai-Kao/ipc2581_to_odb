@@ -8,3 +8,4 @@ QMAKE_TARGET_DESCRIPTION = ""
 QMAKE_TARGET_COPYRIGHT = "Copyrights(c) 2013"
 
 SUBDIRS = src
+CONFIG += console

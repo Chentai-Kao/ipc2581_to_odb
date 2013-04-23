@@ -4,6 +4,7 @@
 #include "globals.h"
 #include "standardshape.h"
 #include "odbfeaturefile.h"
+#include "standardfont.h"
 
 Odb::Odb(TopLevelHandler& h, QString& dst)
 {
@@ -39,6 +40,7 @@ Odb::run()
   createLayerFeature();
   createAttrlists();
   createComponents();
+  createFont();
 }
 
 void
@@ -313,4 +315,15 @@ void
 Odb::outputComponent(OdbComponentFile& file, Component& components)
 {
   // TODO
+}
+
+void
+Odb::createFont()
+{
+  QFile file(m_odbRootPath + "fonts/standard");
+  file.open(QIODevice::WriteOnly | QIODevice::Text);
+  QTextStream out(&file);
+
+  // content predefined in "standardfont.h"
+  out << standardFont;
 }
