@@ -62,6 +62,8 @@ public:
   QString type();
   bool isTop() { return m_side == TOP; }
   bool isBottom() { return m_side == BOTTOM; }
+  QString spanFromLayer() { return (m_span)? m_span->fromLayer() : ""; }
+  QString spanToLayer() { return (m_span)? m_span->toLayer() : ""; }
 
 private:
   // member functions

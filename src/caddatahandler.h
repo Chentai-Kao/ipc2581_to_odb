@@ -23,7 +23,8 @@ public:
 
 private:
   void odbOutputLayer(QTextStream& out, int rowNum, QString context,
-      QString type, QString name, QString polarity);
+      QString type, QString name, QString polarity,
+      QString startName, QString endName);
   void odbOutputSingleLayer(QTextStream& out, int rowNum, Layer& layer);
 
   //QList<Layer> m_layers; // store in global variable 'g_layers' instead

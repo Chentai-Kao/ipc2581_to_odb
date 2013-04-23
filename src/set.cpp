@@ -129,21 +129,21 @@ Set::odbOutputLayerFeature(OdbFeatureFile& file)
 
   // TODO: m_attributes;
 
-  // TODO: m_pads;
+  // m_pads;
   for (int i = 0; i < m_pads.size(); ++i) {
     m_pads[i].odbOutputLayerFeature(file, polarity);
   }
 
   // TODO: m_fiducials;
 
-  // TODO: m_holes;
+  // m_holes;
   for (int i = 0; i < m_holes.size(); ++i) {
     m_holes[i].odbOutputLayerFeature(file, polarity);
   }
 
   // TODO: m_slots;
 
-  // TODO: m_featureses;
+  // m_featureses;
   for (int i = 0; i < m_featureses.size(); ++i) {
     m_featureses[i].odbOutputLayerFeature(file, polarity);
   }
