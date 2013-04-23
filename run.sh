@@ -7,7 +7,9 @@ src="/home/cobra/ipc2581/bin/odb"
 des="/home/cobra/icons/VirtualBox VMs/shared folder/test"
 # matrix file
 cp "$src/matrix/matrix" "$des/matrix/matrix"
-# feature file
+# feature file and attrlist
+cp "$src/steps/pcb/attrlist" "$des/steps/pcb/attrlist"
+cp "$src/steps/pcb/profile" "$des/steps/pcb/profile"
 for i in `ls "$src/steps/pcb/layers/"`; do
   if [ "$i" == "comp_+_bot" ] || [ "$i" == "comp_+_top" ]; then
     cp "$src/steps/pcb/layers/$i/components" \

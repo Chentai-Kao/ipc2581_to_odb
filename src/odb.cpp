@@ -35,10 +35,10 @@ Odb::run()
   createFileSystem();
   createMatrix();
   createStepLayerDirs();
+  createStepProfile();
   createLayerFeature();
   createAttrlists();
   createComponents();
-  // TODO
 }
 
 void
@@ -115,6 +115,29 @@ Odb::createStepLayerDirs()
     }
   }
   // TODO BOM??
+}
+
+void
+Odb::createStepProfile()
+{
+  for (int i = 0; i < m_allSteps.size(); ++i) {
+    OdbFeatureFile file;
+    m_handler.odbOutputStepProfile(file, m_allSteps[i]);
+
+    // open file
+    QString path = QString("steps/%1/profile").arg(m_allSteps[i].toLower());
+    QFile f(m_odbRootPath + path);
+    f.open(QIODevice::WriteOnly | QIODevice::Text);
+    QTextStream out(&f);
+
+    // output to file
+    out << "#\n";
+    out << "#Layer features\n";
+    out << "#\n";
+    for (int i = 0; i < file.featuresList().size(); ++i) {
+      out << file.featuresList()[i];
+    }
+  }
 }
 
 void

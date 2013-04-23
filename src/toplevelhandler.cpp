@@ -56,6 +56,12 @@ TopLevelHandler::odbOutputLayerFeature(
   m_ecadHandler.odbOutputLayerFeature(file, stepName, layerName);
 }
 
+void
+TopLevelHandler::odbOutputStepProfile(OdbFeatureFile& file, QString stepName)
+{
+  m_ecadHandler.odbOutputStepProfile(file, stepName);
+}
+
 bool
 TopLevelHandler::checkDocumentVersionEncoding(
     QStringRef version, QStringRef encoding)

@@ -16,6 +16,7 @@ public:
   void odbOutputMatrixAllLayers(QTextStream& out);
   void odbOutputLayerFeature(
       OdbFeatureFile& file, QString stepName, QString layerName);
+  void odbOutputStepProfile(OdbFeatureFile& file, QString stepName);
 
   // getter
   QList<Layer>& layers() { return g_layers; }

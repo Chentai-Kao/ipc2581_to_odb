@@ -33,3 +33,9 @@ EcadHandler::odbOutputLayerFeature(
 {
   m_cadDataHandler.odbOutputLayerFeature(file, stepName, layerName);
 }
+
+void
+EcadHandler::odbOutputStepProfile(OdbFeatureFile& file, QString stepName)
+{
+  m_cadDataHandler.odbOutputStepProfile(file, stepName);
+}

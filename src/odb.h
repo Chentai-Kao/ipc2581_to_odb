@@ -19,6 +19,7 @@ private:
   void createFileSystem(); // Job->xxx
   void createMatrix(); // Job->matrix->matrix
   void createStepLayerDirs(); // (create dirs) Job->step->layers->xxx
+  void createStepProfile(); // Job->steps->xxx->profile
   void createLayerFeature(); // Job->steps->xxx->layers->yyy->features
   // create all attrlists (job, step, layer)
   //   job   -- Job->misc->attrlist

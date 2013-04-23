@@ -120,6 +120,18 @@ CadDataHandler::odbOutputLayerFeature(
   }
 }
 
+void
+CadDataHandler::odbOutputStepProfile(OdbFeatureFile& file, QString stepName)
+{
+  // find the step, and let it draw
+  for (int i = 0; i < m_steps.size(); ++i) {
+    if (m_steps[i].name() == stepName) {
+      m_steps[i].odbOutputStepProfile(file);
+      break;
+    }
+  }
+}
+
 QList<Component>&
 CadDataHandler::components(QString stepName)
 {

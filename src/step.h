@@ -17,6 +17,7 @@ class Step
 public:
   void initialize(QXmlStreamReader& xml, UnitsType units);
   void odbOutputLayerFeature(OdbFeatureFile& file, const QString layerName);
+  void odbOutputStepProfile(OdbFeatureFile& file);
 
   // getter
   QString name() { return m_name; }
