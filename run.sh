@@ -17,11 +17,12 @@ for i in `ls "$src/steps/pcb/layers/"`; do
   fi
   cp "$src/steps/pcb/layers/$i/attrlist" "$des/steps/pcb/layers/$i/attrlist"
 done
-#cp "$src/steps/pcb/layers/top/features" "$des/test/steps/pcb/layers/top/features"
 
-# compress ODB++ to .tgz
+##### copy the source code (for Windows build)
+codesrc="/home/cobra/ipc2581/src"
+codedes="/home/cobra/icons/VirtualBox VMs/shared folder/ipc2581"
+cp -r "$codesrc" "$codedes"
+
+##### compress ODB++ to .tgz
 cd "$des/.."
 tar zcvf test.tgz test/* >/dev/null
-
-# copy IPC-2581 file for viewing
-cp ~/ipc2581/test.xml "$des"
