@@ -20,6 +20,7 @@ private:
   void createMatrix(); // Job->matrix->matrix
   void createStepLayerDirs(); // (create dirs) Job->step->layers->xxx
   void createStepProfile(); // Job->steps->xxx->profile
+  void createStepHeader(); // Job->steps->xxx->stephdr
   void createLayerFeature(); // Job->steps->xxx->layers->yyy->features
   // create all attrlists (job, step, layer)
   //   job   -- Job->misc->attrlist
