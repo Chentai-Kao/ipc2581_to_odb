@@ -143,6 +143,17 @@ CadDataHandler::components(QString stepName)
   throw new ProgramLogicError("CadDataHandler::components()");
 }
 
+Step&
+CadDataHandler::step(QString stepName)
+{
+  for (int i = 0; i < m_steps.size(); ++i) {
+    if (m_steps[i].name() == stepName) {
+      return m_steps[i];
+    }
+  }
+  throw new ProgramLogicError("CadDataHandler::step()\n");
+}
+
 void
 CadDataHandler::odbOutputLayer(QTextStream& out, int rowNum, QString context,
     QString type, QString name, QString polarity,

@@ -19,13 +19,20 @@ for i in `ls "$src/steps/pcb/layers/"`; do
   fi
   cp "$src/steps/pcb/layers/$i/attrlist" "$des/steps/pcb/layers/$i/attrlist"
 done
+# compress ODB++ to .tgz
+cd "$des/.."
+tar zcvf test.tgz test/* >/dev/null
+
+##### copy the raw output (to see if it is correct by its own)
+des2="/home/cobra/icons/VirtualBox VMs/shared folder/test2"
+rm -rf "$des2"
+cp -r "$src" "$des2"
+# compress ODB++ to .tgz
+cd "$des2/.."
+tar zcvf test2.tgz test2/* >/dev/null
 
 ##### copy the source code (for Windows build)
 codesrc="/home/cobra/ipc2581"
 codedes="/home/cobra/icons/VirtualBox VMs/shared folder/ipc2581"
 cp "$codesrc/ipc2581.pro" "$codedes"
 cp -r "$codesrc/src" "$codedes"
-
-##### compress ODB++ to .tgz
-cd "$des/.."
-tar zcvf test.tgz test/* >/dev/null

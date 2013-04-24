@@ -33,8 +33,9 @@ Step::initialize(QXmlStreamReader& xml, UnitsType units)
         m_profile.initialize(xml, units);
       }
       else if (xml.name() == "StepRepeat") {
-// TODO skipped
-        //throw new NonImplementedError("StepRepeat");
+        StepRepeat s;
+        s.initialize(xml);
+        m_stepRepeats.append(s);
       }
       else if (xml.name() == "Package") {
         Package package;

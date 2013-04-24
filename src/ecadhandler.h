@@ -5,6 +5,7 @@
 #include "cadheaderhandler.h"
 #include "caddatahandler.h"
 #include "odbfeaturefile.h"
+#include "step.h"
 
 class EcadHandler
 {
@@ -19,6 +20,7 @@ public:
   QList<Component>& components(QString stepName) {
     return m_cadDataHandler.components(stepName);
   }
+  Step& step(QString stepName) { return m_cadDataHandler.step(stepName); }
 
 private:
   QString m_name; // attribute "name" of <Ecad>

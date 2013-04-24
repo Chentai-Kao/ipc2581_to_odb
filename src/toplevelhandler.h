@@ -9,6 +9,7 @@
 #include "ecadhandler.h"
 #include "avlhandler.h"
 #include "odbfeaturefile.h"
+#include "step.h"
 
 class TopLevelHandler
 {
@@ -25,6 +26,7 @@ public:
   QList<Component>& components(QString stepName) {
     return m_ecadHandler.components(stepName);
   }
+  Step& step(QString stepName) { return m_ecadHandler.step(stepName); }
 
 private:
   // member functions

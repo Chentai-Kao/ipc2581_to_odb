@@ -56,6 +56,7 @@ HEADERS += \
   stackuplayer.h \
   standardfont.h \
   step.h \
+  steprepeat.h \
   target.h \
   toplevelhandler.h \
   utils.h \
@@ -99,6 +100,7 @@ SOURCES += \
   stackupimpedance.cpp \
   stackuplayer.cpp \
   step.cpp \
+  steprepeat.cpp \
   target.cpp \
   toplevelhandler.cpp \
   utils.cpp \

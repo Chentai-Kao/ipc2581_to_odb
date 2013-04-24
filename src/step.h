@@ -3,6 +3,7 @@
 
 #include <QtCore>
 #include "contour.h"
+#include "steprepeat.h"
 #include "package.h"
 #include "component.h"
 #include "logicalnet.h"
@@ -22,12 +23,15 @@ public:
   // getter
   QString name() { return m_name; }
   QList<Component>& components() { return m_components; }
+  QPointF datum() { return m_datum; }
+  QList<StepRepeat>& stepRepeats() { return m_stepRepeats; }
 
 private:
   QString m_name;
   QList<Attribute*> m_attributes;
   QPointF m_datum; // (x,y)
   Contour m_profile;
+  QList<StepRepeat> m_stepRepeats;
   QList<Package> m_packages;
   QList<Component> m_components;
   QList<LogicalNet> m_logicalNets;

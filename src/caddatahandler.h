@@ -21,6 +21,7 @@ public:
   // getter
   QList<Layer>& layers() { return g_layers; }
   QList<Component>& components(QString stepName);
+  Step& step(QString stepName);
 
 private:
   void odbOutputLayer(QTextStream& out, int rowNum, QString context,

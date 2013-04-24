@@ -5,6 +5,7 @@
 #include "standardshape.h"
 #include "odbfeaturefile.h"
 #include "standardfont.h"
+#include "steprepeat.h"
 
 Odb::Odb(TopLevelHandler& h, QString& dst)
 {
@@ -124,6 +125,7 @@ void
 Odb::createStepProfile()
 {
   for (int i = 0; i < m_allSteps.size(); ++i) {
+    // draw the profile
     OdbFeatureFile file;
     m_handler.odbOutputStepProfile(file, m_allSteps[i]);
 
@@ -152,7 +154,47 @@ Odb::createStepHeader()
     file.open(QIODevice::WriteOnly | QIODevice::Text);
     QTextStream out(&file);
 
-    // TODO (empty stephdr)
+    Step& step = m_handler.step(m_allSteps[i]);
+    // datum, origin
+    out << QString("X_DATUM=%1\n").arg(step.datum().x());
+    out << QString("Y_DATUM=%1\n").arg(step.datum().y());
+    out << QString("X_ORIGIN=%1\n").arg(0);
+    out << QString("Y_ORIGIN=%1\n").arg(0);
+    out << QString("\n");
+
+    // step-repeat
+    for (int i = 0; i < step.stepRepeats().size(); ++i) {
+      StepRepeat& s = step.stepRepeats()[i];
+      out << QString("STEP-REPEAT {\n");
+      out << QString("  NAME=%1\n").arg(s.stepRef());
+      out << QString("  X=%1\n").arg(s.x());
+      out << QString("  Y=%1\n").arg(s.y());
+      out << QString("  DX=%1\n").arg(s.dx());
+      out << QString("  DY=%1\n").arg(s.dy());
+      out << QString("  NX=%1\n").arg(s.nx());
+      out << QString("  NY=%1\n").arg(s.ny());
+      out << QString("  ANGLE=%1\n").arg(s.angle());
+      out << QString("  MIRROR=%1\n").arg(s.mirror()? "YES" : "NO");
+      out << QString("}\n");
+      out << QString("\n");
+    }
+
+    // remaining part
+    out << QString("TOP_ACTIVE=%1\n").arg(0);
+    out << QString("BOTTOM_ACTIVE=%1\n").arg(0);
+    out << QString("RIGHT_ACTIVE=%1\n").arg(0);
+    out << QString("LEFT_ACTIVE=%1\n").arg(0);
+    out << QString("ONLINE_DRC_NAME=\n");
+    out << QString("ONLINE_DRC_MODE=%1\n").arg("DISABLED");
+    out << QString("ONLINE_DRC_STAT=%1\n").arg("RED");
+    out << QString("ONLINE_DRC_TIME=%1\n").arg(0);
+    out << QString("ONLINE_DRC_BEEP_VOL=%1\n").arg(2);
+    out << QString("ONLINE_DRC_BEEP_TONE=%1\n").arg(500);
+    out << QString("ONLINE_NET_MODE=%1\n").arg("DISABLED");
+    out << QString("ONLINE_NET_STAT=%1\n").arg("RED");
+    out << QString("ONLINE_NET_TIME=%1\n").arg(0);
+    out << QString("ONLINE_NET_BEEP_VOL=%1\n").arg(2);
+    out << QString("ONLINE_NET_BEEP_TONE=%1\n").arg(500);
   }
 }
 
