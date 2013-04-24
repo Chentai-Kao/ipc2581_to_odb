@@ -1,6 +1,6 @@
 #!/bin/sh
 
-qmake && make -j4 && bin/ipc2581 -i test_case1.xml -o bin/odb -y
+qmake && make -j4 && bin/ipc2581 -i test_case1.xml -o bin\odb -y
 
 ##### update the output "features"
 src="/home/cobra/ipc2581/bin/odb"
@@ -25,8 +25,8 @@ tar zcvf test.tgz test/* >/dev/null
 
 ##### copy the raw output (to see if it is correct by its own)
 des2="/home/cobra/icons/VirtualBox VMs/shared folder/test2"
-rm -rf "$des2"
-cp -r "$src" "$des2"
+rm -rf "$des2"/*
+cp -r "$src"/* "$des2"
 # compress ODB++ to .tgz
 cd "$des2/.."
 tar zcvf test2.tgz test2/* >/dev/null

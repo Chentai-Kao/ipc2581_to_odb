@@ -1,5 +1,4 @@
 #include <QtCore>
-#include <unistd.h>
 
 #include "error.h"
 #include "odb.h"
@@ -16,28 +15,29 @@ int main(int argc, char *argv[])
     g_alwaysOverwrite = false;
     bool showHelpMsg = false;
     QString src, dst; // input IPC-2581 file; output path
-    int opt;
-    while ((opt = getopt(argc, argv, "hi:o:y")) != -1) {
-      switch(opt) {
-        case 'h':
-          showHelpMsg = true;
-          break;
-        case 'i':
-          src = optarg;
-          break;
-        case 'o':
-          dst = optarg;
-          break;
-        case 'y':
-          g_alwaysOverwrite = true;
-          break;
-        case '?':
-        default:
-          throw new MissingCmdLineArgError(optopt);
-          break;
+    QCoreApplication app(argc, argv);
+    QStringList args = app.arguments();
+    for (int i = 1; i < args.size(); ++i) {
+      if (args[i] == "-h") {
+        showHelpMsg = true;
+      }
+      else if (args[i] == "-i" && i + 1 < args.size()) {
+        src = args[i + 1];
+        ++i;
+      }
+      else if (args[i] == "-o" && i + 1 < args.size()) {
+        dst = args[i + 1];
+        ++i;
+      }
+      else if (args[i] == "-y") {
+        g_alwaysOverwrite = true;
+      }
+      else {
+        qDebug() << "Invalid argument " << args[i].toAscii().data() << "\n";
       }
     }
 
+    /* Show help message, or convert the IPC-2581 file. */
     if (showHelpMsg) {
       printf("Usage:\n"
              "Print this help:\n"
