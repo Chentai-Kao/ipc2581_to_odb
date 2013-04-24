@@ -12,6 +12,7 @@ public:
   virtual void odbOutputLayerFeature(
       OdbFeatureFile& file, QString polarity,
       QPointF location, Xform *xform);
+  void odbOutputProfile(OdbFeatureFile& file);
   void addCutout() {
     Polygon c;
     m_cutouts.append(c);

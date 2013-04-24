@@ -96,6 +96,6 @@ Step::odbOutputLayerFeature(OdbFeatureFile& file, const QString layerName)
 void
 Step::odbOutputStepProfile(OdbFeatureFile& file)
 {
-  m_profile.odbOutputLayerFeature(file, "P", QPointF(0, 0), NULL);
+  m_profile.odbOutputProfile(file);
   file.featuresList().append("\n");
 }

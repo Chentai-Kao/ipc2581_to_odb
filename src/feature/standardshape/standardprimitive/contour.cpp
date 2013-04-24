@@ -38,3 +38,12 @@ Contour::odbOutputLayerFeature(
   }
   file.featuresList().append(QString("SE\n"));
 }
+
+void
+Contour::odbOutputProfile(OdbFeatureFile& file)
+{
+  file.featuresList().append(QString("S %1 0\n").arg("P"));
+  // output island only
+  m_polygon.odbOutputLayerFeature(file, QPointF(0, 0), NULL, POLYGON);
+  file.featuresList().append(QString("SE\n"));
+}
