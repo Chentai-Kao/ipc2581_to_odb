@@ -21,11 +21,17 @@ int main(int argc, char *argv[])
       if (args[i] == "-h") {
         showHelpMsg = true;
       }
-      else if (args[i] == "-i" && i + 1 < args.size()) {
+      else if (args[i] == "-i") {
+        if (i + 1 >= args.size()) {
+          throw new MissingCmdLineArgError("-i");
+        }
         src = args[i + 1];
         ++i;
       }
-      else if (args[i] == "-o" && i + 1 < args.size()) {
+      else if (args[i] == "-o") {
+        if (i + 1 >= args.size()) {
+          throw new MissingCmdLineArgError("-o");
+        }
         dst = args[i + 1];
         ++i;
       }
@@ -33,7 +39,7 @@ int main(int argc, char *argv[])
         g_alwaysOverwrite = true;
       }
       else {
-        qDebug() << "Invalid argument " << args[i].toAscii().data() << "\n";
+        throw new MissingCmdLineArgError(args[i]);
       }
     }
 

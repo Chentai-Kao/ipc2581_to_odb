@@ -107,7 +107,7 @@ private:
 class MissingCmdLineArgError : public Error
 {
 public:
-  MissingCmdLineArgError(int o) : m_opt(o) {}
+  MissingCmdLineArgError(QString o) : m_opt(o) {}
   virtual void info() {
     qDebug() << QString("ERROR** Missing or unknown argument \"%1\"")
                         .arg(m_opt);
