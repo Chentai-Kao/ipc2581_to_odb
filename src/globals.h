@@ -24,7 +24,4 @@ extern QMap<QString, OdbFeatureFile> g_layerFeatureFiles;
 /* All layers */
 extern QList<Layer> g_layers;
 
-/* Always overwrite the output path */
-extern bool g_alwaysOverwrite;
-
 #endif

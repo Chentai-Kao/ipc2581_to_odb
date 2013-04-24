@@ -10,21 +10,11 @@
 Odb::Odb(TopLevelHandler& h, QString& dst)
 {
   m_handler = h;
-
-  // handle the output path
-  if (QFile(dst).exists() && !g_alwaysOverwrite) {
-    printf("Output path exists. Do you want to overwrite? [Y/n] ");
-    char c = getc(stdin);
-    if (c == 'N' || c == 'n') {
-      printf("Canceled by user.\n");
-      exit(0);
-    }
+  m_odbRootPath = ODB_ROOT_PATH;
+  m_outFilePath = dst;
+  if (!m_outFilePath.endsWith(".tgz")) { // make sure it's something.tgz
+    m_outFilePath.append(".tgz");
   }
-  if (!dst.endsWith("/")) { // make sure the path ends with '/'
-    dst.append("/");
-  }
-  m_odbRootPath = dst;
-
   m_allSteps = m_handler.allSteps();
   m_allLayers = m_handler.allLayers();
   m_allLayers.append(COMP_BOT_NAME); // comp_+_bot
@@ -43,6 +33,7 @@ Odb::run()
   createAttrlists();
   createComponents();
   createFont();
+  createOutputFile();
 }
 
 void
@@ -382,4 +373,42 @@ Odb::createFont()
 
   // content predefined in "standardfont.h"
   out << standardFont;
+}
+
+void
+Odb::createOutputFile()
+{
+  QProcess exec;
+  exec.setWorkingDirectory(ODB_ROOT_PATH); // "bin/odb/"
+
+  // get the file list
+#if defined Q_OS_LINUX
+  execCmd(exec, "ls");
+#elif defined Q_OS_WIN32
+  execCmd(exec, "dir /b");
+#endif
+  QString files = exec.readAllStandardOutput();
+
+  // compress the .tgz file
+#if defined Q_OS_LINUX
+  execCmd(exec, QString("tar zcvf %1 %2").arg(m_outFilePath).arg(files));
+#elif defined Q_OS_WIN32
+  QString tarName = m_outFilePath.append(".tar");
+  execCmd(exec, QString("..\\7z.exe a %1 %2").arg(tarName).arg(files));
+  execCmd(exec, QString("..\\7z.exe a %1 %2").arg(m_outFilePath).arg(tarName));
+#endif
+
+  // mv the .tgz file to current directory
+#if defined Q_OS_LINUX
+  execCmd(exec, QString("mv %1 ../..").arg(m_outFilePath));
+#elif defined Q_OS_WIN32
+  execCmd(exec, QString("move %1 ..\\..").arg(m_outFilePath));
+#endif
+}
+
+void
+Odb::execCmd(QProcess& exec, QString cmd)
+{
+  exec.start(cmd);
+  exec.waitForFinished();
 }

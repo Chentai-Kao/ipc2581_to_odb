@@ -6,6 +6,8 @@
 #include "component.h"
 #include "odbcomponentfile.h"
 
+#define ODB_ROOT_PATH "bin/odb/"
+
 class Odb
 {
 public:
@@ -36,11 +38,14 @@ private:
       QString stepName, QList<Component>& components, CompLayerSide side);
   void outputComponent(OdbComponentFile& file, Component& components);
   void createFont(); // Job->fonts->standard
+  void createOutputFile(); // call shell to compress to xxx.tgz
+  void execCmd(QProcess& exec, QString cmd); // call shell to execute command
 
   // data members
   TopLevelHandler m_handler;
   QDir            m_dir;
   QString         m_odbRootPath;
+  QString         m_outFilePath;
   QList<QString>  m_allSteps;
   QList<QString>  m_allLayers;
 };

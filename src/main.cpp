@@ -12,72 +12,37 @@ int main(int argc, char *argv[])
     qDebug("----- Program starts -----");
 
     /* parse arguments, set input/output path */
-    g_alwaysOverwrite = false;
-    bool showHelpMsg = false;
-    QString src, dst; // input IPC-2581 file; output path
-    QCoreApplication app(argc, argv);
-    QStringList args = app.arguments();
-    for (int i = 1; i < args.size(); ++i) {
-      if (args[i] == "-h") {
-        showHelpMsg = true;
-      }
-      else if (args[i] == "-i") {
-        if (i + 1 >= args.size()) {
-          throw new MissingCmdLineArgError("-i");
-        }
-        src = args[i + 1];
-        ++i;
-      }
-      else if (args[i] == "-o") {
-        if (i + 1 >= args.size()) {
-          throw new MissingCmdLineArgError("-o");
-        }
-        dst = args[i + 1];
-        ++i;
-      }
-      else if (args[i] == "-y") {
-        g_alwaysOverwrite = true;
-      }
-      else {
-        throw new MissingCmdLineArgError(args[i]);
-      }
+    if (argc != 3) {
+      printf("Usage: ipc2581.exe src.xml dst.tgz\n"
+             "Convert IPC-2581 file \'src.xml\' to ODB++ file \'dst.tgz\'\n");
+      throw new MissingCmdLineArgError("");
     }
 
-    /* Show help message, or convert the IPC-2581 file. */
-    if (showHelpMsg) {
-      printf("Usage:\n"
-             "Print this help:\n"
-             "  bin/ipc2581 -h\n"
-             "\n"
-             "Convert IPC-2581 file \"src\" to ODB++ file \"dst\":\n"
-             "  bin/ipc2581 -i src -o dst\n"
-             "  (Example) bin/ipc2581 -i sample.xml -o odb\n"
-             "\n"
-             "If want to overwrite output path without confirmation, add -y\n"
-             "  (Example) bin/ipc2581 -i sample.xml -o odb -y\n");
-    }
-    else {
-      /* Open file */
-      QFile file(src);
-      if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        throw new InvalidFileError(src);
-      }
+    /* Input file name */
+    QString src = argv[1];
+    QString dst = argv[2];
 
-      /* Read XML */
-      qDebug("----- Parse XML starts -----");
-      QXmlStreamReader xml(&file);
-      TopLevelHandler h;
-      h.run(xml);
-
-      qDebug("----- Parse XML ends -----");
-      
-      /* Output to ODB file system */
-      qDebug("----- ODB starts -----");
-      Odb(h, dst).run();
-      qDebug("----- ODB ends -----");
+    /* Open file */
+    QFile file(src);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+      throw new InvalidFileError(src);
     }
+
+    /* Read XML */
+    qDebug("----- Parse XML starts -----");
+    QXmlStreamReader xml(&file);
+    TopLevelHandler h;
+    h.run(xml);
+
+    qDebug("----- Parse XML ends -----");
+    
+    /* Output to ODB file system */
+    qDebug("----- ODB starts -----");
+    Odb(h, dst).run();
+    qDebug("----- ODB ends -----");
   } catch (Error *e) {
     e->info();
     delete e;
+    exit(1);
   }
 }

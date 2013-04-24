@@ -12,5 +12,3 @@ QHash<QString, LineDesc>           g_entryLineDescs;
 QMap<QString, OdbFeatureFile> g_layerFeatureFiles;
 
 QList<Layer> g_layers;
-
-bool g_alwaysOverwrite;

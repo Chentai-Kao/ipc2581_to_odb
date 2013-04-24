@@ -1,6 +1,6 @@
 #!/bin/sh
 
-qmake && make -j4 && bin/ipc2581 -i test_case1.xml -o bin/odb -y
+qmake && make -j4 && bin/ipc2581 test_case1.xml test_case1.tgz
 
 ##### update the output "features"
 src="/home/cobra/ipc2581/bin/odb"
