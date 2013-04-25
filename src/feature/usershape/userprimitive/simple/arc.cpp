@@ -56,7 +56,7 @@ Arc::odbOutputLayerFeature(
   if (xform) { // apply scale if needed
     lw *= xform->scale();
   }
-  QString symbol = QString("r%1").arg(lw);
+  QString symbol = QString("r%1").arg(ROUND(lw));
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
 
   // determine the path
@@ -69,12 +69,12 @@ Arc::odbOutputLayerFeature(
     cw = !cw;
   }
   file.featuresList().append(QString("A %1 %2 %3 %4 %5 %6 %7 %8 0 %9\n")
-                             .arg(location.x() + newStart.x())
-                             .arg(location.y() + newStart.y())
-                             .arg(location.x() + newEnd.x())
-                             .arg(location.y() + newEnd.y())
-                             .arg(location.x() + newCenter.x())
-                             .arg(location.y() + newCenter.y())
+                             .arg(saveQreal(location.x() + newStart.x()))
+                             .arg(saveQreal(location.y() + newStart.y()))
+                             .arg(saveQreal(location.x() + newEnd.x()))
+                             .arg(saveQreal(location.y() + newEnd.y()))
+                             .arg(saveQreal(location.x() + newCenter.x()))
+                             .arg(saveQreal(location.y() + newCenter.y()))
                              .arg(symNum)
                              .arg(polarity)
                              .arg(cw? "Y" : "N"));

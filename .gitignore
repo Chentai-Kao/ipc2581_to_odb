@@ -8,3 +8,4 @@ bin/*
 samples/*
 testcase1
 spec/drawing ellipses.pdf
+*.tgz

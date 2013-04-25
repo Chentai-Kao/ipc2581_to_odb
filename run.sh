@@ -35,4 +35,6 @@ tar zcvf test2.tgz test2/* >/dev/null
 codesrc="/home/cobra/ipc2581"
 codedes="/home/cobra/icons/VirtualBox VMs/shared folder/ipc2581"
 cp "$codesrc/ipc2581.pro" "$codedes"
-cp -r "$codesrc/src" "$codedes"
+cp "$codesrc/src/main.cpp" "$codedes/src"
+cp "$codesrc/src/odb.h" "$codedes/src"
+cp "$codesrc/src/odb.cpp" "$codedes/src"

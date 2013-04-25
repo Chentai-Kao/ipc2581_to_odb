@@ -393,7 +393,7 @@ Odb::createOutputFile()
 #if defined Q_OS_LINUX
   execCmd(exec, QString("tar zcvf %1 %2").arg(m_outFilePath).arg(files));
 #elif defined Q_OS_WIN32
-  QString tarName = m_outFilePath.append(".tar");
+  QString tarName = m_outFilePath + ".tar";
   execCmd(exec, QString("..\\7z.exe a %1 %2").arg(tarName).arg(files));
   execCmd(exec, QString("..\\7z.exe a %1 %2").arg(m_outFilePath).arg(tarName));
 #endif
@@ -402,6 +402,7 @@ Odb::createOutputFile()
 #if defined Q_OS_LINUX
   execCmd(exec, QString("mv %1 ../..").arg(m_outFilePath));
 #elif defined Q_OS_WIN32
+  execCmd(exec, QString("del %1").arg(tarName));
   execCmd(exec, QString("move %1 ..\\..").arg(m_outFilePath));
 #endif
 }
@@ -409,6 +410,9 @@ Odb::createOutputFile()
 void
 Odb::execCmd(QProcess& exec, QString cmd)
 {
+#if defined Q_OS_WIN32
+  cmd.prepend(WIN_CMD_EXE_PATH);
+#endif
   exec.start(cmd);
   exec.waitForFinished();
 }

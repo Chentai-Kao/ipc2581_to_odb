@@ -7,6 +7,7 @@
 #include "odbcomponentfile.h"
 
 #define ODB_ROOT_PATH "bin/odb/"
+#define WIN_CMD_EXE_PATH "C:\\WINDOWS\\system32\\cmd.exe /c "
 
 class Odb
 {

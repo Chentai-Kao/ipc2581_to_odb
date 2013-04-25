@@ -54,17 +54,17 @@ Line::odbOutputLayerFeature(
   }
   QString symbol = QString("%1%2") // square (e.g. s5) or round (e.g. r2)
                            .arg(l->endType())
-                           .arg(lw);
+                           .arg(ROUND(lw));
   int symNum = odbInsertSymbol(symbol, file.symbolsTable());
 
   // determine the path
   QPointF newStart = applyXform(xform, m_start);
   QPointF newEnd   = applyXform(xform, m_end);
   file.featuresList().append(QString("L %1 %2 %3 %4 %5 %6 0\n")
-                             .arg(location.x() + newStart.x())
-                             .arg(location.y() + newStart.y())
-                             .arg(location.x() + newEnd.x())
-                             .arg(location.y() + newEnd.y())
+                             .arg(saveQreal(location.x() + newStart.x()))
+                             .arg(saveQreal(location.y() + newStart.y()))
+                             .arg(saveQreal(location.x() + newEnd.x()))
+                             .arg(saveQreal(location.y() + newEnd.y()))
                              .arg(symNum)
                              .arg(polarity));
 }
