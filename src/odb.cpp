@@ -7,11 +7,13 @@
 #include "standardfont.h"
 #include "steprepeat.h"
 
-Odb::Odb(TopLevelHandler& h, QString& dst)
+Odb::Odb(TopLevelHandler& h, QString& dst, QString appDirPath)
 {
   m_handler = h;
-  m_odbRootPath = ODB_ROOT_PATH;
+  m_jobName = "odb";
+  m_odbRootPath = addEndDel(QDir::tempPath()) + m_jobName + PATH_DELIMITER;
   m_outFilePath = dst;
+  m_appDirPath = addEndDel(appDirPath);
   if (!m_outFilePath.endsWith(".tgz")) { // make sure it's something.tgz
     m_outFilePath.append(".tgz");
   }
@@ -379,31 +381,36 @@ void
 Odb::createOutputFile()
 {
   QProcess exec;
-  exec.setWorkingDirectory(ODB_ROOT_PATH); // "bin/odb/"
-
-  // get the file list
-#if defined Q_OS_LINUX
-  execCmd(exec, "ls");
-#elif defined Q_OS_WIN32
-  execCmd(exec, "dir /b");
-#endif
-  QString files = exec.readAllStandardOutput();
+  exec.setWorkingDirectory(m_odbRootPath + "..");
 
   // compress the .tgz file
+  QString tmpTarName = "out.tar";
+  QString tmpTgzName = "out.tgz";
+
 #if defined Q_OS_LINUX
-  execCmd(exec, QString("tar zcvf %1 %2").arg(m_outFilePath).arg(files));
+  execCmd(exec, QString("tar zcvf %1 %2").arg(tmpTgzName).arg(m_jobName));
 #elif defined Q_OS_WIN32
-  QString tarName = m_outFilePath + ".tar";
-  execCmd(exec, QString("..\\7z.exe a %1 %2").arg(tarName).arg(files));
-  execCmd(exec, QString("..\\7z.exe a %1 %2").arg(m_outFilePath).arg(tarName));
+  execCmd(exec, QString("%1 a %2 %3")
+                        .arg(m_appDirPath + "7z.exe")
+                        .arg(tmpTarName)
+                        .arg(m_jobName));
+  execCmd(exec, QString("%1 a %2 %3")
+                        .arg(m_appDirPath + "7z.exe")
+                        .arg(tmpTgzName)
+                        .arg(tmpTarName));
+  execCmd(exec, QString("del %1").arg(tmpTarName));
 #endif
 
   // mv the .tgz file to current directory
+  QString currentPath = addEndDel(QDir::currentPath());
 #if defined Q_OS_LINUX
-  execCmd(exec, QString("mv %1 ../..").arg(m_outFilePath));
+  execCmd(exec, QString("mv %1 %2")
+                        .arg(tmpTgzName)
+                        .arg(currentPath + m_outFilePath));
 #elif defined Q_OS_WIN32
-  execCmd(exec, QString("del %1").arg(tarName));
-  execCmd(exec, QString("move %1 ..\\..").arg(m_outFilePath));
+  execCmd(exec, QString("move %1 %2")
+                        .arg(tmpTgzName)
+                        .arg(currentPath + m_outFilePath));
 #endif
 }
 
@@ -415,4 +422,13 @@ Odb::execCmd(QProcess& exec, QString cmd)
 #endif
   exec.start(cmd);
   exec.waitForFinished();
+}
+
+QString
+Odb::addEndDel(QString path)
+{
+  if (!path.endsWith(PATH_DELIMITER)) {
+    path.append(PATH_DELIMITER);
+  }
+  return path;
 }

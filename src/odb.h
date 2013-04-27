@@ -6,13 +6,18 @@
 #include "component.h"
 #include "odbcomponentfile.h"
 
-#define ODB_ROOT_PATH "bin/odb/"
 #define WIN_CMD_EXE_PATH "C:\\WINDOWS\\system32\\cmd.exe /c "
+
+#if defined Q_OS_LINUX
+  #define PATH_DELIMITER "/"
+#elif defined Q_OS_WIN32
+  #define PATH_DELIMITER "\\"
+#endif
 
 class Odb
 {
 public:
-  Odb(TopLevelHandler& h, QString& dst);
+  Odb(TopLevelHandler& h, QString& dst, QString appDirPath);
   void run();
 
 private:
@@ -41,12 +46,15 @@ private:
   void createFont(); // Job->fonts->standard
   void createOutputFile(); // call shell to compress to xxx.tgz
   void execCmd(QProcess& exec, QString cmd); // call shell to execute command
+  QString addEndDel(QString path); // ensure path ends with delimeter '/'
 
   // data members
   TopLevelHandler m_handler;
-  QDir            m_dir;
+  QDir            m_dir; // the root dir to create ODB file system
+  QString         m_jobName;
   QString         m_odbRootPath;
   QString         m_outFilePath;
+  QString         m_appDirPath;
   QList<QString>  m_allSteps;
   QList<QString>  m_allLayers;
 };

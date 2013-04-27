@@ -38,7 +38,8 @@ int main(int argc, char *argv[])
     
     /* Output to ODB file system */
     qDebug("----- ODB starts -----");
-    Odb(h, dst).run();
+    QCoreApplication app(argc, argv);
+    Odb(h, dst, app.applicationDirPath()).run();
     qDebug("----- ODB ends -----");
   } catch (Error *e) {
     e->info();

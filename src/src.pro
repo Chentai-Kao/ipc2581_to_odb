@@ -108,7 +108,7 @@ SOURCES += \
 
 INCLUDEPATH += . .build attribute colorgroup feature fiducial linedescgroup polystep
 
-CONFIG += debug
+CONFIG += release
 CONFIG += console
 
 DESTDIR = ../bin
