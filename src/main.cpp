@@ -8,6 +8,7 @@
 
 int main(int argc, char *argv[])
 {
+  QXmlStreamReader *xml;
   try {
     /* parse arguments, set input/output path */
     if (argc != 2 && argc != 3) {
@@ -41,15 +42,18 @@ int main(int argc, char *argv[])
     }
 
     /* Read XML */
-    QXmlStreamReader xml(&file);
+    xml = new QXmlStreamReader(&file);
     TopLevelHandler h;
-    h.run(xml);
+    h.run(*xml);
 
     /* Output to ODB file system */
     QCoreApplication app(argc, argv);
     Odb(h, dst, jobName, app.applicationDirPath()).run();
   } catch (Error *e) {
     e->info();
+    qDebug() << QString("at line:%1, column:%2")
+                        .arg(xml->lineNumber())
+                        .arg(xml->columnNumber());
     delete e;
     exit(1);
   }
