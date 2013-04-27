@@ -17,7 +17,7 @@
 class Odb
 {
 public:
-  Odb(TopLevelHandler& h, QString& dst, QString appDirPath);
+  Odb(TopLevelHandler& h, QString& dst, QString& jobName, QString appDirPath);
   void run();
 
 private:

@@ -9,18 +9,30 @@
 int main(int argc, char *argv[])
 {
   try {
-    qDebug("----- Program starts -----");
-
     /* parse arguments, set input/output path */
-    if (argc != 3) {
-      printf("Usage: ipc2581.exe src.xml dst.tgz\n"
-             "Convert IPC-2581 file \'src.xml\' to ODB++ file \'dst.tgz\'\n");
+    if (argc != 2 && argc != 3) {
+      printf("NAME\n"
+             "  ipc2581 - convert IPC-2581 file to ODB++ format\n"
+             "\n"
+             "SYNOPSIS\n"
+             "  ipc2581.exe input.xml [output.tgz]\n"
+             "\n"
+             "DESCRIPTION\n"
+             "  ipc2581 converts \'input.xml\' (in IPC-2581 format)\n"
+             "  to \'output.tgz\' (in ODB++ format).\n"
+             "  If the output name is not specified,\n"
+             "  the default is input name with extension \'.tgz\'.\n"
+             "  For example, the following command\n"
+             "    ipc2581.exe sample.xml\n"
+             "  will generate an output \'sample.tgz\'\n"
+             "\n");
       throw new MissingCmdLineArgError("");
     }
 
     /* Input file name */
     QString src = argv[1];
-    QString dst = argv[2];
+    QString jobName = QFileInfo(src).baseName();
+    QString dst = (argc == 2)? jobName + ".tgz" : argv[2];
 
     /* Open file */
     QFile file(src);
@@ -29,18 +41,13 @@ int main(int argc, char *argv[])
     }
 
     /* Read XML */
-    qDebug("----- Parse XML starts -----");
     QXmlStreamReader xml(&file);
     TopLevelHandler h;
     h.run(xml);
 
-    qDebug("----- Parse XML ends -----");
-    
     /* Output to ODB file system */
-    qDebug("----- ODB starts -----");
     QCoreApplication app(argc, argv);
-    Odb(h, dst, app.applicationDirPath()).run();
-    qDebug("----- ODB ends -----");
+    Odb(h, dst, jobName, app.applicationDirPath()).run();
   } catch (Error *e) {
     e->info();
     delete e;

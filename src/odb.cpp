@@ -7,10 +7,10 @@
 #include "standardfont.h"
 #include "steprepeat.h"
 
-Odb::Odb(TopLevelHandler& h, QString& dst, QString appDirPath)
+Odb::Odb(TopLevelHandler& h, QString& dst, QString& jobName, QString appDirPath)
 {
   m_handler = h;
-  m_jobName = "odb";
+  m_jobName = jobName;
   m_odbRootPath = addEndDel(QDir::tempPath()) + m_jobName + PATH_DELIMITER;
   m_outFilePath = dst;
   m_appDirPath = addEndDel(appDirPath);

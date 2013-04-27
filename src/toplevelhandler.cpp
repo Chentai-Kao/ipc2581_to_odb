@@ -13,7 +13,6 @@ TopLevelHandler::run(QXmlStreamReader& xml)
       }
     }
     else if (xml.isStartElement()) { // start of element
-      qDebug("%s", xml.name().toAscii().data());
       if (xml.name() == "IPC-2581") { // <IPC-2581>
         continue;
       }
